@@ -1,6 +1,6 @@
 {
   "name": "Achref SOUA",
-  "role": "Data Scientist — LLMs & Generative AI",
+  "role": "Data Scientist; AI Engineer — LLMs, Medical Imaging & Embedded Systems",
   "location": "Paris, France",
   "summary": "Data Scientist specialized in LLMs and generative AI with 2 years of experience in language models, advanced NLP, and generative applications. Expert in developing end-to-end LLM pipelines from prototyping to production. Curious, autonomous, and impact-driven, I design robust and scalable AI solutions to solve complex business problems.",
   "contact":{
@@ -12,7 +12,7 @@
   "experience":[
     {
       "company":"Moovto",
-        "role":"Data Scientist",
+        "role":"Data Scientist; AI Engineer — LLMs, Medical Imaging & Embedded Systems",
       "location":"Paris, France",
         "range":"Jan 2025 – Present",
         "summary":"Development of an advanced multi-agent FinOps assistant with LLaMA 3 for modular cost analysis. Optimized long-term memory for multi-turn dialogues, improving coherence by 23%. Deployed on AWS (Lambda, S3, Bedrock) with CI/CD pipelines ensuring scalability and high reliability.",
@@ -20,7 +20,7 @@
     },
     {
       "company":"Intellect Core Advisory and Solutions SARL",
-        "role":"Data Scientist",
+        "role":"Data Scientist; AI Engineer — LLMs, Medical Imaging & Embedded Systems",
       "location":"Grombalia, Tunisia",
       "range":"Nov 2023 – Dec 2024",
         "summary":"Complete creation of vector database and development of RAG chatbot with LLMs and LangChain. Integration of open-source (LLaMA 2, LeoLM) and proprietary models (GPT-4, Mistral) optimized for interactions. Serverless AWS deployment (Lambda, S3, Bedrock) with scalable vector search workflows.",

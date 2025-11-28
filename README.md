@@ -2,7 +2,7 @@
 
 A modern, professional static website (HTML/CSS/JS) serving as an interactive resume and portfolio for **Achref SOUA**, an AI Engineer specializing in LLMs, medical imaging, and embedded systems.
 
-## 🎨 Features
+## Features
 
 ### Design & UX
 - **Modern Aesthetic**: Gradient backgrounds, glassmorphism cards, smooth animations
@@ -27,7 +27,7 @@ A modern, professional static website (HTML/CSS/JS) serving as an interactive re
 - **Sitemap & Robots**: Auto-discoverable by search engines
 - **Fast Load Times**: 17KB CSS, 8.6KB JS, 8.3KB HTML
 
-## 📁 File Structure
+## File Structure
 
 ```
 achref-soua.github.io/
@@ -49,7 +49,7 @@ achref-soua.github.io/
         └── deploy.yml   # GitHub Actions auto-deployment
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Local Development
 1. Clone the repository:
@@ -104,39 +104,39 @@ Change the `:root` variables in `style.css`:
 }
 ```
 
-## 🌙 Features Highlight
+## Features Highlight
 
 ### Interactive Elements
-- ✅ Dark/Light mode toggle
-- ✅ Smooth scroll navigation
-- ✅ Copy email to clipboard
-- ✅ Copy phone to clipboard
-- ✅ Project filtering by category
-- ✅ Hover animations & micro-interactions
+ - Dark/Light mode toggle
+ - Smooth scroll navigation
+ - Copy email to clipboard
+ - Copy phone to clipboard
+ - Project filtering by category
+ - Hover animations & micro-interactions
 
 ### Advanced Features
-- ✅ Intersection Observer for scroll animations
-- ✅ Active link highlighting based on scroll position
-- ✅ Gradient text effects on titles
-- ✅ Glassmorphism effects on cards
-- ✅ Shimmer animation on header logo
-- ✅ Smooth project filtering with staggered transitions
+ - Intersection Observer for scroll animations
+ - Active link highlighting based on scroll position
+ - Gradient text effects on titles
+ - Glassmorphism effects on cards
+ - Shimmer animation on header logo
+ - Smooth project filtering with staggered transitions
 
 ### Performance Optimizations
-- ✅ Document Fragment rendering for DOM efficiency
-- ✅ Critical CSS inlined for faster first paint
-- ✅ Resource preloading for JSON data
-- ✅ Optimized image with responsive attributes
-- ✅ CSS will-change hints on animated elements
+ - Document Fragment rendering for DOM efficiency
+ - Critical CSS inlined for faster first paint
+ - Resource preloading for JSON data
+ - Optimized image with responsive attributes
+ - CSS will-change hints on animated elements
 
-## 📱 Browser Support
+## Browser Support
 
-- Chrome/Edge: ✅ Full support
-- Firefox: ✅ Full support
-- Safari: ✅ Full support
-- Mobile browsers: ✅ Fully responsive
+ - Chrome/Edge: Full support
+ - Firefox: Full support
+ - Safari: Full support
+ - Mobile browsers: Fully responsive
 
-## 🔍 SEO Features
+## SEO Features
 
 - Comprehensive meta tags (description, keywords, author)
 - Open Graph tags for social sharing
@@ -146,14 +146,14 @@ Change the `:root` variables in `style.css`:
 - robots.txt for search engine guidance
 - Semantic HTML5 markup
 
-## 📊 Performance Metrics
+## Performance Metrics
 
 - **CSS**: 17KB (unminified, readable)
 - **JavaScript**: 8.6KB (unminified, readable)
 - **HTML**: 8.3KB (with inline critical CSS)
 - **Total**: ~824KB with image
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **HTML5**: Semantic markup, microdata
@@ -168,7 +168,7 @@ Change the `:root` variables in `style.css`:
 - GitHub Pages (automatic)
 - GitHub Actions CI/CD
 
-## 📝 Assumptions & Notes
+## Assumptions & Notes
 
 - Site is intentionally minimal (no build step) for easy maintenance
 - All data is client-side rendered from JSON
@@ -176,7 +176,7 @@ Change the `:root` variables in `style.css`:
 - No external dependencies (no jQuery, Bootstrap, etc.)
 - Image optimized but not compressed (consider WebP conversion)
 
-## 🎯 Optional Enhancements
+## Optional Enhancements
 
 - [ ] Add downloadable resume as PDF
 - [ ] Integrate contact form with backend service
@@ -187,13 +187,13 @@ Change the `:root` variables in `style.css`:
 - [ ] Add CI workflow for HTML validation
 - [ ] Create mobile app version
 
-## 📧 Contact
+## Contact
 
 - Email: achrefsoua10@email.com
 - GitHub: https://github.com/achref-soua
 - LinkedIn: https://www.linkedin.com/in/achrefsoua
 
-## 📄 License
+## License
 
 This portfolio is open-source and free to use as a template for your own projects.
 

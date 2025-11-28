@@ -144,10 +144,10 @@ COPY_EMAIL_BTN.addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(EMAIL_LINK.textContent);
     const orig = COPY_EMAIL_BTN.textContent;
-    COPY_EMAIL_BTN.textContent = '✓ Copied!';
+    COPY_EMAIL_BTN.textContent = 'Copied!';
     setTimeout(() => COPY_EMAIL_BTN.textContent = orig, 2000);
   } catch (e) {
-    COPY_EMAIL_BTN.textContent = '✗ Copy failed';
+    COPY_EMAIL_BTN.textContent = 'Copy failed';
   }
 });
 
@@ -157,7 +157,7 @@ document.getElementById('phone')?.addEventListener('click', async e => {
   try {
     await navigator.clipboard.writeText(txt);
     const orig = e.target.textContent;
-    e.target.textContent = '✓ Copied!';
+    e.target.textContent = 'Copied!';
     setTimeout(() => e.target.textContent = orig, 2000);
   } catch (err) {
     console.error('Copy failed', err);
@@ -170,16 +170,16 @@ function initTheme() {
                  (window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme'));
   if (isDark) {
     document.documentElement.classList.add('dark');
-    THEME_TOGGLE.textContent = '☀️';
+    THEME_TOGGLE.textContent = 'Dark';
   } else {
-    THEME_TOGGLE.textContent = '🌙';
+    THEME_TOGGLE.textContent = 'Light';
   }
 }
 
 THEME_TOGGLE.addEventListener('click', () => {
   const isDark = document.documentElement.classList.toggle('dark');
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  THEME_TOGGLE.textContent = isDark ? '☀️' : '🌙';
+  THEME_TOGGLE.textContent = isDark ? 'Dark' : 'Light';
 });
 
 /* Scroll animations - Intersection Observer for fade in */
