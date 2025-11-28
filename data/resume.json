@@ -11,6 +11,14 @@
   },
   "experience":[
     {
+      "company":"PrediSurge",
+      "role":"AI Engineer — Medical Imaging & Geometry",
+      "location":"Paris, France",
+      "range":"Jan 2025 – Present",
+      "summary":"Developing precision medicine platform for cardiovascular interventions. Worked on multi-label segmentation of arterial and cardiac structures, 3D mesh construction and geometric measurements for surgical planning. Created patient-specific digital twins and numerical models simulating biomechanical behavior to support endovascular procedures.",
+      "details":"• Multi-label segmentation: Segment complex cardiovascular anatomy (aorta, branches, cardiac valves) from CT/MRI imaging\n• 3D Mesh Generation: Construct high-quality meshes from segmentation masks for finite element analysis\n• Geometric Analysis: Compute critical measurements (diameters, angles, volumes) for surgical planning\n• Clinical Collaboration: Work closely with physicians and Medtech companies to validate tools for procedure planning\n• Impact: Enable safer endovascular procedures through improved pre-operative planning and device design"
+    },
+    {
       "company":"Moovto",
         "role":"Data Scientist; AI Engineer — LLMs, Medical Imaging & Embedded Systems",
       "location":"Paris, France",
