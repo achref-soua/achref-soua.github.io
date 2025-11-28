@@ -151,8 +151,70 @@ THEME_TOGGLE.addEventListener('click', () => {
   THEME_TOGGLE.textContent = isDark ? '☀️' : '🌙';
 });
 
+/* Scroll animations - Intersection Observer for fade in */
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+/* Observe cards for animation on scroll */
+function observeCards() {
+  const cards = document.querySelectorAll('.card, .project, .item');
+  cards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+  });
+}
+
+/* Active link highlighting in navigation */
+function updateActiveNavLink() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+  
+  let current = '';
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop;
+    if (pageYOffset >= sectionTop - 200) {
+      current = section.getAttribute('id');
+    }
+  });
+  
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
+}
+
+/* Navbar active link styling */
+const style = document.createElement('style');
+style.textContent = `
+  .nav a.active {
+    opacity: 1;
+    text-decoration: underline;
+    text-underline-offset: 0.5rem;
+  }
+`;
+document.head.appendChild(style);
+
 /* Filter listener */
 PROJECT_FILTER.addEventListener('change', applyFilter);
+
+/* Scroll listener */
+window.addEventListener('scroll', updateActiveNavLink);
 
 /* Initialize */
 initTheme();
@@ -172,6 +234,11 @@ initTheme();
     EMAIL_LINK.href = 'mailto:' + resume.contact.email;
     GITHUB_LINK.href = resume.contact.github || '#';
     LINKEDIN_LINK.href = resume.contact.linkedin || '#';
+    
+    /* Observe cards after rendering */
+    setTimeout(() => {
+      observeCards();
+    }, 100);
 
   } catch (err) {
     console.error('Failed to load resume data:', err);
