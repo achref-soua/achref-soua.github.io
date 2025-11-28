@@ -1,4 +1,22 @@
-[
+[ 
+  {
+    "title":"Chatbot RAG multi-agent for cardiac surgery",
+    "range":"2024",
+    "role":"Lead Developer",
+    "summary":"Développement d'un chatbot Streamlit multi-agent pour assistance chirurgicale (pré-op, intra-op, post-op). Création d'une base vectorielle ChromaDB pour un système RAG et conception d'agents dynamiques pour recommandations personnalisées patient/stent.",
+    "details":"• Développement d'une interface Streamlit multi-agent pour assistance chirurgicale\n• Mise en place d'une base vectorielle ChromaDB pour RAG\n• Conception d'agents pour recommandations personnalisées\n• Tests cliniques et collaboration avec médecins pour validation", 
+    "tags":["Medical Imaging","RAG","ChromaDB","Streamlit","LangChain","LangGraph"],
+    "link":"#"
+  },
+  {
+    "title":"Application de gestion de CV avec LLMs",
+    "range":"2024",
+    "role":"Lead Developer",
+    "summary":"Application Streamlit pour création et adaptation automatique de CV via LLMs. Intégration d'OpenAI et GPT-OSS-20B pour adaptation aux offres et export PDF professionnel avec ReportLab.",
+    "details":"• Interface Streamlit modulaire pour création de CV\n• Adaptation automatique de CV à une offre via LLMs\n• Export PDF ATS-friendly avec ReportLab\n• Optimisation de prompts et intégration Groq API", 
+    "tags":["Streamlit","LLMs","Groq API","ReportLab","Prompt Engineering"],
+    "link":"#"
+  },
   {
     "title":"Personalized Nutrition Recommendation System",
     "range":"Feb 2024 – May 2024",
@@ -9,7 +27,7 @@
     "link":"#"
   },
   {
-    "title":"IMA 205 — Cardiac MRI Diagnosis (Kaggle Competition)",
+  "title":"IMA 205 Cardiac MRI Diagnosis (Kaggle Competition)",
     "range":"Apr 2023 – Jun 2023",
     "role":"Team Lead",
     "summary":"🏆 1st Place among 100 participants. Built end-to-end medical imaging pipeline with advanced segmentation, radiomics feature extraction, and ensemble classification achieving 95% train and 81% validation accuracy.",
@@ -18,7 +36,7 @@
     "link":"#"
   },
   {
-    "title":"Tick Tick Bloom — NASA Algal Bloom Detection (DrivenData)",
+  "title":"Tick Tick Bloom NASA Algal Bloom Detection (DrivenData)",
     "range":"Dec 2022 – Feb 2023",
     "role":"Solo Competitor",
     "summary":"🥉 Ranked 50th out of 1,377 participants. Processed multi-spectral satellite imagery (Sentinel-2, Landsat) and optimized LightGBM with Optuna achieving AggRMSE of 1.0536.",
@@ -27,7 +45,7 @@
     "link":"#"
   },
   {
-    "title":"Embedded Gait Analysis System — Deep Learning on Edge",
+  "title":"Embedded Gait Analysis System Deep Learning on Edge",
     "range":"Nov 2023 – Dec 2024",
     "role":"Research Engineer",
     "summary":"Designed and deployed embedded gait analysis system on Arduino Nano 33 with IMU sensors. Used denoising autoencoders and deep learning (GRU, LSTM, Transformers) for knee angle prediction, improving accuracy by ~20%.",
