@@ -1,26 +1,56 @@
 [
   {
+    "title":"PrediSurge — Cardiovascular Digital Twins & Surgical Planning",
+    "range":"Jan 2025 – Present",
+    "role":"AI Engineer — Medical Imaging & Geometry",
+    "summary":"Developing precision medicine platform for cardiovascular interventions. Work on multi-label segmentation of arterial and cardiac structures from pre-operative imaging, 3D mesh construction and geometric measurements for surgical planning. Creating patient-specific digital twins and numerical models simulating biomechanical behavior of arteries and cardiac valves to make endovascular procedures safer.",
+    "details":"• Multi-label segmentation: Segment complex cardiovascular anatomy (aorta, branches, cardiac valves) from CT/MRI imaging\n• 3D Mesh Generation: Construct high-quality meshes from segmentation masks for finite element analysis\n• Geometric Analysis: Compute critical measurements (diameters, angles, volumes) for surgical planning\n• Clinical Collaboration: Work closely with physicians and Medtech companies to validate tools for procedure planning\n• Impact: Enable safer endovascular procedures through improved pre-operative planning and device design",
+    "tags":["Medical Imaging","Segmentation","3D Reconstruction","Mesh Generation","Cardiovascular","Python","PyTorch","Docker"],
+    "link":"#"
+  },
+  {
     "title":"Personalized Nutrition Recommendation System",
     "range":"Feb 2024 – May 2024",
     "role":"Lead Engineer",
-    "summary":"Extracted and structured nutritional data for 200 meals, built a recommendation algorithm using reinforcement learning (Q-learning) and evolutionary methods, and integrated preference feedback loops.",
-    "tags":["Reinforcement Learning","Data Engineering","Python"],
+    "summary":"Built intelligent system for personalized meal recommendations using reinforcement learning. Extracted and structured nutritional data for 200+ meals, implemented Q-learning and evolutionary algorithms for optimization, and integrated feedback loops for preference adaptation.",
+    "details":"• Data Engineering: Extracted and structured nutritional data (calories, macronutrients, micronutrients) for 200+ meals from diverse sources\n• Recommendation Algorithm: Implemented Q-learning (Bellman equations) for optimal meal selection based on user preferences and nutritional goals\n• Evolutionary Optimization: Used genetic algorithms to explore diverse meal combinations and satisfy complex constraints\n• Feedback Integration: Built adaptive system that learns from user preferences (vegetarian, allergies, macronutrient targets) to improve recommendations over time\n• Evaluation: Achieved high relevance scores and user satisfaction in testing phase",
+    "tags":["Reinforcement Learning","Q-Learning","Genetic Algorithms","Data Engineering","Recommendation Systems","Python"],
     "link":"#"
   },
   {
-    "title":"IMA 205 — Cardiac MRI Diagnosis (Kaggle)",
+    "title":"IMA 205 — Cardiac MRI Diagnosis (Kaggle Competition)",
     "range":"Apr 2023 – Jun 2023",
     "role":"Team Lead",
-    "summary":"1st place among 100 participants. Applied segmentation (U-Net, SegNet, SAM), ETL pipelines with PyRadiomics and trained ensembles (LightGBM, XGBoost) achieving 95% train and 81% validation accuracy.",
-    "tags":["Medical Imaging","Segmentation","PyRadiomics"],
+    "summary":"🏆 1st Place among 100 participants. Built end-to-end medical imaging pipeline with advanced segmentation, radiomics feature extraction, and ensemble classification achieving 95% train and 81% validation accuracy.",
+    "details":"• Segmentation Pipeline: Applied state-of-the-art architectures (U-Net, SegNet, Segment Anything Model) for cardiac structure segmentation from MRI\n• Feature Engineering: Implemented PyRadiomics extraction pipeline to compute 100+ radiomics features capturing texture, shape, and intensity patterns\n• ETL Pipeline: Built robust data processing workflow with validation, normalization, and quality checks\n• Ensemble Methods: Trained multiple classifiers (LightGBM, XGBoost, Autoencoder-SVM) and implemented stacking for robust predictions\n• Performance: Achieved 95% training accuracy and 81% validation accuracy, winning competition against 100 teams\n• Impact: Demonstrated advanced ML techniques in medical imaging for improved diagnostic accuracy",
+    "tags":["Medical Imaging","Segmentation","Deep Learning","PyRadiomics","LightGBM","XGBoost","Ensemble Methods","U-Net","SAM"],
     "link":"#"
   },
   {
-    "title":"Tick Tick Bloom — NASA/DrivenData Algal Bloom Detection",
+    "title":"Tick Tick Bloom — NASA Algal Bloom Detection (DrivenData)",
     "range":"Dec 2022 – Feb 2023",
-    "role":"Competitor",
-    "summary":"Ranked 50/1377. Processed multi-band Sentinel-2 and Landsat imagery and optimized LightGBM with Optuna to achieve strong predictive performance.",
-    "tags":["Remote Sensing","LightGBM","Optuna"],
+    "role":"Solo Competitor",
+    "summary":"🥉 Ranked 50th out of 1,377 participants. Processed multi-spectral satellite imagery (Sentinel-2, Landsat) and optimized LightGBM with Optuna achieving AggRMSE of 1.0536.",
+    "details":"• Remote Sensing: Processed multi-band Sentinel-2 and Landsat satellite imagery for global algal bloom detection\n• Feature Engineering: Extracted spectral indices (NDVI, chlorophyll anomalies) and temporal patterns from time series data\n• Hyperparameter Optimization: Used Optuna for Bayesian optimization of LightGBM parameters with cross-validation\n• Model Performance: Achieved AggRMSE of 1.0536, demonstrating strong predictive accuracy across diverse geographic regions\n• Competition Performance: Ranked 50/1377 participants, top 3.6% of competition\n• Real-World Impact: Contributed to improved early detection of harmful algal blooms for environmental monitoring",
+    "tags":["Remote Sensing","LightGBM","Optuna","Hyperparameter Tuning","Satellite Imagery","Environmental Science","Python"],
+    "link":"#"
+  },
+  {
+    "title":"Embedded Gait Analysis System — Deep Learning on Edge",
+    "range":"Nov 2023 – Dec 2024",
+    "role":"Research Engineer",
+    "summary":"Designed and deployed embedded gait analysis system on Arduino Nano 33 with IMU sensors. Used denoising autoencoders and deep learning (GRU, LSTM, Transformers) for knee angle prediction, improving accuracy by ~20%.",
+    "details":"• Hardware Integration: Interfaced Arduino Nano 33 IoT with MPU-9250 IMU sensors for real-time motion capture\n• Signal Processing: Implemented sensor fusion algorithms to combine accelerometer, gyroscope, and magnetometer data\n• Denoising: Built denoising autoencoders to remove sensor noise and improve signal quality (+20% accuracy improvement)\n• Deep Learning Models: Implemented multiple architectures (GRU, LSTM, Transformer) for time series prediction of knee angles\n• Hyperparameter Tuning: Used Optuna and GridSearchCV for architecture and parameter optimization\n• Experiment Tracking: Tracked 100+ experiments with Weights & Biases for reproducibility and insights\n• Deployment: Optimized models for embedded systems with reduced memory footprint\n• Applications: Bionic leg control, rehabilitation monitoring, sports biomechanics analysis",
+    "tags":["Embedded Systems","Arduino","IMU Sensors","Time Series","LSTM","GRU","Transformers","Autoencoders","Optuna","W&B"],
+    "link":"#"
+  },
+  {
+    "title":"FinOps Multi-Agent Assistant with LLMs",
+    "range":"Jan 2025 – Feb 2025",
+    "role":"LLMs Engineer",
+    "summary":"Built intelligent FinOps assistant using LangGraph for multi-agent orchestration. Optimized long-term memory for multi-turn financial dialogues and deployed on AWS with CI/CD pipelines.",
+    "details":"• Multi-Agent Architecture: Designed modular multi-agent system with LangGraph for cost analysis, optimization recommendations, and budget planning\n• Long-Term Memory: Optimized memory management for maintaining context across 50+ turn conversations about financial workflows\n• LLM Integration: Leveraged Claude/GPT-4 APIs with custom prompting strategies for financial domain accuracy\n• AWS Deployment: Deployed using Lambda (serverless functions), S3 (data storage), Bedrock (LLM API), with auto-scaling\n• CI/CD Pipeline: Implemented automated testing, staging, and production deployment workflows\n• Cost Optimization: Reduced API costs by 30% through prompt optimization and caching strategies\n• User Interface: Built conversational interface for cloud cost analysis and optimization recommendations",
+    "tags":["LLMs","LangGraph","Multi-Agent","AWS Lambda","AWS Bedrock","S3","CI/CD","FinOps","Python","FastAPI"],
     "link":"#"
   }
 ]
