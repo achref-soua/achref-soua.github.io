@@ -703,6 +703,75 @@ html.dark .grid .project p {
   transform: translateX(4px);
 }
 
+/* Project Details */
+.project-details {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.project-details summary {
+  cursor: pointer;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  user-select: none;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.project-details summary:hover {
+  opacity: 0.8;
+  transform: translateX(2px);
+}
+
+.project-details summary::before {
+  content: '▶';
+  position: absolute;
+  left: 0;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.project-details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.details-content {
+  margin-top: 1rem;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  animation: slideDown 0.3s ease;
+}
+
+.detail-line {
+  font-size: 0.9rem;
+  color: var(--muted-light);
+  line-height: 1.6;
+  padding-left: 1rem;
+  border-left: 2px solid var(--primary);
+}
+
+html.dark .detail-line {
+  color: var(--muted-dark);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    transform: translateY(0);
+  }
+}
+
 /* Chips */
 .chips {
   display: flex;

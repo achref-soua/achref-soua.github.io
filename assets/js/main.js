@@ -65,12 +65,19 @@ function renderProjects(items) {
     const el = document.createElement('article');
     el.className = 'project';
     el.dataset.tags = p.tags.join(',');
+    const detailsId = `details-${i}`;
     el.innerHTML = `
       <h4>${p.title}</h4>
       <div class="muted">${p.range} ${p.role ? '• ' + p.role : ''}</div>
       <p>${p.summary}</p>
+      ${p.details ? `
+        <details class="project-details">
+          <summary>View Details</summary>
+          <div class="details-content">${p.details.split('\n').map(line => `<div class="detail-line">${line}</div>`).join('')}</div>
+        </details>
+      ` : ''}
       <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:auto">${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}</div>
-      ${p.link ? `<div style="margin-top:1rem"><a href="${p.link}" target="_blank" rel="noopener noreferrer">Learn More →</a></div>` : ''}
+      ${p.link && p.link !== '#' ? `<div style="margin-top:1rem"><a href="${p.link}" target="_blank" rel="noopener noreferrer">Learn More →</a></div>` : ''}
     `;
     el.style.animationDelay = (i * 0.08) + 's';
     fragment.appendChild(el);
