@@ -96,14 +96,27 @@ function renderPublications(list) {
 /* Filter Projects */
 function applyFilter() {
   const v = PROJECT_FILTER.value;
-  Array.from(PROJECTS_GRID.children).forEach(card => {
+  Array.from(PROJECTS_GRID.children).forEach((card, idx) => {
     if (v === 'all') {
-      card.style.display = '';
-      card.style.opacity = '1';
+      setTimeout(() => {
+        card.style.display = '';
+        card.style.opacity = '1';
+        card.style.pointerEvents = 'auto';
+        card.style.transform = 'translateY(0)';
+      }, idx * 30);
     } else {
       const show = card.dataset.tags.includes(v);
-      card.style.opacity = show ? '1' : '0.3';
-      card.style.pointerEvents = show ? 'auto' : 'none';
+      if (show) {
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.pointerEvents = 'auto';
+          card.style.transform = 'translateY(0)';
+        }, idx * 30);
+      } else {
+        card.style.opacity = '0.2';
+        card.style.pointerEvents = 'none';
+        card.style.transform = 'translateY(10px)';
+      }
     }
   });
 }

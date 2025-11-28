@@ -91,6 +91,34 @@ body.dark {
   font-weight: 700;
   font-size: 1.2rem;
   backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+.site-header:hover .logo {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .brand h1 {
@@ -450,9 +478,11 @@ body.dark .card h3 {
 
 .list .item {
   padding: 1.5rem;
+  padding-left: 1.75rem;
   border-radius: 12px;
   background: rgba(99, 102, 241, 0.03);
   border: 1px solid var(--border-light);
+  border-left: 3px solid var(--primary);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -490,6 +520,10 @@ body.dark .list .item {
   color: var(--text-light);
   display: block;
   margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 body.dark .list .item strong {
@@ -561,6 +595,7 @@ body.dark .list .item .muted {
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  will-change: opacity, transform;
 }
 
 .grid .project::before {
@@ -605,6 +640,11 @@ body.dark .grid .project:hover {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   color: var(--text-light);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 body.dark .grid .project h4 {
@@ -774,6 +814,19 @@ body.dark .site-footer {
 .site-footer p {
   font-size: 0.95rem;
   line-height: 1.6;
+}
+
+/* Phone styling */
+#phone {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+#phone:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
 }
 
 /* Responsive */
