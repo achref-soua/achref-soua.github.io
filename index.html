@@ -3,18 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Achref SOUA — AI Engineer</title>
-    <meta name="description" content="Achref SOUA — AI Engineer. Portfolio, experience, projects and contact." />
+    <title>Achref SOUA — AI Engineer & Researcher</title>
+    <meta name="description" content="Achref SOUA — AI Engineer specializing in LLMs, medical imaging, and embedded systems. Interactive portfolio and resume." />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
     <header class="site-header">
-      <div class="container header-inner">
+      <div class="header-inner">
         <div class="brand">
           <div class="logo">AS</div>
           <div>
             <h1 id="site-name">Achref SOUA</h1>
-            <p id="site-tag">AI Engineer — Interactive Resume</p>
+            <p id="site-tag">AI Engineer & Researcher</p>
           </div>
         </div>
         <nav class="nav">
@@ -24,26 +24,27 @@
           <a href="#skills">Skills</a>
           <a href="#publications">Publications</a>
           <a href="#contact">Contact</a>
-          <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+          <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
         </nav>
       </div>
     </header>
 
     <main class="container">
+      <!-- Hero Section -->
       <section id="hero" class="hero">
         <div class="hero-left">
-          <div class="avatar" aria-hidden="false">
-            <img src="assets/achref_soua_picture.jpg" alt="Achref SOUA" loading="lazy" />
+          <div class="avatar">
+            <img src="assets/achref_soua_picture.jpg" alt="Achref SOUA, AI Engineer" loading="eager" width="180" height="180" />
           </div>
         </div>
         <div class="hero-right">
           <h2 id="name">Achref SOUA</h2>
-          <p id="role">AI Engineer — Specializing in LLMs, medical imaging & embedded systems</p>
-          <p id="location">Saint-Étienne / Île-de-France, France</p>
+          <p id="role">AI Engineer — LLMs, Medical Imaging & Embedded Systems</p>
+          <p id="location">Saint-Étienne, France 🇫🇷</p>
           <div class="contact-quick">
             <button id="copy-email">Copy Email</button>
-            <a id="github-link" class="link-btn" target="_blank" rel="noopener">GitHub</a>
-            <a id="linkedin-link" class="link-btn" target="_blank" rel="noopener">LinkedIn</a>
+            <a id="github-link" class="link-btn" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a id="linkedin-link" class="link-btn" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
           <div class="hero-ctas">
             <a href="#experience" class="btn">View Experience</a>
@@ -52,43 +53,64 @@
         </div>
       </section>
 
+      <!-- About -->
       <section id="about" class="card">
-        <h3>About</h3>
-        <p id="summary">Loading…</p>
+        <h3>About Me</h3>
+        <p id="summary" style="font-size: 1.05rem; line-height: 1.8;">Loading…</p>
       </section>
 
+      <!-- Experience -->
       <section id="experience" class="card">
         <h3>Experience</h3>
         <div id="experience-list" class="list"></div>
       </section>
 
+      <!-- Projects -->
       <section id="projects" class="card">
-        <h3>Projects</h3>
+        <h3>Projects & Competitions</h3>
         <div class="filters">
-          <label>Filter: <select id="project-filter"><option value="all">All</option></select></label>
+          <label for="project-filter">Filter by: </label>
+          <select id="project-filter">
+            <option value="all">All Projects</option>
+          </select>
         </div>
         <div id="projects-grid" class="grid"></div>
       </section>
 
+      <!-- Skills -->
       <section id="skills" class="card">
-        <h3>Skills</h3>
+        <h3>Technical Skills</h3>
         <div id="skills-list" class="chips"></div>
       </section>
 
+      <!-- Publications -->
       <section id="publications" class="card">
         <h3>Publications</h3>
         <div id="publications-list" class="list"></div>
       </section>
 
+      <!-- Contact -->
       <section id="contact" class="card">
-        <h3>Contact</h3>
-        <p>Phone: <span id="phone">+33 07 51 051375</span></p>
-        <p>Email: <a id="email-link" href="#">achrefsoua10@email.com</a></p>
-        <p>Open to opportunities in AI, MLOps, medical imaging and research collaborations.</p>
+        <h3>Get in Touch</h3>
+        <div class="list">
+          <div class="item">
+            <strong>Email</strong>
+            <p><a id="email-link" href="#">achrefsoua10@email.com</a></p>
+          </div>
+          <div class="item">
+            <strong>Phone</strong>
+            <p id="phone" style="cursor: pointer; color: var(--primary); font-weight: 600;">+33 07 51 051375</p>
+          </div>
+          <div class="item">
+            <strong>Open to</strong>
+            <p>AI engineering roles, MLOps, medical imaging research, and innovative collaborations.</p>
+          </div>
+        </div>
       </section>
 
+      <!-- Footer -->
       <footer class="site-footer">
-        <div>© <span id="year"></span> Achref SOUA — Built with HTML, CSS & JavaScript</div>
+        <p>© <span id="year"></span> Achref SOUA — Crafted with passion. Built with HTML, CSS & JavaScript.</p>
       </footer>
     </main>
 
