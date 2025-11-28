@@ -1,38 +1,30 @@
 {
   "name": "Achref SOUA",
-  "role": "Data Scientist; AI Engineer — LLMs & Medical Imaging",
+  "role": "Data Scientist",
   "location": "Paris, France",
-  "summary": "Data Scientist specialized in LLMs and generative AI with 2 years of experience in language models, advanced NLP, and generative applications. Expert in developing end-to-end LLM pipelines from prototyping to production. Curious, autonomous, and impact-driven, I design robust and scalable AI solutions to solve complex business problems.",
+  "summary": "Data Scientist spécialisé LLMs et IA générative avec 2 ans d'expérience en modèles de langage, NLP avancé et applications génératives. Expert du développement de pipelines LLM de bout en bout, du prototypage à la mise en production. Curieux, autonome et orienté impact, je conçois des solutions IA robustes et scalables pour résoudre des problèmes métiers complexes.",
   "contact":{
     "email":"achref.soua@outlook.com",
-    "phone":"+33 07 51 051375",
+    "phone":"7 51 05 13 75",
     "github":"https://github.com/achref-soua",
     "linkedin":"https://www.linkedin.com/in/achref-soua/"
   },
-  "experience":[
+  "experience": [
     {
-      "company":"PrediSurge",
-      "role":"AI Engineer — Medical Imaging & Geometry",
-      "location":"Paris, France",
-      "range":"Jan 2025 – Present",
-      "summary":"Developing precision medicine platform for cardiovascular interventions. Worked on multi-label segmentation of arterial and cardiac structures, 3D mesh construction and geometric measurements for surgical planning. Created patient-specific digital twins and numerical models simulating biomechanical behavior to support endovascular procedures.",
-      "details":"• Multi-label segmentation: Segment complex cardiovascular anatomy (aorta, branches, cardiac valves) from CT/MRI imaging\n• 3D Mesh Generation: Construct high-quality meshes from segmentation masks for finite element analysis\n• Geometric Analysis: Compute critical measurements (diameters, angles, volumes) for surgical planning\n• Clinical Collaboration: Work closely with physicians and Medtech companies to validate tools for procedure planning\n• Impact: Enable safer endovascular procedures through improved pre-operative planning and device design"
+      "company": "Moovto",
+      "role": "Data Scientist",
+      "location": "Paris, France",
+      "range": "Jan 2025 – Present",
+      "summary": "Développement d'un assistant FinOps multi-agent avancé avec LLaMA 3 pour analyses modulaires des coûts. Optimisation de la mémoire longue pour dialogues multi-tours, amélioration de la cohérence de 23%. Déploiement sur AWS (Lambda, S3, Bedrock) avec pipelines CI/CD, assurant scalabilité et haute fiabilité.",
+      "details": "• Multi-Agent Architecture: Conception d'un système modulaire avec LangGraph et LLaMA 3 pour analyse et recommandations de coûts\n• Mémoire Longue: Optimisation de la gestion de mémoire pour conversations multi-tours (+23% cohérence)\n• Intégration LLaMA 3: Utilisation de LLaMA 3 avec prompting personnalisé pour le domaine financier\n• Déploiement AWS: Lambda, S3, Bedrock avec auto-scaling et pipelines CI/CD\n• Performance: Haute fiabilité et scalabilité en production"
     },
     {
-      "company":"Moovto",
-    "role":"Data Scientist; AI Engineer — LLMs & Medical Imaging",
-      "location":"Paris, France",
-        "range":"Jan 2025 – Present",
-        "summary":"Development of an advanced multi-agent FinOps assistant with LLaMA 3 for modular cost analysis. Optimized long-term memory for multi-turn dialogues, improving coherence by 23%. Deployed on AWS (Lambda, S3, Bedrock) with CI/CD pipelines ensuring scalability and high reliability.",
-        "details":"• Multi-Agent Architecture: Designed advanced system with LangGraph and LLaMA 3 for modular cost analysis and optimization recommendations\n• Long-Term Memory Optimization: Improved memory management for multi-turn conversations with 23% coherence improvement\n• LLaMA 3 Integration: Leveraged LLaMA 3 with custom prompting for financial domain expertise\n• AWS Deployment: Deployed using Lambda, S3, Bedrock with auto-scaling and CI/CD pipelines\n• Performance: Achieved high reliability and scalability for production financial workflows"
-    },
-    {
-      "company":"Intellect Core Advisory and Solutions SARL",
-  "role":"Data Scientist; AI Engineer — LLMs & Medical Imaging",
-      "location":"Grombalia, Tunisia",
-      "range":"Nov 2023 – Dec 2024",
-        "summary":"Complete creation of vector database and development of RAG chatbot with LLMs and LangChain. Integration of open-source (LLaMA 2, LeoLM) and proprietary models (GPT-4, Mistral) optimized for interactions. Serverless AWS deployment (Lambda, S3, Bedrock) with scalable vector search workflows.",
-        "details":"• Vector Database: Created comprehensive vector databases and implemented RAG architecture with LangChain\n• LLM Integration: Integrated open-source (LLaMA 2, LeoLM) and proprietary models (GPT-4, Mistral)\n• Chatbot Development: Built production-ready conversational systems for enterprise automation\n• AWS Deployment: Deployed serverless architecture with Lambda, S3, Bedrock with scalable vector search\n• Optimization: Achieved optimal LLM interactions through careful model selection and prompt engineering"
+      "company": "Intellect Core Advisory and Solutions SARL",
+      "role": "Data Scientist",
+      "location": "Grombalia, Tunisia",
+      "range": "Nov 2023 – Dec 2024",
+      "summary": "Création complète d'une base de données vectorielle et développement d'un chatbot RAG avec LLMs et LangChain. Intégration de modèles open-source (LLaMA 2, LeoLM) et propriétaires (GPT-4, Mistral). Déploiement serverless AWS (Lambda, S3, Bedrock) avec workflows de recherche vectorielle scalables.",
+      "details": "• Base Vectorielle: Conception et implémentation d'une base vectorielle complète avec LangChain\n• Intégration LLMs: Intégration de LLaMA 2, LeoLM, GPT-4 et Mistral\n• Chatbot RAG: Développement d'un système conversationnel prêt pour la production\n• Déploiement Serverless: AWS Lambda, S3, Bedrock avec recherche vectorielle scalable\n• Optimisation: Amélioration des interactions par prompt engineering et tuning"
     }
   ],
   "education":[
