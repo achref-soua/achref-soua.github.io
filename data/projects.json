@@ -1,14 +1,5 @@
 [
   {
-    "title":"PrediSurge — Cardiovascular Digital Twins & Surgical Planning",
-    "range":"Jan 2025 – Present",
-    "role":"AI Engineer — Medical Imaging & Geometry",
-    "summary":"Developing precision medicine platform for cardiovascular interventions. Work on multi-label segmentation of arterial and cardiac structures from pre-operative imaging, 3D mesh construction and geometric measurements for surgical planning. Creating patient-specific digital twins and numerical models simulating biomechanical behavior of arteries and cardiac valves to make endovascular procedures safer.",
-    "details":"• Multi-label segmentation: Segment complex cardiovascular anatomy (aorta, branches, cardiac valves) from CT/MRI imaging\n• 3D Mesh Generation: Construct high-quality meshes from segmentation masks for finite element analysis\n• Geometric Analysis: Compute critical measurements (diameters, angles, volumes) for surgical planning\n• Clinical Collaboration: Work closely with physicians and Medtech companies to validate tools for procedure planning\n• Impact: Enable safer endovascular procedures through improved pre-operative planning and device design",
-    "tags":["Medical Imaging","Segmentation","3D Reconstruction","Mesh Generation","Cardiovascular","Python","PyTorch","Docker"],
-    "link":"#"
-  },
-  {
     "title":"Personalized Nutrition Recommendation System",
     "range":"Feb 2024 – May 2024",
     "role":"Lead Engineer",
