@@ -1,6 +1,6 @@
 # achref-soua.github.io — Interactive AI Engineer Portfolio
 
-A modern, professional static website (HTML/CSS/JS) serving as an interactive resume and portfolio for **Achref SOUA**, an AI Engineer specializing in LLMs, medical imaging, and embedded systems.
+A modern, professional static website (HTML/CSS/JS) serving as an interactive resume and portfolio for **Achref SOUA**, an AI Engineer specializing in LLMs and medical imaging.
 
 ## Features
 
