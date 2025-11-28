@@ -1,0 +1,12 @@
+# robots.txt for achref-soua.github.io
+User-agent: *
+Allow: /
+Allow: /assets/
+Allow: /data/
+Disallow: /.git/
+Disallow: /.github/
+
+Sitemap: https://achref-soua.github.io/sitemap.xml
+
+# Crawl delay to be friendly to servers
+Crawl-delay: 1

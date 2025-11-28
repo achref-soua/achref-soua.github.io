@@ -1,4 +1,4 @@
-/* main.js — Interactive Resume with smooth animations */
+/* main.js — Interactive Resume with smooth animations and performance optimization */
 const YEAR_EL = document.getElementById('year');
 const SUMMARY = document.getElementById('summary');
 const EXPERIENCE_LIST = document.getElementById('experience-list');
@@ -18,16 +18,23 @@ YEAR_EL.textContent = new Date().getFullYear();
 /* Smooth scroll behavior */
 document.documentElement.style.scrollBehavior = 'smooth';
 
-/* Load JSON */
+/* Load JSON with caching */
 async function loadJSON(path) {
-  const res = await fetch(path);
-  if (!res.ok) throw new Error('Failed to load ' + path);
-  return res.json();
+  try {
+    const res = await fetch(path, { 
+      headers: { 'Cache-Control': 'public, max-age=3600' }
+    });
+    if (!res.ok) throw new Error('Failed to load ' + path);
+    return res.json();
+  } catch (err) {
+    console.error('JSON load error:', err);
+    throw err;
+  }
 }
 
-/* Render Experience */
+/* Render Experience - optimized with DocumentFragment */
 function renderExperience(items) {
-  EXPERIENCE_LIST.innerHTML = '';
+  const fragment = document.createDocumentFragment();
   items.forEach((exp, i) => {
     const el = document.createElement('div');
     el.className = 'item';
@@ -37,13 +44,14 @@ function renderExperience(items) {
       <p style="margin-top:0.75rem">${exp.summary}</p>
     `;
     el.style.animationDelay = (i * 0.05) + 's';
-    EXPERIENCE_LIST.appendChild(el);
+    fragment.appendChild(el);
   });
+  EXPERIENCE_LIST.appendChild(fragment);
 }
 
-/* Render Projects */
+/* Render Projects - optimized with DocumentFragment */
 function renderProjects(items) {
-  PROJECTS_GRID.innerHTML = '';
+  const fragment = document.createDocumentFragment();
   const tags = new Set();
   items.forEach(p => p.tags.forEach(t => tags.add(t)));
   
@@ -62,35 +70,38 @@ function renderProjects(items) {
       <div class="muted">${p.range} ${p.role ? '• ' + p.role : ''}</div>
       <p>${p.summary}</p>
       <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:auto">${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}</div>
-      ${p.link ? `<div style="margin-top:1rem"><a href="${p.link}" target="_blank">Learn More →</a></div>` : ''}
+      ${p.link ? `<div style="margin-top:1rem"><a href="${p.link}" target="_blank" rel="noopener noreferrer">Learn More →</a></div>` : ''}
     `;
     el.style.animationDelay = (i * 0.08) + 's';
-    PROJECTS_GRID.appendChild(el);
+    fragment.appendChild(el);
   });
+  PROJECTS_GRID.appendChild(fragment);
 }
 
-/* Render Skills */
+/* Render Skills - optimized with DocumentFragment */
 function renderSkills(list) {
-  SKILLS_LIST.innerHTML = '';
+  const fragment = document.createDocumentFragment();
   list.forEach((s, i) => {
     const sp = document.createElement('span');
     sp.className = 'chip';
     sp.textContent = s;
     sp.style.animationDelay = (i * 0.03) + 's';
-    SKILLS_LIST.appendChild(sp);
+    fragment.appendChild(sp);
   });
+  SKILLS_LIST.appendChild(fragment);
 }
 
-/* Render Publications */
+/* Render Publications - optimized with DocumentFragment */
 function renderPublications(list) {
-  PUBLICATIONS_LIST.innerHTML = '';
+  const fragment = document.createDocumentFragment();
   list.forEach((p, i) => {
     const el = document.createElement('div');
     el.className = 'item';
     el.innerHTML = `<strong>${p.citation}</strong><div class="muted">${p.venue} • ${p.year}</div>`;
     el.style.animationDelay = (i * 0.05) + 's';
-    PUBLICATIONS_LIST.appendChild(el);
+    fragment.appendChild(el);
   });
+  PUBLICATIONS_LIST.appendChild(fragment);
 }
 
 /* Filter Projects */
