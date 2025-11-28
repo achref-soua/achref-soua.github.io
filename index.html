@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Achref SOUA — AI Engineer</title>
+    <meta name="description" content="Achref SOUA — AI Engineer. Portfolio, experience, projects and contact." />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="logo">AS</div>
+          <div>
+            <h1 id="site-name">Achref SOUA</h1>
+            <p id="site-tag">AI Engineer — Interactive Resume</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#publications">Publications</a>
+          <a href="#contact">Contact</a>
+          <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="hero" class="hero">
+        <div class="hero-left">
+          <div class="avatar" aria-hidden="false">
+            <img src="assets/achref_soua_picture.jpg" alt="Achref SOUA" loading="lazy" />
+          </div>
+        </div>
+        <div class="hero-right">
+          <h2 id="name">Achref SOUA</h2>
+          <p id="role">AI Engineer — Specializing in LLMs, medical imaging & embedded systems</p>
+          <p id="location">Saint-Étienne / Île-de-France, France</p>
+          <div class="contact-quick">
+            <button id="copy-email">Copy Email</button>
+            <a id="github-link" class="link-btn" target="_blank" rel="noopener">GitHub</a>
+            <a id="linkedin-link" class="link-btn" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+          <div class="hero-ctas">
+            <a href="#experience" class="btn">View Experience</a>
+            <a href="#projects" class="btn ghost">See Projects</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="card">
+        <h3>About</h3>
+        <p id="summary">Loading…</p>
+      </section>
+
+      <section id="experience" class="card">
+        <h3>Experience</h3>
+        <div id="experience-list" class="list"></div>
+      </section>
+
+      <section id="projects" class="card">
+        <h3>Projects</h3>
+        <div class="filters">
+          <label>Filter: <select id="project-filter"><option value="all">All</option></select></label>
+        </div>
+        <div id="projects-grid" class="grid"></div>
+      </section>
+
+      <section id="skills" class="card">
+        <h3>Skills</h3>
+        <div id="skills-list" class="chips"></div>
+      </section>
+
+      <section id="publications" class="card">
+        <h3>Publications</h3>
+        <div id="publications-list" class="list"></div>
+      </section>
+
+      <section id="contact" class="card">
+        <h3>Contact</h3>
+        <p>Phone: <span id="phone">+33 07 51 051375</span></p>
+        <p>Email: <a id="email-link" href="#">achrefsoua10@email.com</a></p>
+        <p>Open to opportunities in AI, MLOps, medical imaging and research collaborations.</p>
+      </section>
+
+      <footer class="site-footer">
+        <div>© <span id="year"></span> Achref SOUA — Built with HTML, CSS & JavaScript</div>
+      </footer>
+    </main>
+
+    <script src="assets/js/main.js" defer></script>
+  </body>
+</html>

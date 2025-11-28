@@ -1,0 +1,52 @@
+{
+  "name": "Achref SOUA",
+  "role": "AI Engineer",
+  "location": "Saint-Étienne / Île-de-France, France",
+  "summary": "Versatile AI engineer with experience in generative AI, NLP, time series, and computer vision. Skilled across the full project lifecycle from prototype to deployment, with strong interest in impactful, production-ready systems.",
+  "contact":{
+    "email":"achrefsoua10@email.com",
+    "phone":"+33 07 51 051375",
+    "github":"https://github.com/achref-soua",
+    "linkedin":"https://www.linkedin.com/in/achrefsoua"
+  },
+  "experience":[
+    {
+      "company":"PrediSurge",
+      "role":"AI Engineer — Medical Imaging & Geometry",
+      "location":"Saint-Étienne, France",
+      "range":"2025–Present",
+      "summary":"Working on medical image segmentation for aortic applications, mesh generation and geometric calculations for surgical planning and modelling. Collaborating closely with clinicians to productionize robust image-to-mesh pipelines."
+    },
+    {
+      "company":"Moovto",
+      "role":"LLMs Engineer",
+      "location":"Paris, France",
+      "range":"Jan 2025 – 2025",
+      "summary":"Built a FinOps multi-agent assistant with LangGraph. Improved long-term memory for multi-turn financial dialogues and deployed services on AWS using Lambda, S3 and Bedrock with CI/CD."
+    },
+    {
+      "company":"Intellect Core Advisory and Solutions SARL",
+      "role":"AI Engineer",
+      "location":"Grombalia, Tunisia",
+      "range":"Nov 2023 – Dec 2024",
+      "summary":"Developed LLM-based solutions and RAG architectures using LangChain. Orchestrated enterprise chatbot deployments on AWS (Lambda, Bedrock)."
+    },
+    {
+      "company":"Bionic Soul",
+      "role":"Research Engineer — Embedded Systems & ML",
+      "location":"Sousse, Tunisia",
+      "range":"Nov 2023 – Dec 2024",
+      "summary":"Designed an embedded gait analysis system using Arduino Nano 33 and IMU sensors. Used denoising autoencoders and deep learning (GRU, LSTM, Transformers) for knee-angle prediction, improving prediction quality by ~20%. Optimized hyperparameters with Optuna and tracked experiments with Weights & Biases."
+    }
+  ],
+  "education":[
+    {"institution":"École Supérieure Privée d'Ingénierie et de Technologies (ESPRIT)","degree":"Engineering Degree in Computer Science, AI","range":"Sept 2020 – Aug 2023","location":"Tunis, Tunisia"},
+    {"institution":"Faculty of Sciences of Monastir","degree":"Preparatory cycle — Physics-Chemistry","range":"Sept 2018 – Jul 2020","location":"Monastir, Tunisia"}
+  ],
+  "skills":[
+    "Python","R","C++","SQL","TensorFlow","PyTorch","Keras","Hugging Face Transformers","NumPy","Pandas","Scikit-learn","OpenCV","LangChain","LangGraph","FastAPI","AWS","Docker","Kubernetes","CI/CD","MLOps"
+  ],
+  "publications":[
+    {"citation":"Soua, A., Charfi, B., & Riahi, M. H. (2024). Improved Bionic Leg with AI.","venue":"10th Int. Conf. on Green Energy & Environmental Engineering (GEEE-2024)","year":"2024"}
+  ]
+}

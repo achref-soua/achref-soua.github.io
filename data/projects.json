@@ -1,0 +1,26 @@
+[
+  {
+    "title":"Personalized Nutrition Recommendation System",
+    "range":"Feb 2024 – May 2024",
+    "role":"Lead Engineer",
+    "summary":"Extracted and structured nutritional data for 200 meals, built a recommendation algorithm using reinforcement learning (Q-learning) and evolutionary methods, and integrated preference feedback loops.",
+    "tags":["Reinforcement Learning","Data Engineering","Python"],
+    "link":"#"
+  },
+  {
+    "title":"IMA 205 — Cardiac MRI Diagnosis (Kaggle)",
+    "range":"Apr 2023 – Jun 2023",
+    "role":"Team Lead",
+    "summary":"1st place among 100 participants. Applied segmentation (U-Net, SegNet, SAM), ETL pipelines with PyRadiomics and trained ensembles (LightGBM, XGBoost) achieving 95% train and 81% validation accuracy.",
+    "tags":["Medical Imaging","Segmentation","PyRadiomics"],
+    "link":"#"
+  },
+  {
+    "title":"Tick Tick Bloom — NASA/DrivenData Algal Bloom Detection",
+    "range":"Dec 2022 – Feb 2023",
+    "role":"Competitor",
+    "summary":"Ranked 50/1377. Processed multi-band Sentinel-2 and Landsat imagery and optimized LightGBM with Optuna to achieve strong predictive performance.",
+    "tags":["Remote Sensing","LightGBM","Optuna"],
+    "link":"#"
+  }
+]
