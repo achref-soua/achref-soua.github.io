@@ -12,11 +12,24 @@ const GITHUB_LINK = document.getElementById('github-link');
 const LINKEDIN_LINK = document.getElementById('linkedin-link');
 const THEME_TOGGLE = document.getElementById('theme-toggle');
 
+/* Create Scroll Progress Bar */
+const scrollProgress = document.createElement('div');
+scrollProgress.className = 'scroll-progress';
+document.body.prepend(scrollProgress);
+
 /* Year */
 YEAR_EL.textContent = new Date().getFullYear();
 
 /* Smooth scroll behavior */
 document.documentElement.style.scrollBehavior = 'smooth';
+
+/* Scroll Progress Handler */
+window.addEventListener('scroll', () => {
+  const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  scrollProgress.style.width = scrolled + '%';
+});
 
 /* Load JSON with caching */
 async function loadJSON(path) {
@@ -285,8 +298,19 @@ initTheme();
       observeCards();
     }, 100);
 
+    /* Add floating animation to avatar */
+    const avatar = document.querySelector('.avatar img');
+    if (avatar) {
+      avatar.style.animation = 'float 3s ease-in-out infinite';
+    }
+
   } catch (err) {
     console.error('Failed to load resume data:', err);
     SUMMARY.textContent = 'Failed to load resume data. Please refresh the page.';
   }
 })();
+
+/* Add page transition animation on load */
+window.addEventListener('load', () => {
+  document.body.style.animation = 'fadeInUp 0.8s ease';
+});
