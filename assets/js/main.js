@@ -42,6 +42,12 @@ function renderExperience(items) {
       <strong>${exp.role}</strong>
       <div><em>${exp.company}</em> • ${exp.location} • <span class="muted">${exp.range}</span></div>
       <p style="margin-top:0.75rem">${exp.summary}</p>
+      ${exp.details ? `
+        <details class="experience-details" style="margin-top:0.75rem">
+          <summary style="cursor:pointer;color:var(--primary);font-weight:500;user-select:none">View Details</summary>
+          <div class="details-content" style="margin-top:0.5rem;padding-left:1rem;border-left:2px solid var(--primary)">${exp.details.split('\n').map(line => `<div class="detail-line" style="margin:0.5rem 0;font-size:0.95rem">${line}</div>`).join('')}</div>
+        </details>
+      ` : ''}
     `;
     el.style.animationDelay = (i * 0.05) + 's';
     fragment.appendChild(el);
