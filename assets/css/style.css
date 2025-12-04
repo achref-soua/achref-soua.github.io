@@ -376,6 +376,18 @@ h1, h2, h3 {
   animation: gradientShift 6s ease infinite;
 }
 
+/* Disable gradient animation for header/site name to keep it readable
+   (There are two name elements: #site-name in the header and #name in the hero.) */
+#site-name,
+#name {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  color: var(--text) !important;
+  animation: none !important;
+}
+
 /* Staggered Item Animation */
 .item {
   animation: fadeInUp 0.6s ease forwards;
