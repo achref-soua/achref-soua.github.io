@@ -1,12 +1,12 @@
-# achref-soua.github.io — Interactive AI Engineer Portfolio
+# achref-soua.github.io — Interactive Data Scientist Portfolio
 
-A modern, professional static website (HTML/CSS/JS) serving as an interactive resume and portfolio for **Achref SOUA**, a Data Scientist based in Paris specializing in LLMs and medical imaging.
+A modern, professional static website (HTML/CSS/JS) serving as an interactive resume and portfolio for **Achref SOUA**, a Data Scientist specializing in LLMs, medical imaging, and AI applications.
 
 ## Features
 
 ### Design & UX
 - **Modern Aesthetic**: Gradient backgrounds, glassmorphism cards, smooth animations
-- **Dark Mode**: Automatic theme detection with persistent user preference
+- **Dark/Light Mode**: Automatic theme detection with persistent user preference, sun/moon SVG icons
 - **Responsive Design**: Mobile-first approach, optimized for all screen sizes
 - **Smooth Interactions**: Scroll-based animations, hover effects, active link highlighting
 - **Accessibility**: Semantic HTML, ARIA labels, keyboard navigation
@@ -14,8 +14,8 @@ A modern, professional static website (HTML/CSS/JS) serving as an interactive re
 ### Content & Sections
 - **Hero Section**: Professional introduction with profile image, quick actions
 - **About**: Dynamic summary loaded from JSON
-- **Experience Timeline**: 4 positions including current PrediSurge role
-- **Projects & Competitions**: Filterable project cards with tags
+- **Experience Timeline**: 3 positions including current PrediSurge role
+- **Projects**: Filterable project cards with tags
 - **Technical Skills**: Organized skill chips with hover animations
 - **Publications**: Peer-reviewed research papers
 - **Contact**: Multiple contact methods with copy-to-clipboard functionality
