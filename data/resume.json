@@ -1,7 +1,7 @@
 {
   "name": "Achref SOUA",
   "role": "Data Scientist",
-  "location": "Paris, France",
+  "location": "Saint Etienne, France",
   "summary": "Data Scientist specializing in LLMs and generative AI with 2 years of experience in language models, advanced NLP, and generative applications. Expert in developing end-to-end LLM pipelines from prototyping to production. Curious, autonomous, and impact-driven, I design robust and scalable AI solutions to solve complex business problems.",
   "contact":{
     "email":"achref.soua@outlook.com",
@@ -13,8 +13,8 @@
     {
       "company": "PrediSurge",
       "role": "Data Scientist",
-      "location": "Paris, France",
-      "range": "Jan 2025 – Present",
+      "location": "Saint Etienne, France",
+      "range": "Oct 2025 – Present",
       "summary": "Developing advanced medical imaging solutions for cardiovascular interventions. Working on multi-label segmentation of arterial and cardiac structures, 3D mesh generation and calculations for surgical planning, optimizing data pipelines and processing workflows to support precision medicine initiatives.",
       "details": "• Multi-Label Segmentation: Segment complex cardiovascular anatomy (aorta, branches, cardiac structures) from CT/MRI imaging\n• 3D Modelling and Mesh Calculations: Generate and refine 3D meshes from segmentation masks, computing geometric measurements for surgical planning\n• Data Operations and Workflows: Optimize ETL pipelines for medical imaging data processing and quality assurance\n• Data Processing: Implement robust data validation, normalization, and storage workflows for medical datasets\n• Clinical Collaboration: Work with physicians and medical device companies to validate tools and ensure clinical relevance"
     },
@@ -22,7 +22,7 @@
       "company": "Moovto",
       "role": "Data Scientist",
       "location": "Paris, France",
-      "range": "Jan 2025 – Present",
+      "range": "Jan 2025 – Aug 2025",
       "summary": "Developing an advanced multi-agent FinOps assistant with LLaMA 3 for modular cost analysis. Optimized long-term memory for multi-turn dialogues, improving coherence by 23%. Deployed on AWS (Lambda, S3, Bedrock) with CI/CD pipelines ensuring scalability and high reliability.",
       "details": "• Multi-Agent Architecture: Designed modular system with LangGraph and LLaMA 3 for cost analysis and optimization recommendations\n• Long-Term Memory: Optimized memory management for multi-turn conversations with 23% coherence improvement\n• LLaMA 3 Integration: Leveraged LLaMA 3 with custom prompting for financial domain expertise\n• AWS Deployment: Lambda, S3, Bedrock with auto-scaling and CI/CD pipelines\n• Performance: High reliability and scalability in production environments"
     },
