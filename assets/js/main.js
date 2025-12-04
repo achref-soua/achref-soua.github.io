@@ -171,17 +171,7 @@ COPY_EMAIL_BTN.addEventListener('click', async () => {
 });
 
 /* Phone click to copy */
-document.getElementById('phone')?.addEventListener('click', async e => {
-  const txt = e.target.textContent;
-  try {
-    await navigator.clipboard.writeText(txt);
-    const orig = e.target.textContent;
-    e.target.textContent = 'Copied!';
-    setTimeout(() => e.target.textContent = orig, 2000);
-  } catch (err) {
-    console.error('Copy failed', err);
-  }
-});
+/* Phone removed from contact — click-to-copy disabled */
 
 /* Theme Toggle */
 function initTheme() {

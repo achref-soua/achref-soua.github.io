@@ -1088,18 +1088,7 @@ html.dark .site-footer {
   line-height: 1.6;
 }
 
-/* Phone styling */
-#phone {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  transition: all 0.3s ease;
-}
-
-#phone:hover {
-  transform: scale(1.05);
-  opacity: 0.8;
-}
+/* Phone removed from contact — previous phone styles removed */
 
 /* Responsive */
 @media (max-width: 768px) {
