@@ -1,19 +1,19 @@
 [ 
   {
-    "title":"Chatbot RAG multi-agent for cardiac surgery",
+    "title":"Chatbot RAG Multi-Agent for Cardiac Surgery",
     "range":"2024",
     "role":"Lead Developer",
-    "summary":"Développement d'un chatbot Streamlit multi-agent pour assistance chirurgicale (pré-op, intra-op, post-op). Création d'une base vectorielle ChromaDB pour un système RAG et conception d'agents dynamiques pour recommandations personnalisées patient/stent.",
-    "details":"• Développement d'une interface Streamlit multi-agent pour assistance chirurgicale\n• Mise en place d'une base vectorielle ChromaDB pour RAG\n• Conception d'agents pour recommandations personnalisées\n• Tests cliniques et collaboration avec médecins pour validation", 
+    "summary":"Development of a multi-agent Streamlit chatbot for surgical assistance (pre-op, intra-op, post-op). Created a ChromaDB vector database for a RAG system and designed dynamic agents for personalized patient and stent recommendations.",
+    "details":"• Developed a multi-agent Streamlit interface for surgical assistance\n• Implemented ChromaDB vector database for RAG\n• Designed dynamic agents for personalized recommendations\n• Clinical testing and collaboration with physicians for validation", 
     "tags":["Medical Imaging","RAG","ChromaDB","Streamlit","LangChain","LangGraph"],
     "link":"#"
   },
   {
-    "title":"Application de gestion de CV avec LLMs",
+    "title":"CV Management Application with LLMs",
     "range":"2024",
     "role":"Lead Developer",
-    "summary":"Application Streamlit pour création et adaptation automatique de CV via LLMs. Intégration d'OpenAI et GPT-OSS-20B pour adaptation aux offres et export PDF professionnel avec ReportLab.",
-    "details":"• Interface Streamlit modulaire pour création de CV\n• Adaptation automatique de CV à une offre via LLMs\n• Export PDF ATS-friendly avec ReportLab\n• Optimisation de prompts et intégration Groq API", 
+    "summary":"Streamlit application for interactive CV creation and automatic adaptation via LLMs. Integrated OpenAI and GPT-OSS-20B for job offer adaptation and professional PDF export with ReportLab.",
+    "details":"• Modular Streamlit interface for CV creation and editing\n• Automatic CV adaptation to job offers via LLMs\n• ATS-friendly PDF export with ReportLab\n• Prompt optimization and Groq API integration", 
     "tags":["Streamlit","LLMs","Groq API","ReportLab","Prompt Engineering"],
     "link":"#"
   },
