@@ -1,193 +1,219 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Meta Tags -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#6366f1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f7f7" />
     <meta name="color-scheme" content="light dark" />
-    
-    <!-- SEO -->
-    <title>Achref SOUA – Data Scientist | Portfolio</title>
-    <meta name="description" content="Achref SOUA is a Data Scientist specializing in LLMs, medical imaging, and AI. View my interactive portfolio, projects, and experience." />
-    <meta name="keywords" content="AI Engineer, LLMs, Medical Imaging, Machine Learning, NLP, Computer Vision, Python, TensorFlow, PyTorch" />
+
+    <title>Achref SOUA - Data Scientist</title>
+    <meta
+      name="description"
+      content="Achref SOUA is a Data Scientist building production AI systems across LLMs, medical imaging, and applied machine learning."
+    />
+    <meta
+      name="keywords"
+      content="Achref SOUA, Data Scientist, AI Engineer, LLMs, Medical Imaging, Machine Learning, LangChain, PyTorch, AWS"
+    />
     <meta name="author" content="Achref SOUA" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://achref-soua.github.io/" />
-    
-    <!-- Open Graph -->
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://achref-soua.github.io/" />
-    <meta property="og:title" content="Achref SOUA – Data Scientist" />
-    <meta property="og:description" content="Explore my portfolio with projects in LLMs, medical imaging, and AI applications." />
+    <meta property="og:title" content="Achref SOUA - Data Scientist" />
+    <meta
+      property="og:description"
+      content="A focused portfolio for Achref SOUA: production AI, LLM systems, medical imaging, and selected research work."
+    />
     <meta property="og:image" content="https://achref-soua.github.io/assets/achref_soua_picture.jpg" />
-    <meta property="og:site_name" content="Achref SOUA Portfolio" />
-    
-    <!-- Twitter Card -->
+    <meta property="og:site_name" content="Achref SOUA" />
+
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://achref-soua.github.io/" />
-    <meta name="twitter:title" content="Achref SOUA – Data Scientist" />
-    <meta name="twitter:description" content="Explore my portfolio with projects in LLMs, medical imaging, and AI applications." />
+    <meta name="twitter:title" content="Achref SOUA - Data Scientist" />
+    <meta
+      name="twitter:description"
+      content="Production AI, LLM systems, medical imaging, and selected research work."
+    />
     <meta name="twitter:image" content="https://achref-soua.github.io/assets/achref_soua_picture.jpg" />
-    
-    <!-- Preload Critical Resources -->
+
     <link rel="preload" href="assets/css/style.css" as="style" />
-    <link rel="preload" href="assets/js/main.js" as="script" />
+    <link rel="preload" href="data/site.json" as="fetch" crossorigin />
     <link rel="preload" href="data/resume.json" as="fetch" crossorigin />
     <link rel="preload" href="data/projects.json" as="fetch" crossorigin />
-    
-    <!-- SEO Links -->
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-    
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css" />
-    
-    <!-- Critical CSS for above-the-fold -->
-    <style>
-      .site-header { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: #fff; padding: 1.5rem 0; position: sticky; top: 0; z-index: 100; }
-      .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; }
-      .brand { display: flex; align-items: center; gap: 1rem; }
-      .logo { width: 50px; height: 50px; border-radius: 12px; background: rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; backdrop-filter: blur(10px); }
-      .brand h1 { font-size: 1.25rem; font-weight: 700; margin: 0; }
-      .brand p { font-size: 0.85rem; opacity: 0.9; margin: 0; }
-      .nav { display: flex; align-items: center; gap: 2rem; }
-      .nav a { color: rgba(255, 255, 255, 0.9); text-decoration: none; font-size: 0.95rem; font-weight: 500; }
-      .nav button { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; padding: 0.5rem 0.75rem; border-radius: 8px; cursor: pointer; font-size: 1.2rem; }
-    </style>
   </head>
   <body>
-    <header class="site-header">
-      <div class="header-inner">
-        <div class="brand">
-          <div class="logo">AS</div>
-          <div>
-            <h1 id="site-name">Achref SOUA</h1>
-            <p id="site-tag">Data Scientist</p>
-          </div>
-        </div>
-          <nav class="nav">
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#publications">Publications</a>
-          <a href="#contact">Contact</a>
-          <button id="theme-toggle" aria-label="Toggle dark mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></button>
-        </nav>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-meter" data-scroll-meter aria-hidden="true"></div>
+
+    <header class="site-header" data-header>
+      <div class="shell header-inner">
+        <a class="brand" href="#hero" aria-label="Achref SOUA home">
+          <span class="brand-mark" data-profile-initials>AS</span>
+          <span class="brand-copy">
+            <strong data-profile-name>Achref SOUA</strong>
+            <span data-profile-role>Data Scientist</span>
+          </span>
+        </a>
+
+        <nav class="site-nav" data-nav aria-label="Primary navigation"></nav>
+
+        <button class="icon-button" type="button" data-theme-toggle aria-label="Toggle color theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"></path>
+          </svg>
+        </button>
       </div>
     </header>
 
-    <main class="container">
-      <!-- Hero Section -->
-      <section id="hero" class="hero">
-        <div class="hero-left">
-          <div class="avatar">
-            <img src="assets/achref_soua_picture.jpg" alt="Achref SOUA, AI Engineer and Researcher" loading="eager" width="180" height="180" decoding="async" />
+    <main id="main">
+      <section class="hero-section" id="hero" aria-labelledby="hero-title">
+        <div class="shell hero-grid">
+          <div class="hero-copy" data-reveal>
+            <p class="eyebrow" data-hero-eyebrow>Data Scientist in France</p>
+            <h1 id="hero-title" data-profile-name-main>Achref SOUA</h1>
+            <p class="hero-lede" data-hero-subheadline>
+              Building reliable AI systems for language, imaging, and business workflows.
+            </p>
+            <div class="hero-actions" data-hero-actions>
+              <a class="button button-primary" href="#experience" data-primary-action>View Career</a>
+              <a class="button button-secondary" href="#projects" data-secondary-action>Selected Work</a>
+              <button class="button button-secondary" type="button" data-print>Print Resume</button>
+            </div>
           </div>
+
+          <aside class="profile-frame" data-reveal aria-label="Profile overview">
+            <div class="portrait-wrap">
+              <img
+                src="assets/achref_soua_picture.jpg"
+                alt="Portrait of Achref SOUA"
+                width="420"
+                height="420"
+                data-profile-image
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+            <div class="profile-caption">
+              <p class="status-line">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span data-profile-status>Production AI and research engineering</span>
+              </p>
+              <p data-profile-location>Saint-Etienne, France</p>
+            </div>
+          </aside>
         </div>
-        <div class="hero-right">
-          <h2 id="name">Achref SOUA</h2>
-          <p id="role">Data Scientist</p>
-          <p id="location">Paris, France</p>
-          <div class="contact-quick">
-            <button id="copy-email">Copy Email</button>
-            <a id="github-link" class="link-btn" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a id="linkedin-link" class="link-btn" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          </div>
-          <div class="hero-ctas">
-            <a href="#experience" class="btn">View Experience</a>
-            <a href="#projects" class="btn ghost">See Projects</a>
-          </div>
-        </div>
-      </section>
 
-      <!-- About -->
-      <section id="about" class="card">
-        <h3>About Me</h3>
-        <p id="summary" style="font-size: 1.05rem; line-height: 1.8;">Loading…</p>
-      </section>
-
-      <!-- Experience -->
-      <section id="experience" class="card">
-        <h3>Experience</h3>
-        <div id="experience-list" class="list"></div>
-      </section>
-
-      <!-- Projects -->
-      <section id="projects" class="card">
-        <h3>Projects</h3>
-        <div class="filters">
-          <label for="project-filter">Filter by: </label>
-          <select id="project-filter">
-            <option value="all">All Projects</option>
-          </select>
-        </div>
-        <div id="projects-grid" class="grid"></div>
-      </section>
-
-      <!-- Skills -->
-      <section id="skills" class="card">
-        <h3>Technical Skills</h3>
-        <div id="skills-list" class="chips"></div>
-      </section>
-
-      <!-- Publications -->
-      <section id="publications" class="card">
-        <h3>Publications</h3>
-        <div id="publications-list" class="list"></div>
-      </section>
-
-      <!-- Contact -->
-      <section id="contact" class="card">
-        <h3>Get in Touch</h3>
-        <div class="list">
-          <div class="item">
-            <strong>Email</strong>
-            <p><a id="email-link" href="#">achrefsoua10@email.com</a></p>
-          </div>
-          <!-- Phone removed at user's request -->
+        <div class="shell">
+          <div class="metric-strip" data-metrics aria-label="Career highlights"></div>
         </div>
       </section>
 
-      <!-- Footer -->
-      <footer class="site-footer">
-        <p>© <span id="year"></span> Achref SOUA</p>
-      </footer>
+      <section class="section" id="about" aria-labelledby="about-title">
+        <div class="shell section-grid">
+          <div class="section-label" data-section-label="about">About</div>
+          <div class="section-body" data-reveal>
+            <h2 id="about-title" data-about-title>AI systems with a practical edge.</h2>
+            <p class="section-lede" data-summary></p>
+            <div class="focus-grid" data-focus></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-ruled" id="experience" aria-labelledby="experience-title">
+        <div class="shell section-grid">
+          <div class="section-label" data-section-label="experience">Experience</div>
+          <div class="section-body">
+            <div class="section-heading" data-reveal>
+              <h2 id="experience-title" data-experience-title>Career Timeline</h2>
+              <p data-experience-intro></p>
+            </div>
+            <div class="timeline" data-experience></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects" aria-labelledby="projects-title">
+        <div class="shell section-grid">
+          <div class="section-label" data-section-label="projects">Projects</div>
+          <div class="section-body">
+            <div class="section-heading" data-reveal>
+              <h2 id="projects-title" data-projects-title>Selected Work</h2>
+              <p data-projects-intro></p>
+            </div>
+            <div class="project-controls" data-project-filters aria-label="Project filters"></div>
+            <div class="project-grid" data-projects></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-ruled" id="skills" aria-labelledby="skills-title">
+        <div class="shell section-grid">
+          <div class="section-label" data-section-label="skills">Skills</div>
+          <div class="section-body">
+            <div class="section-heading" data-reveal>
+              <h2 id="skills-title" data-skills-title>Technical Range</h2>
+              <p data-skills-intro></p>
+            </div>
+            <div class="skills-grid" data-skills></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="education" aria-labelledby="education-title">
+        <div class="shell section-grid">
+          <div class="section-label" data-section-label="education">Education</div>
+          <div class="section-body">
+            <div class="section-heading" data-reveal>
+              <h2 id="education-title" data-education-title>Education</h2>
+              <p data-education-intro></p>
+            </div>
+            <div class="compact-list" data-education></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-ruled" id="publications" aria-labelledby="publications-title">
+        <div class="shell section-grid">
+          <div class="section-label" data-section-label="publications">Publications</div>
+          <div class="section-body">
+            <div class="section-heading" data-reveal>
+              <h2 id="publications-title" data-publications-title>Publication</h2>
+              <p data-publications-intro></p>
+            </div>
+            <div class="compact-list" data-publications></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+        <div class="shell contact-grid">
+          <div data-reveal>
+            <p class="eyebrow" data-contact-eyebrow>Contact</p>
+            <h2 id="contact-title" data-contact-title>Let us build something useful.</h2>
+          </div>
+          <div class="contact-panel" data-reveal>
+            <p data-contact-intro></p>
+            <div class="contact-actions">
+              <a class="button button-primary" href="#" data-email-link>Email</a>
+              <button class="button button-secondary" type="button" data-copy-email>Copy Email</button>
+            </div>
+            <div class="social-links" data-social-links></div>
+          </div>
+        </div>
+      </section>
     </main>
 
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>&copy; <span data-year></span> <span data-footer-name>Achref SOUA</span></p>
+        <a href="#hero">Back to top</a>
+      </div>
+    </footer>
+
     <script src="assets/js/main.js" defer></script>
-    
-    <!-- Structured Data (Schema.org) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Achref SOUA",
-      "url": "https://achref-soua.github.io",
-      "image": "https://achref-soua.github.io/assets/achref_soua_picture.jpg",
-      "jobTitle": "Data Scientist",
-      "description": "Data Scientist specializing in LLMs, medical imaging, and AI applications",
-      "sameAs": [
-        "https://github.com/achref-soua",
-        "https://linkedin.com/in/achref-soua"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Paris",
-        "addressCountry": "FR"
-      },
-      "knowsAbout": [
-        "Artificial Intelligence",
-        "Large Language Models",
-        "Medical Imaging",
-        "Machine Learning",
-        "Natural Language Processing",
-        "Computer Vision",
-        "Python",
-        "TensorFlow",
-        "PyTorch"
-      ]
-    }
-    </script>
   </body>
 </html>

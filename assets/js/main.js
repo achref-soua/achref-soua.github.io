@@ -1,306 +1,484 @@
-/* main.js — Interactive Resume with smooth animations and performance optimization */
-const YEAR_EL = document.getElementById('year');
-const SUMMARY = document.getElementById('summary');
-const EXPERIENCE_LIST = document.getElementById('experience-list');
-const PROJECTS_GRID = document.getElementById('projects-grid');
-const SKILLS_LIST = document.getElementById('skills-list');
-const PUBLICATIONS_LIST = document.getElementById('publications-list');
-const PROJECT_FILTER = document.getElementById('project-filter');
-const EMAIL_LINK = document.getElementById('email-link');
-const COPY_EMAIL_BTN = document.getElementById('copy-email');
-const GITHUB_LINK = document.getElementById('github-link');
-const LINKEDIN_LINK = document.getElementById('linkedin-link');
-const THEME_TOGGLE = document.getElementById('theme-toggle');
-
-/* Create Scroll Progress Bar */
-const scrollProgress = document.createElement('div');
-scrollProgress.className = 'scroll-progress';
-document.body.prepend(scrollProgress);
-
-/* Year */
-YEAR_EL.textContent = new Date().getFullYear();
-
-/* Smooth scroll behavior */
-document.documentElement.style.scrollBehavior = 'smooth';
-
-/* Scroll Progress Handler */
-window.addEventListener('scroll', () => {
-  const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  const scrolled = (winScroll / height) * 100;
-  scrollProgress.style.width = scrolled + '%';
-});
-
-/* Load JSON with caching */
-async function loadJSON(path) {
-  try {
-    const res = await fetch(path, { 
-      headers: { 'Cache-Control': 'public, max-age=3600' }
-    });
-    if (!res.ok) throw new Error('Failed to load ' + path);
-    return res.json();
-  } catch (err) {
-    console.error('JSON load error:', err);
-    throw err;
-  }
-}
-
-/* Render Experience - optimized with DocumentFragment */
-function renderExperience(items) {
-  const fragment = document.createDocumentFragment();
-  items.forEach((exp, i) => {
-    const el = document.createElement('div');
-    el.className = 'item';
-    el.innerHTML = `
-      <strong>${exp.role}</strong>
-      <div><em>${exp.company}</em> • ${exp.location} • <span class="muted">${exp.range}</span></div>
-      <p style="margin-top:0.75rem">${exp.summary}</p>
-      ${exp.details ? `
-        <details class="experience-details" style="margin-top:0.75rem">
-          <summary style="cursor:pointer;color:var(--primary);font-weight:500;user-select:none">View Details</summary>
-          <div class="details-content" style="margin-top:0.5rem;padding-left:1rem;border-left:2px solid var(--primary)">${exp.details.split('\n').map(line => `<div class="detail-line" style="margin:0.5rem 0;font-size:0.95rem">${line}</div>`).join('')}</div>
-        </details>
-      ` : ''}
-    `;
-    el.style.animationDelay = (i * 0.05) + 's';
-    fragment.appendChild(el);
-  });
-  EXPERIENCE_LIST.appendChild(fragment);
-}
-
-/* Render Projects - optimized with DocumentFragment */
-function renderProjects(items) {
-  const fragment = document.createDocumentFragment();
-  const tags = new Set();
-  items.forEach(p => p.tags.forEach(t => tags.add(t)));
-  
-  // Populate filter
-  const old = Array.from(PROJECT_FILTER.options).map(o => o.value);
-  Array.from(tags).sort().forEach(t => {
-    if (!old.includes(t)) PROJECT_FILTER.appendChild(new Option(t, t));
-  });
-
-  items.forEach((p, i) => {
-    const el = document.createElement('article');
-    el.className = 'project';
-    el.dataset.tags = p.tags.join(',');
-    const detailsId = `details-${i}`;
-    el.innerHTML = `
-      <h4>${p.title}</h4>
-      <div class="muted">${p.range} ${p.role ? '• ' + p.role : ''}</div>
-      <p>${p.summary}</p>
-      ${p.details ? `
-        <details class="project-details">
-          <summary>View Details</summary>
-          <div class="details-content">${p.details.split('\n').map(line => `<div class="detail-line">${line}</div>`).join('')}</div>
-        </details>
-      ` : ''}
-      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:auto">${p.tags.map(t => `<span class="chip">${t}</span>`).join('')}</div>
-      ${p.link && p.link !== '#' ? `<div style="margin-top:1rem"><a href="${p.link}" target="_blank" rel="noopener noreferrer">Learn More →</a></div>` : ''}
-    `;
-    el.style.animationDelay = (i * 0.08) + 's';
-    fragment.appendChild(el);
-  });
-  PROJECTS_GRID.appendChild(fragment);
-}
-
-/* Render Skills - optimized with DocumentFragment */
-function renderSkills(list) {
-  const fragment = document.createDocumentFragment();
-  list.forEach((s, i) => {
-    const sp = document.createElement('span');
-    sp.className = 'chip';
-    sp.textContent = s;
-    sp.style.animationDelay = (i * 0.03) + 's';
-    fragment.appendChild(sp);
-  });
-  SKILLS_LIST.appendChild(fragment);
-}
-
-/* Render Publications - optimized with DocumentFragment */
-function renderPublications(list) {
-  const fragment = document.createDocumentFragment();
-  list.forEach((p, i) => {
-    const el = document.createElement('div');
-    el.className = 'item';
-    el.innerHTML = `<strong>${p.citation}</strong><div class="muted">${p.venue} • ${p.year}</div>`;
-    el.style.animationDelay = (i * 0.05) + 's';
-    fragment.appendChild(el);
-  });
-  PUBLICATIONS_LIST.appendChild(fragment);
-}
-
-/* Filter Projects */
-function applyFilter() {
-  const v = PROJECT_FILTER.value;
-  Array.from(PROJECTS_GRID.children).forEach((card, idx) => {
-    if (v === 'all') {
-      setTimeout(() => {
-        card.style.display = '';
-        card.style.opacity = '1';
-        card.style.pointerEvents = 'auto';
-        card.style.transform = 'translateY(0)';
-      }, idx * 30);
-    } else {
-      const show = card.dataset.tags.includes(v);
-      if (show) {
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.pointerEvents = 'auto';
-          card.style.transform = 'translateY(0)';
-        }, idx * 30);
-      } else {
-        card.style.opacity = '0.2';
-        card.style.pointerEvents = 'none';
-        card.style.transform = 'translateY(10px)';
-      }
-    }
-  });
-}
-
-/* Copy Email */
-COPY_EMAIL_BTN.addEventListener('click', async () => {
-  try {
-    await navigator.clipboard.writeText(EMAIL_LINK.textContent);
-    const orig = COPY_EMAIL_BTN.textContent;
-    COPY_EMAIL_BTN.textContent = 'Copied!';
-    setTimeout(() => COPY_EMAIL_BTN.textContent = orig, 2000);
-  } catch (e) {
-    COPY_EMAIL_BTN.textContent = 'Copy failed';
-  }
-});
-
-/* Phone click to copy */
-/* Phone removed from contact — click-to-copy disabled */
-
-/* Theme Toggle */
-function initTheme() {
-  const isDark = localStorage.getItem('theme') === 'dark' || 
-                 (window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme'));
-  if (isDark) {
-    document.documentElement.classList.add('dark');
-    updateThemeIcon(true);
-  } else {
-    updateThemeIcon(false);
-  }
-}
-
-function updateThemeIcon(isDark) {
-  // Moon icon for light mode (show moon when in light mode to switch to dark)
-  const moonSVG = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
-  // Sun icon for dark mode (show sun when in dark mode to switch to light)
-  const sunSVG = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
-  THEME_TOGGLE.innerHTML = isDark ? sunSVG : moonSVG;
-}
-
-THEME_TOGGLE.addEventListener('click', () => {
-  const isDark = document.documentElement.classList.toggle('dark');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  updateThemeIcon(isDark);
-});
-
-/* Scroll animations - Intersection Observer for fade in */
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
+const paths = {
+  site: 'data/site.json',
+  resume: 'data/resume.json',
+  projects: 'data/projects.json'
 };
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
+const state = {
+  site: null,
+  resume: null,
+  projects: [],
+  activeProjectFilter: 'All'
+};
+
+const select = (selector, root = document) => root.querySelector(selector);
+const selectAll = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+function setText(selector, value, root = document) {
+  const element = typeof selector === 'string' ? select(selector, root) : selector;
+  if (element) element.textContent = value || '';
+}
+
+function setMeta(name, value, attribute = 'name') {
+  if (!value) return;
+  let element = document.head.querySelector(`meta[${attribute}="${name}"]`);
+  if (!element) {
+    element = document.createElement('meta');
+    element.setAttribute(attribute, name);
+    document.head.appendChild(element);
+  }
+  element.setAttribute('content', value);
+}
+
+async function loadJSON(path) {
+  const response = await fetch(path);
+  if (!response.ok) throw new Error(`Unable to load ${path}`);
+  return response.json();
+}
+
+function createElement(tag, className, text) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text) element.textContent = text;
+  return element;
+}
+
+function createTagRow(items = []) {
+  const row = createElement('div', 'tag-row');
+  items.forEach((item) => row.append(createElement('span', 'tag', item)));
+  return row;
+}
+
+function addReveal(element) {
+  element.setAttribute('data-reveal', '');
+  return element;
+}
+
+function updateMeta(site, resume) {
+  const meta = site.meta || {};
+  const profile = resume.profile || {};
+  const absoluteImage = meta.image?.startsWith('http') ? meta.image : `${meta.url || ''}/${meta.image || ''}`.replace(/([^:]\/)\/+/g, '$1');
+
+  document.title = meta.title || `${profile.name} - ${profile.role}`;
+  setMeta('description', meta.description);
+  setMeta('keywords', (meta.keywords || []).join(', '));
+  setMeta('author', profile.name);
+  setMeta('og:title', meta.title, 'property');
+  setMeta('og:description', meta.description, 'property');
+  setMeta('og:url', meta.url, 'property');
+  setMeta('og:image', absoluteImage, 'property');
+  setMeta('twitter:title', meta.title);
+  setMeta('twitter:description', meta.description);
+  setMeta('twitter:image', absoluteImage);
+}
+
+function renderNavigation(site) {
+  const nav = select('[data-nav]');
+  if (!nav) return;
+  nav.replaceChildren();
+
+  (site.navigation || []).forEach((item) => {
+    const link = createElement('a', '', item.label);
+    link.href = item.href;
+    nav.append(link);
+  });
+}
+
+function renderHero(site, resume) {
+  const profile = resume.profile || {};
+  const hero = site.hero || {};
+
+  setText('[data-profile-initials]', profile.initials);
+  setText('[data-profile-name]', profile.name);
+  setText('[data-profile-name-main]', profile.name);
+  setText('[data-footer-name]', profile.name);
+  setText('[data-profile-role]', profile.role);
+  setText('[data-profile-status]', profile.status);
+  setText('[data-profile-location]', profile.location);
+  setText('[data-hero-eyebrow]', hero.eyebrow);
+  setText('[data-hero-subheadline]', hero.subheadline || profile.intro);
+  setText('[data-summary]', profile.summary);
+
+  const image = select('[data-profile-image]');
+  if (image && profile.image) {
+    image.src = profile.image;
+    image.alt = profile.imageAlt || `Portrait of ${profile.name}`;
+  }
+
+  const primary = select('[data-primary-action]');
+  if (primary && hero.primaryAction) {
+    primary.textContent = hero.primaryAction.label;
+    primary.href = hero.primaryAction.href;
+  }
+
+  const secondary = select('[data-secondary-action]');
+  if (secondary && hero.secondaryAction) {
+    secondary.textContent = hero.secondaryAction.label;
+    secondary.href = hero.secondaryAction.href;
+  }
+}
+
+function renderSectionCopy(site) {
+  const sections = site.sections || {};
+  Object.entries(sections).forEach(([key, section]) => {
+    setText(`[data-${key}-title]`, section.title);
+    setText(`[data-${key}-intro]`, section.intro);
+    setText(`[data-section-label="${key}"]`, section.label || key);
+  });
+
+  const contact = site.contact || {};
+  setText('[data-contact-eyebrow]', contact.eyebrow);
+  setText('[data-contact-title]', contact.title);
+  setText('[data-contact-intro]', contact.intro);
+}
+
+function renderMetrics(resume) {
+  const container = select('[data-metrics]');
+  if (!container) return;
+  container.replaceChildren();
+
+  (resume.metrics || []).forEach((metric) => {
+    const article = addReveal(createElement('article', 'metric'));
+    article.append(createElement('strong', '', metric.value));
+    article.append(createElement('span', '', metric.label));
+    container.append(article);
+  });
+}
+
+function renderFocusAreas(resume) {
+  const container = select('[data-focus]');
+  if (!container) return;
+  container.replaceChildren();
+
+  (resume.focusAreas || []).forEach((area) => {
+    const article = addReveal(createElement('article', 'focus-card'));
+    article.append(createElement('h3', '', area.title));
+    article.append(createElement('p', '', area.description));
+    container.append(article);
+  });
+}
+
+function renderExperience(resume) {
+  const container = select('[data-experience]');
+  if (!container) return;
+  container.replaceChildren();
+
+  (resume.experience || []).forEach((experience) => {
+    const article = addReveal(createElement('article', 'timeline-item'));
+    const date = createElement('div', 'timeline-date', experience.range);
+    const content = createElement('div', 'timeline-content');
+
+    content.append(createElement('h3', '', experience.role));
+    content.append(createElement('div', 'item-meta', `${experience.company} - ${experience.location}`));
+    content.append(createElement('p', '', experience.summary));
+
+    if (experience.highlights?.length) {
+      const list = createElement('ul', 'clean-list');
+      experience.highlights.forEach((highlight) => list.append(createElement('li', '', highlight)));
+      content.append(list);
+    }
+
+    if (experience.tools?.length) content.append(createTagRow(experience.tools));
+
+    article.append(date, content);
+    container.append(article);
+  });
+}
+
+function getProjectFilters(projects) {
+  return ['All', ...new Set(projects.map((project) => project.category).filter(Boolean))];
+}
+
+function renderProjectFilters() {
+  const container = select('[data-project-filters]');
+  if (!container) return;
+  container.replaceChildren();
+
+  getProjectFilters(state.projects).forEach((filter) => {
+    const button = createElement('button', 'filter-button', filter);
+    button.type = 'button';
+    button.setAttribute('aria-pressed', filter === state.activeProjectFilter ? 'true' : 'false');
+    button.addEventListener('click', () => {
+      state.activeProjectFilter = filter;
+      renderProjectFilters();
+      renderProjects();
+      observeRevealItems();
+    });
+    container.append(button);
+  });
+}
+
+function renderProjects() {
+  const container = select('[data-projects]');
+  if (!container) return;
+  container.replaceChildren();
+
+  const projects = state.activeProjectFilter === 'All'
+    ? state.projects
+    : state.projects.filter((project) => project.category === state.activeProjectFilter);
+
+  projects.forEach((project) => {
+    const article = addReveal(createElement('article', 'project-card'));
+    const header = document.createElement('header');
+    header.append(createElement('div', 'project-meta', `${project.category} - ${project.range}`));
+    header.append(createElement('h3', '', project.title));
+
+    article.append(header);
+    article.append(createElement('p', '', project.summary));
+
+    if (project.highlights?.length) {
+      const list = createElement('ul', 'clean-list');
+      project.highlights.forEach((highlight) => list.append(createElement('li', '', highlight)));
+      article.append(list);
+    }
+
+    if (project.stack?.length) article.append(createTagRow(project.stack));
+    if (project.impact) article.append(createElement('p', 'impact-line', project.impact));
+
+    if (project.link && project.link !== '#') {
+      const link = createElement('a', 'project-link', project.linkLabel || 'Open project');
+      link.href = project.link;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      article.append(link);
+    }
+
+    container.append(article);
+  });
+}
+
+function renderSkills(resume) {
+  const container = select('[data-skills]');
+  if (!container) return;
+  container.replaceChildren();
+
+  (resume.skills || []).forEach((group) => {
+    const article = addReveal(createElement('article', 'skill-card'));
+    article.append(createElement('h3', '', group.group));
+    article.append(createTagRow(group.items));
+    container.append(article);
+  });
+}
+
+function renderEducation(resume) {
+  const container = select('[data-education]');
+  if (!container) return;
+  container.replaceChildren();
+
+  (resume.education || []).forEach((education) => {
+    const article = addReveal(createElement('article', 'compact-card'));
+    article.append(createElement('h3', '', education.degree));
+    article.append(createElement('p', '', education.institution));
+    article.append(createElement('div', 'item-meta', `${education.range} - ${education.location}`));
+    container.append(article);
+  });
+}
+
+function renderPublications(resume) {
+  const container = select('[data-publications]');
+  if (!container) return;
+  container.replaceChildren();
+
+  (resume.publications || []).forEach((publication) => {
+    const article = addReveal(createElement('article', 'compact-card'));
+    article.append(createElement('h3', '', publication.title));
+    article.append(createElement('p', '', publication.authors));
+    article.append(createElement('div', 'item-meta', `${publication.venue} - ${publication.year}`));
+    container.append(article);
+  });
+}
+
+function renderContact(resume) {
+  const contact = resume.contact || {};
+  const emailLink = select('[data-email-link]');
+  const socialLinks = select('[data-social-links]');
+
+  if (emailLink && contact.email) {
+    emailLink.href = `mailto:${contact.email}`;
+    emailLink.textContent = 'Email';
+  }
+
+  if (socialLinks) {
+    socialLinks.replaceChildren();
+    [
+      ['GitHub', contact.github],
+      ['LinkedIn', contact.linkedin]
+    ].forEach(([label, href]) => {
+      if (!href) return;
+      const link = createElement('a', '', label);
+      link.href = href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      socialLinks.append(link);
+    });
+  }
+}
+
+function renderStructuredData(site, resume) {
+  const profile = resume.profile || {};
+  const contact = resume.contact || {};
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: profile.name,
+    url: site.meta?.url,
+    image: `${site.meta?.url || ''}/${profile.image || ''}`.replace(/([^:]\/)\/+/g, '$1'),
+    jobTitle: profile.role,
+    description: profile.summary,
+    email: contact.email,
+    sameAs: [contact.github, contact.linkedin].filter(Boolean),
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: profile.location,
+      addressCountry: 'FR'
+    },
+    knowsAbout: (resume.skills || []).flatMap((group) => group.items).slice(0, 24)
+  });
+  document.head.append(script);
+}
+
+function initTheme() {
+  const button = select('[data-theme-toggle]');
+  const stored = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const shouldUseDark = stored ? stored === 'dark' : prefersDark;
+
+  document.documentElement.classList.toggle('dark', shouldUseDark);
+  updateThemeButton(button);
+
+  button?.addEventListener('click', () => {
+    const nextDark = !document.documentElement.classList.contains('dark');
+    document.documentElement.classList.toggle('dark', nextDark);
+    localStorage.setItem('theme', nextDark ? 'dark' : 'light');
+    updateThemeButton(button);
+  });
+}
+
+function updateThemeButton(button) {
+  if (!button) return;
+  const dark = document.documentElement.classList.contains('dark');
+  button.setAttribute('aria-label', dark ? 'Use light theme' : 'Use dark theme');
+  button.innerHTML = dark
+    ? '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>'
+    : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"></path></svg>';
+}
+
+function initActions(resume) {
+  const copyButton = select('[data-copy-email]');
+  const printButton = select('[data-print]');
+  const email = resume.contact?.email || '';
+
+  copyButton?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      copyButton.textContent = 'Copied';
+      window.setTimeout(() => {
+        copyButton.textContent = 'Copy Email';
+      }, 1600);
+    } catch {
+      copyButton.textContent = email;
+    }
+  });
+
+  printButton?.addEventListener('click', () => window.print());
+}
+
+function observeRevealItems() {
+  const items = selectAll('[data-reveal]:not(.is-visible)');
+  if (!('IntersectionObserver' in window)) {
+    items.forEach((item) => item.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
       observer.unobserve(entry.target);
-    }
-  });
-}, observerOptions);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
-/* Observe cards for animation on scroll */
-function observeCards() {
-  const cards = document.querySelectorAll('.card, .project, .item');
-  cards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(card);
-  });
+  items.forEach((item) => observer.observe(item));
 }
 
-/* Active link highlighting in navigation */
-function updateActiveNavLink() {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav a[href^="#"]');
-  
-  let current = '';
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop;
-    if (pageYOffset >= sectionTop - 200) {
-      current = section.getAttribute('id');
-    }
-  });
-  
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === '#' + current) {
-      link.classList.add('active');
-    }
-  });
-}
+function initScrollFeedback() {
+  const meter = select('[data-scroll-meter]');
+  const header = select('[data-header]');
+  const navLinks = selectAll('[data-nav] a');
+  const sections = navLinks
+    .map((link) => select(link.getAttribute('href')))
+    .filter(Boolean);
 
-/* Navbar active link styling */
-const style = document.createElement('style');
-style.textContent = `
-  .nav a.active {
-    opacity: 1;
-    text-decoration: underline;
-    text-underline-offset: 0.5rem;
+  function update() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = max <= 0 ? 0 : (window.scrollY / max) * 100;
+    if (meter) meter.style.width = `${progress}%`;
+    header?.classList.toggle('is-scrolled', window.scrollY > 12);
+
+    let currentId = sections[0]?.id;
+    sections.forEach((section) => {
+      if (section.getBoundingClientRect().top <= 140) currentId = section.id;
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.toggle('is-active', link.getAttribute('href') === `#${currentId}`);
+    });
   }
-`;
-document.head.appendChild(style);
 
-/* Filter listener */
-PROJECT_FILTER.addEventListener('change', applyFilter);
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+}
 
-/* Scroll listener */
-window.addEventListener('scroll', updateActiveNavLink);
+function renderError(error) {
+  const main = select('#main');
+  if (!main) return;
+  const message = createElement('section', 'shell load-error');
+  message.innerHTML = `
+    <h1>Content could not load.</h1>
+    <p>${error.message}. Run the site through a local server so the JSON config files can be fetched.</p>
+  `;
+  main.prepend(message);
+}
 
-/* Initialize */
-initTheme();
+async function init() {
+  initTheme();
+  setText('[data-year]', new Date().getFullYear().toString());
 
-(async function init() {
   try {
-    const resume = await loadJSON('data/resume.json');
-    const projects = await loadJSON('data/projects.json');
-    
-    SUMMARY.textContent = resume.summary;
-    renderExperience(resume.experience);
-    renderSkills(resume.skills);
-    renderPublications(resume.publications);
-    renderProjects(projects);
+    const [site, resume, projects] = await Promise.all([
+      loadJSON(paths.site),
+      loadJSON(paths.resume),
+      loadJSON(paths.projects)
+    ]);
 
-    EMAIL_LINK.textContent = resume.contact.email;
-    EMAIL_LINK.href = 'mailto:' + resume.contact.email;
-    GITHUB_LINK.href = resume.contact.github || '#';
-    LINKEDIN_LINK.href = resume.contact.linkedin || '#';
-    
-    /* Observe cards after rendering */
-    setTimeout(() => {
-      observeCards();
-    }, 100);
+    state.site = site;
+    state.resume = resume;
+    state.projects = projects;
 
-    /* Add floating animation to avatar */
-    const avatar = document.querySelector('.avatar img');
-    if (avatar) {
-      avatar.style.animation = 'float 3s ease-in-out infinite';
-    }
-
-  } catch (err) {
-    console.error('Failed to load resume data:', err);
-    SUMMARY.textContent = 'Failed to load resume data. Please refresh the page.';
+    updateMeta(site, resume);
+    renderNavigation(site);
+    renderHero(site, resume);
+    renderSectionCopy(site);
+    renderMetrics(resume);
+    renderFocusAreas(resume);
+    renderExperience(resume);
+    renderProjectFilters();
+    renderProjects();
+    renderSkills(resume);
+    renderEducation(resume);
+    renderPublications(resume);
+    renderContact(resume);
+    renderStructuredData(site, resume);
+    initActions(resume);
+    initScrollFeedback();
+    observeRevealItems();
+  } catch (error) {
+    console.error(error);
+    renderError(error);
   }
-})();
+}
 
-/* Add page transition animation on load */
-window.addEventListener('load', () => {
-  document.body.style.animation = 'fadeInUp 0.8s ease';
-});
+init();
