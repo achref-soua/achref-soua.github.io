@@ -1,65 +1,107 @@
-[ 
+[
   {
-    "title":"Chatbot RAG Multi-Agent for Cardiac Surgery",
-    "range":"2024",
-    "role":"Lead Developer",
-    "summary":"Development of a multi-agent Streamlit chatbot for surgical assistance (pre-op, intra-op, post-op). Created a ChromaDB vector database for a RAG system and designed dynamic agents for personalized patient and stent recommendations.",
-    "details":"• Developed a multi-agent Streamlit interface for surgical assistance\n• Implemented ChromaDB vector database for RAG\n• Designed dynamic agents for personalized recommendations\n• Clinical testing and collaboration with physicians for validation", 
-    "tags":["Medical Imaging","RAG","ChromaDB","Streamlit","LangChain","LangGraph"],
-    "link":"#"
+    "title": "Cardiac Surgery Multi-Agent RAG Assistant",
+    "category": "LLM Systems",
+    "range": "2024",
+    "role": "Lead Developer",
+    "summary": "A Streamlit assistant for pre-op, intra-op, and post-op surgical workflows, using retrieval and dynamic agents for patient and stent recommendations.",
+    "highlights": [
+      "Created a ChromaDB vector database for cardiac surgery knowledge retrieval.",
+      "Designed agent flows for personalized patient context and recommendation logic.",
+      "Collaborated with physicians during validation and clinical testing."
+    ],
+    "stack": ["RAG", "ChromaDB", "Streamlit", "LangChain", "LangGraph"],
+    "impact": "Clinical workflow support for high-context surgical decisions.",
+    "link": "#"
   },
   {
-    "title":"CV Management Application with LLMs",
-    "range":"2024",
-    "role":"Lead Developer",
-    "summary":"Streamlit application for interactive CV creation and automatic adaptation via LLMs. Integrated OpenAI and GPT-OSS-20B for job offer adaptation and professional PDF export with ReportLab.",
-    "details":"• Modular Streamlit interface for CV creation and editing\n• Automatic CV adaptation to job offers via LLMs\n• ATS-friendly PDF export with ReportLab\n• Prompt optimization and Groq API integration", 
-    "tags":["Streamlit","LLMs","Groq API","ReportLab","Prompt Engineering"],
-    "link":"#"
+    "title": "CV Management Application with LLMs",
+    "category": "LLM Systems",
+    "range": "2024",
+    "role": "Lead Developer",
+    "summary": "A modular CV creation tool that adapts resumes to job offers with LLMs and exports ATS-friendly PDFs.",
+    "highlights": [
+      "Integrated OpenAI and GPT-OSS-20B models through Groq API workflows.",
+      "Generated professional PDF exports with ReportLab.",
+      "Built a reusable editing flow for fast resume iteration."
+    ],
+    "stack": ["Streamlit", "LLMs", "Groq API", "ReportLab", "Prompt Engineering"],
+    "impact": "A practical career tool for targeted application material.",
+    "link": "#"
   },
   {
-    "title":"Personalized Nutrition Recommendation System",
-    "range":"Feb 2024 – May 2024",
-    "role":"Lead Engineer",
-    "summary":"Built intelligent system for personalized meal recommendations using reinforcement learning. Extracted and structured nutritional data for 200+ meals, implemented Q-learning and evolutionary algorithms for optimization, and integrated feedback loops for preference adaptation.",
-    "details":"• Data Engineering: Extracted and structured nutritional data (calories, macronutrients, micronutrients) for 200+ meals from diverse sources\n• Recommendation Algorithm: Implemented Q-learning (Bellman equations) for optimal meal selection based on user preferences and nutritional goals\n• Evolutionary Optimization: Used genetic algorithms to explore diverse meal combinations and satisfy complex constraints\n• Feedback Integration: Built adaptive system that learns from user preferences (vegetarian, allergies, macronutrient targets) to improve recommendations over time\n• Evaluation: Achieved high relevance scores and user satisfaction in testing phase",
-    "tags":["Reinforcement Learning","Q-Learning","Genetic Algorithms","Data Engineering","Recommendation Systems","Python"],
-    "link":"#"
+    "title": "Personalized Nutrition Recommendation System",
+    "category": "Recommendation",
+    "range": "Feb 2024 - May 2024",
+    "role": "Lead Engineer",
+    "summary": "An adaptive recommendation system for meal plans using nutritional data, reinforcement learning, and evolutionary optimization.",
+    "highlights": [
+      "Structured nutritional data for more than 200 meals.",
+      "Implemented Q-learning and genetic algorithms for meal selection under constraints.",
+      "Added preference feedback loops for allergies, dietary choices, and macronutrient targets."
+    ],
+    "stack": ["Python", "Q-Learning", "Genetic Algorithms", "Data Engineering"],
+    "impact": "Personalized meal suggestions that adapt to user constraints.",
+    "link": "#"
   },
   {
-  "title":"IMA 205 Cardiac MRI Diagnosis (Kaggle Competition)",
-    "range":"Apr 2023 – Jun 2023",
-    "role":"Team Lead",
-    "summary":"🏆 1st Place among 100 participants. Built end-to-end medical imaging pipeline with advanced segmentation, radiomics feature extraction, and ensemble classification achieving 95% train and 81% validation accuracy.",
-    "details":"• Segmentation Pipeline: Applied state-of-the-art architectures (U-Net, SegNet, Segment Anything Model) for cardiac structure segmentation from MRI\n• Feature Engineering: Implemented PyRadiomics extraction pipeline to compute 100+ radiomics features capturing texture, shape, and intensity patterns\n• ETL Pipeline: Built robust data processing workflow with validation, normalization, and quality checks\n• Ensemble Methods: Trained multiple classifiers (LightGBM, XGBoost, Autoencoder-SVM) and implemented stacking for robust predictions\n• Performance: Achieved 95% training accuracy and 81% validation accuracy, winning competition against 100 teams\n• Impact: Demonstrated advanced ML techniques in medical imaging for improved diagnostic accuracy",
-    "tags":["Medical Imaging","Segmentation","Deep Learning","PyRadiomics","LightGBM","XGBoost","Ensemble Methods","U-Net","SAM"],
-    "link":"#"
+    "title": "IMA 205 Cardiac MRI Diagnosis",
+    "category": "Medical Imaging",
+    "range": "Apr 2023 - Jun 2023",
+    "role": "Team Lead",
+    "summary": "A competition-winning cardiac MRI diagnosis pipeline with segmentation, radiomics extraction, and ensemble classification.",
+    "highlights": [
+      "Applied U-Net, SegNet, and Segment Anything Model for cardiac structure segmentation.",
+      "Extracted more than 100 radiomics features with PyRadiomics.",
+      "Combined LightGBM, XGBoost, and Autoencoder-SVM models through stacking."
+    ],
+    "stack": ["Medical Imaging", "U-Net", "SAM", "PyRadiomics", "LightGBM", "XGBoost"],
+    "impact": "1st place among 100 participants, with 95% train and 81% validation accuracy.",
+    "link": "#"
   },
   {
-  "title":"Tick Tick Bloom NASA Algal Bloom Detection (DrivenData)",
-    "range":"Dec 2022 – Feb 2023",
-    "role":"Solo Competitor",
-    "summary":"🥉 Ranked 50th out of 1,377 participants. Processed multi-spectral satellite imagery (Sentinel-2, Landsat) and optimized LightGBM with Optuna achieving AggRMSE of 1.0536.",
-    "details":"• Remote Sensing: Processed multi-band Sentinel-2 and Landsat satellite imagery for global algal bloom detection\n• Feature Engineering: Extracted spectral indices (NDVI, chlorophyll anomalies) and temporal patterns from time series data\n• Hyperparameter Optimization: Used Optuna for Bayesian optimization of LightGBM parameters with cross-validation\n• Model Performance: Achieved AggRMSE of 1.0536, demonstrating strong predictive accuracy across diverse geographic regions\n• Competition Performance: Ranked 50/1377 participants, top 3.6% of competition\n• Real-World Impact: Contributed to improved early detection of harmful algal blooms for environmental monitoring",
-    "tags":["Remote Sensing","LightGBM","Optuna","Hyperparameter Tuning","Satellite Imagery","Environmental Science","Python"],
-    "link":"#"
+    "title": "NASA Algal Bloom Detection",
+    "category": "Remote Sensing",
+    "range": "Dec 2022 - Feb 2023",
+    "role": "Solo Competitor",
+    "summary": "A satellite imagery pipeline for harmful algal bloom detection using multi-spectral data and optimized gradient boosting.",
+    "highlights": [
+      "Processed Sentinel-2 and Landsat imagery across diverse geographic regions.",
+      "Engineered spectral and temporal features for bloom prediction.",
+      "Optimized LightGBM hyperparameters with Optuna."
+    ],
+    "stack": ["Remote Sensing", "LightGBM", "Optuna", "Satellite Imagery", "Python"],
+    "impact": "Ranked 50th out of 1,377 participants with an AggRMSE of 1.0536.",
+    "link": "#"
   },
   {
-  "title":"Embedded Gait Analysis System Deep Learning on Edge",
-    "range":"Nov 2023 – Dec 2024",
-    "role":"Research Engineer",
-    "summary":"Designed and deployed embedded gait analysis system on Arduino Nano 33 with IMU sensors. Used denoising autoencoders and deep learning (GRU, LSTM, Transformers) for knee angle prediction, improving accuracy by ~20%.",
-    "details":"• Hardware Integration: Interfaced Arduino Nano 33 IoT with MPU-9250 IMU sensors for real-time motion capture\n• Signal Processing: Implemented sensor fusion algorithms to combine accelerometer, gyroscope, and magnetometer data\n• Denoising: Built denoising autoencoders to remove sensor noise and improve signal quality (+20% accuracy improvement)\n• Deep Learning Models: Implemented multiple architectures (GRU, LSTM, Transformer) for time series prediction of knee angles\n• Hyperparameter Tuning: Used Optuna and GridSearchCV for architecture and parameter optimization\n• Experiment Tracking: Tracked 100+ experiments with Weights & Biases for reproducibility and insights\n• Deployment: Optimized models for embedded systems with reduced memory footprint\n• Applications: Bionic leg control, rehabilitation monitoring, sports biomechanics analysis",
-    "tags":["Embedded Systems","Arduino","IMU Sensors","Time Series","LSTM","GRU","Transformers","Autoencoders","Optuna","W&B"],
-    "link":"#"
+    "title": "Embedded Gait Analysis on Edge Devices",
+    "category": "Embedded AI",
+    "range": "Nov 2023 - Dec 2024",
+    "role": "Research Engineer",
+    "summary": "An embedded gait analysis system using IMU sensors and deep learning for knee angle prediction.",
+    "highlights": [
+      "Connected Arduino Nano 33 IoT with MPU-9250 IMU sensors for motion capture.",
+      "Built denoising autoencoders to improve signal quality by roughly 20%.",
+      "Compared GRU, LSTM, and Transformer models for time series prediction."
+    ],
+    "stack": ["Arduino", "IMU Sensors", "LSTM", "GRU", "Transformers", "Autoencoders"],
+    "impact": "Edge-ready AI for rehabilitation, sports biomechanics, and bionic leg control.",
+    "link": "#"
   },
   {
-    "title":"FinOps Multi-Agent Assistant with LLMs",
-    "range":"Jan 2025 – Feb 2025",
-    "role":"LLMs Engineer",
-    "summary":"Built intelligent FinOps assistant using LangGraph for multi-agent orchestration. Optimized long-term memory for multi-turn financial dialogues and deployed on AWS with CI/CD pipelines.",
-    "details":"• Multi-Agent Architecture: Designed modular multi-agent system with LangGraph for cost analysis, optimization recommendations, and budget planning\n• Long-Term Memory: Optimized memory management for maintaining context across 50+ turn conversations about financial workflows\n• LLM Integration: Leveraged Claude/GPT-4 APIs with custom prompting strategies for financial domain accuracy\n• AWS Deployment: Deployed using Lambda (serverless functions), S3 (data storage), Bedrock (LLM API), with auto-scaling\n• CI/CD Pipeline: Implemented automated testing, staging, and production deployment workflows\n• Cost Optimization: Reduced API costs by 30% through prompt optimization and caching strategies\n• User Interface: Built conversational interface for cloud cost analysis and optimization recommendations",
-    "tags":["LLMs","LangGraph","Multi-Agent","AWS Lambda","AWS Bedrock","S3","CI/CD","FinOps","Python","FastAPI"],
-    "link":"#"
+    "title": "FinOps Multi-Agent Assistant",
+    "category": "LLM Systems",
+    "range": "Jan 2025 - Feb 2025",
+    "role": "LLM Engineer",
+    "summary": "A LangGraph assistant for cloud cost analysis, budget planning, and optimization recommendations.",
+    "highlights": [
+      "Built modular agents for cost analysis and recommendation tasks.",
+      "Maintained context across long financial conversations with custom memory handling.",
+      "Deployed serverless components through AWS Lambda, S3, and Bedrock."
+    ],
+    "stack": ["LangGraph", "Multi-Agent", "AWS Lambda", "AWS Bedrock", "FastAPI", "FinOps"],
+    "impact": "Reduced API costs by 30% through prompt optimization and caching strategies.",
+    "link": "#"
   }
 ]
