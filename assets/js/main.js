@@ -1,7 +1,7 @@
 const paths = {
-  site: 'data/site.json',
-  resume: 'data/resume.json',
-  projects: 'data/projects.json'
+  site: 'data/site.json?v=20260429-2',
+  resume: 'data/resume.json?v=20260429-2',
+  projects: 'data/projects.json?v=20260429-2'
 };
 
 const state = {
