@@ -76,7 +76,7 @@ Project filter buttons are generated automatically from each project's `category
 .
 ├── index.html
 ├── assets/
-│   ├── achref_soua_picture.jpg
+│   ├── achref_soua_picture.png
 │   ├── favicon.svg
 │   ├── css/style.css
 │   └── js/main.js
