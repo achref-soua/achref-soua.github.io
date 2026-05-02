@@ -5,7 +5,7 @@
     "role": "Data Scientist",
     "location": "Saint-Etienne, France",
     "status": "Production AI and research engineering",
-    "image": "assets/achref_soua_picture.jpg",
+    "image": "assets/achref_soua_picture.png",
     "imageAlt": "Portrait of Achref SOUA",
     "intro": "I build reliable AI systems for language, imaging, and business workflows.",
     "summary": "Data Scientist with 2 years of experience across language models, computer vision, medical imaging, and cloud deployment. I design end-to-end LLM and machine learning pipelines from prototype to production, with a focus on robustness, maintainability, and measurable impact."
