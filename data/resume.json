@@ -45,7 +45,9 @@
   "contact": {
     "email": "achref.soua@outlook.com",
     "github": "https://github.com/achref-soua",
-    "linkedin": "https://www.linkedin.com/in/achref-soua/"
+    "linkedin": "https://www.linkedin.com/in/achref-soua/",
+    "medium": "https://achref-soua.medium.com/",
+    "githubAvatar": "assets/github-avatar.png"
   },
   "experience": [
     {
@@ -56,7 +58,7 @@
       "summary": "Building medical imaging infrastructure for endovascular surgery planning — from raw CT scans to stent recommendations.",
       "highlights": [
         "Automated DICOM→NIfTI pipeline with quality-based series selection, eliminating manual CT sorting for the ISizing product.",
-        "Trained 25-structure vascular segmentation model in PyTorch — 94% global Dice across complex aortic anatomy.",
+        "Trained 25-structure vascular segmentation model — 94% global Dice across complex aortic anatomy.",
         "VTK sizing pipeline: 3D meshes + centerlines → per-label diameters, volumes, angulation, and tortuosity in ~1 min/case.",
         "Stent recommendation engine for visceral arteries fed by the sizing output.",
         "Central data registry (NIfTI + metadata) versioned with DVC for reproducible training sets."
