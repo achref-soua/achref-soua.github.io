@@ -32,6 +32,7 @@
     { "label": "Skills", "href": "#skills" },
     { "label": "GitHub", "href": "#github" },
     { "label": "Education", "href": "#education" },
+    { "label": "Publications", "href": "#publications" },
     { "label": "Contact", "href": "#contact" }
   ],
   "hero": {
@@ -96,6 +97,7 @@
         { "label": "Compétences", "href": "#skills" },
         { "label": "GitHub", "href": "#github" },
         { "label": "Formation", "href": "#education" },
+        { "label": "Publications", "href": "#publications" },
         { "label": "Contact", "href": "#contact" }
       ],
       "hero": {

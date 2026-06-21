@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20260621-5',
-  resume: 'data/resume.json?v=20260621-5',
-  projects: 'data/projects.json?v=20260621-5',
-  i18nFr: 'data/i18n.fr.json?v=20260621-5'
+  site: 'data/site.json?v=20260621-6',
+  resume: 'data/resume.json?v=20260621-6',
+  projects: 'data/projects.json?v=20260621-6',
+  i18nFr: 'data/i18n.fr.json?v=20260621-6'
 };
 
 const state = {
@@ -143,7 +143,9 @@ function renderMetrics(resume) {
 
   (resume.metrics || []).forEach((metric) => {
     const article = addReveal(createElement('article', 'metric'));
-    article.append(createElement('strong', '', metric.value));
+    const value = createElement('strong', '', metric.value);
+    value.setAttribute('data-count', '');
+    article.append(value);
     article.append(createElement('span', '', metric.label));
     container.append(article);
   });
@@ -163,57 +165,251 @@ function renderFocusAreas(resume) {
 }
 
 function renderExperience(resume) {
-  const container = select('[data-experience]');
-  if (!container) return;
-  container.replaceChildren();
+  const track = select('[data-experience]');
+  const rail = select('[data-xp-rail]');
+  const section = select('[data-xp-section]');
+  if (!track) return;
 
-  (resume.experience || []).forEach((experience) => {
-    const article = createElement('article', 'timeline-item');
-    const date = createElement('div', 'timeline-date', experience.range);
-    const content = createElement('div', 'timeline-content');
+  track.replaceChildren();
+  if (rail) rail.replaceChildren();
 
-    content.append(createElement('h3', '', experience.role));
-    content.append(createElement('div', 'item-meta', `${experience.company} · ${experience.location}`));
-    content.append(createElement('p', '', experience.summary));
+  // Oldest → latest so scrolling moves forward through time.
+  const items = (resume.experience || []).slice().reverse();
+  const total = items.length;
+  if (section) section.style.setProperty('--xp-count', String(Math.max(total, 1)));
+
+  const isPresent = (range) => /present|présent|now|aujourd|en cours/i.test(String(range));
+
+  items.forEach((experience, index) => {
+    const year = (String(experience.range).match(/\d{4}/) || [''])[0];
+    const tickLabel = isPresent(experience.range)
+      ? (state.lang === 'fr' ? 'Auj.' : 'Now')
+      : (year || experience.range);
+
+    const panel = createElement('article', 'xp-panel');
+    panel.setAttribute('role', 'group');
+    panel.setAttribute('aria-roledescription', 'slide');
+    panel.setAttribute('aria-label', `${index + 1} of ${total} — ${experience.role}, ${experience.company}`);
+
+    const ghost = createElement('span', 'xp-ghost', year || '');
+    ghost.setAttribute('aria-hidden', 'true');
+    panel.append(ghost);
+
+    const inner = createElement('div', 'xp-panel-inner');
+
+    const top = createElement('div', 'xp-panel-top');
+    top.append(createElement('span', 'xp-index', `${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`));
+    top.append(createElement('span', 'xp-range', experience.range));
+    inner.append(top);
+
+    inner.append(createElement('h3', 'xp-role', experience.role));
+    inner.append(createElement('div', 'xp-company item-meta', `${experience.company} · ${experience.location}`));
+    inner.append(createElement('p', 'xp-summary', experience.summary));
 
     if (experience.highlights?.length) {
-      const list = createElement('ul', 'clean-list');
+      const list = createElement('ul', 'clean-list xp-highlights');
       experience.highlights.forEach((highlight) => list.append(createElement('li', '', highlight)));
-      content.append(list);
+      inner.append(list);
     }
 
-    if (experience.tools?.length) content.append(createTagRow(experience.tools));
+    if (experience.tools?.length) inner.append(createTagRow(experience.tools));
 
-    article.append(date, content);
-    container.append(article);
+    panel.append(inner);
+    track.append(panel);
+
+    if (rail) {
+      const tick = createElement('button', 'xp-tick');
+      tick.type = 'button';
+      tick.dataset.index = String(index);
+      tick.setAttribute('aria-label', `Show ${experience.company} (${experience.range})`);
+      tick.append(createElement('span', 'xp-tick-dot'));
+      tick.append(createElement('span', 'xp-tick-label', tickLabel));
+      rail.append(tick);
+    }
   });
 }
 
-function initTimelineAnimation() {
-  const container = select('[data-experience]');
-  if (!container) return;
+let xpController = null;
 
-  const items = selectAll('.timeline-item', container);
-  if (!items.length) return;
+function initTimelineScroll() {
+  if (xpController) {
+    xpController();
+    xpController = null;
+  }
 
-  items.forEach(item => item.classList.remove('is-visible'));
+  const section = select('[data-xp-section]');
+  const scroll = select('[data-xp-scroll]');
+  const viewport = select('[data-xp-viewport]');
+  const track = select('[data-experience]');
+  const rail = select('[data-xp-rail]');
+  const hint = select('[data-xp-hint]');
+  if (!section || !scroll || !viewport || !track) return;
 
-  if (!('IntersectionObserver' in window)) {
-    items.forEach(item => item.classList.add('is-visible'));
+  const panels = selectAll('.xp-panel', track);
+  const ticks = selectAll('.xp-tick', rail);
+  const count = panels.length;
+  if (!count) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const desktop = window.matchMedia('(min-width: 768px)').matches;
+  const mode = reduceMotion ? 'stacked' : desktop ? 'pinned' : 'carousel';
+
+  section.classList.remove('is-pinned', 'is-carousel', 'is-stacked');
+  section.classList.add(`is-${mode}`);
+  track.style.transform = '';
+  panels.forEach((panel) => panel.style.removeProperty('--xp-d'));
+
+  const setActive = (active) => {
+    panels.forEach((panel, i) => panel.classList.toggle('is-active', i === active));
+    ticks.forEach((tick, i) => {
+      tick.classList.toggle('is-active', i <= active);
+      tick.setAttribute('aria-current', i === active ? 'true' : 'false');
+    });
+  };
+
+  const cleanups = [];
+  const on = (target, type, handler, opts) => {
+    target.addEventListener(type, handler, opts);
+    cleanups.push(() => target.removeEventListener(type, handler, opts));
+  };
+
+  if (mode === 'pinned') {
+    let frame = 0;
+    let hinted = false;
+
+    const goTo = (index) => {
+      const start = window.scrollY + scroll.getBoundingClientRect().top;
+      window.scrollTo({ top: start + index * window.innerHeight, behavior: 'smooth' });
+    };
+
+    const render = () => {
+      frame = 0;
+      const rect = scroll.getBoundingClientRect();
+      const distance = scroll.offsetHeight - window.innerHeight;
+      const progress = distance <= 0 ? 0 : Math.min(Math.max(-rect.top / distance, 0), 1);
+      const span = Math.max(count - 1, 1);
+      const position = progress * span;
+
+      track.style.transform = `translate3d(${-position * track.clientWidth}px, 0, 0)`;
+      panels.forEach((panel, i) => {
+        panel.style.setProperty('--xp-d', Math.min(Math.abs(i - position), 1).toFixed(3));
+      });
+      if (rail) rail.style.setProperty('--xp-fill', `${(count > 1 ? progress : 1) * 100}%`);
+      setActive(Math.round(position));
+
+      if (!hinted && hint && progress > 0.02) {
+        hint.classList.add('is-hidden');
+        hinted = true;
+      }
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(render);
+    };
+
+    on(window, 'scroll', onScroll, { passive: true });
+    on(window, 'resize', onScroll);
+    ticks.forEach((tick) => on(tick, 'click', () => goTo(Number(tick.dataset.index))));
+    on(window, 'keydown', (event) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      const rect = scroll.getBoundingClientRect();
+      if (rect.top > 1 || rect.bottom < window.innerHeight) return;
+      event.preventDefault();
+      const distance = scroll.offsetHeight - window.innerHeight;
+      const progress = distance <= 0 ? 0 : Math.min(Math.max(-rect.top / distance, 0), 1);
+      const current = Math.round(progress * Math.max(count - 1, 1));
+      goTo(Math.min(Math.max(current + (event.key === 'ArrowRight' ? 1 : -1), 0), count - 1));
+    });
+
+    cleanups.push(() => {
+      if (frame) cancelAnimationFrame(frame);
+      track.style.transform = '';
+    });
+    render();
+  } else if (mode === 'carousel') {
+    const sync = () => {
+      const center = viewport.getBoundingClientRect().left + viewport.clientWidth / 2;
+      let best = 0;
+      let bestDistance = Infinity;
+      panels.forEach((panel, i) => {
+        const rect = panel.getBoundingClientRect();
+        const distance = Math.abs(rect.left + rect.width / 2 - center);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          best = i;
+        }
+      });
+      setActive(best);
+    };
+    on(viewport, 'scroll', sync, { passive: true });
+    ticks.forEach((tick) => on(tick, 'click', () => {
+      panels[Number(tick.dataset.index)].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }));
+    sync();
+  } else {
+    setActive(count - 1);
+  }
+
+  xpController = () => cleanups.forEach((fn) => fn());
+}
+
+function animateCount(element) {
+  const text = element.dataset.countText || element.textContent;
+  element.dataset.countText = text;
+
+  const match = text.match(/^(\D*)(\d[\d,]*(?:\.\d+)?)(.*)$/);
+  if (!match) return;
+
+  const [, prefix, rawNumber, suffix] = match;
+  const numberText = rawNumber.replace(/,/g, '');
+  const target = parseFloat(numberText);
+  const decimals = (numberText.split('.')[1] || '').length;
+
+  // Tiny values (e.g. "1st", "3+") read better instantly than as a count-up.
+  if (!Number.isFinite(target) || target < 5) {
+    element.textContent = text;
     return;
   }
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
+  const format = (value) => prefix + value.toLocaleString('en', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  }) + suffix;
+
+  const duration = 1100;
+  const start = performance.now();
+  const step = (now) => {
+    const ratio = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - ratio, 3);
+    element.textContent = format(target * eased);
+    if (ratio < 1) requestAnimationFrame(step);
+    else element.textContent = text;
+  };
+
+  element.textContent = format(0);
+  requestAnimationFrame(step);
+}
+
+function initCountUp(root = document) {
+  const elements = selectAll('[data-count]', root).filter((element) => !element.dataset.counted);
+  if (!elements.length) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    elements.forEach((element) => { element.dataset.counted = '1'; });
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       observer.unobserve(entry.target);
-      items.forEach((item, i) => {
-        window.setTimeout(() => item.classList.add('is-visible'), i * 220);
-      });
+      entry.target.dataset.counted = '1';
+      animateCount(entry.target);
     });
-  }, { threshold: 0.05, rootMargin: '0px 0px -5% 0px' });
+  }, { threshold: 0.6 });
 
-  observer.observe(container);
+  elements.forEach((element) => observer.observe(element));
 }
 
 function getProjectFilters(projects) {
@@ -246,7 +442,7 @@ function renderProjects() {
   container.replaceChildren();
 
   const source = state.displayProjects || state.projects;
-  const projects = (state.activeProjectFilter === 'All' || state.activeProjectFilter === 'Open Source')
+  const projects = state.activeProjectFilter === 'All'
     ? source
     : source.filter((project) => project.category === state.activeProjectFilter);
 
@@ -506,7 +702,7 @@ function initLangToggle() {
     renderMetrics(r);
     renderFocusAreas(r);
     renderExperience(r);
-    initTimelineAnimation();
+    initTimelineScroll();
     renderProjectFilters();
     renderProjects();
     renderSkills(r);
@@ -514,6 +710,7 @@ function initLangToggle() {
     renderPublications(r);
     initScrollFeedback();
     observeRevealItems();
+    initCountUp();
   });
 }
 
@@ -598,7 +795,9 @@ async function renderGitHubDashboard() {
       [user.followers, 'Followers']
     ].forEach(([val, lbl]) => {
       const stat = addReveal(createElement('div', 'gh-stat'));
-      stat.append(createElement('strong', '', String(val ?? '—')));
+      const value = createElement('strong', '', String(val ?? '—'));
+      value.setAttribute('data-count', '');
+      stat.append(value);
       stat.append(createElement('span', '', lbl));
       statsStrip.append(stat);
     });
@@ -643,6 +842,7 @@ async function renderGitHubDashboard() {
     container.replaceChildren(statsStrip, grid);
     renderMediumArticles(articles || [], container);
     observeRevealItems();
+    initCountUp(container);
   } catch {
     const msg = createElement('p', 'gh-error', 'GitHub stats unavailable — try again later.');
     container.replaceChildren(msg);
@@ -747,7 +947,13 @@ async function init() {
     initBackToTop();
     initLangToggle();
     observeRevealItems();
-    initTimelineAnimation();
+    initTimelineScroll();
+    initCountUp();
+
+    // Re-evaluate the timeline layout when the breakpoint or motion preference changes.
+    const remountTimeline = () => initTimelineScroll();
+    window.matchMedia('(min-width: 768px)').addEventListener('change', remountTimeline);
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', remountTimeline);
 
     renderGitHubDashboard().catch(() => {});
   } catch (error) {
