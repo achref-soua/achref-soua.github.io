@@ -55,7 +55,7 @@
   {
     "title": "Pulse",
     "featured": true,
-    "category": "Medical AI",
+    "category": "LLM Systems",
     "range": "2025",
     "role": "Author",
     "summary": "Clinical decision support for endovascular surgery. Full-stack app (Next.js 15 + FastAPI) with hybrid RAG over Quiver and a streaming multi-agent copilot via Groq.",
@@ -146,7 +146,8 @@
     ],
     "stack": ["Arduino", "IMU", "LSTM", "GRU", "Transformers", "Autoencoders", "Python"],
     "impact": "Published at GEEE 2024. Edge-ready AI for bionic rehabilitation.",
-    "link": "#"
+    "link": "https://cnpsi.com/PBS/Vol12/GEEE-12.pdf",
+    "linkLabel": "View Publication"
   },
   {
     "title": "Adaptive Nutrition Planner",

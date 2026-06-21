@@ -1208,11 +1208,38 @@ h3 {
 }
 
 /* ── Medium articles ──────────────────────────────────── */
+.gh-medium-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 32px 0 14px;
+}
+
 .gh-sub-heading {
   font-size: 1rem;
   font-weight: 650;
-  margin: 32px 0 14px;
+  margin: 0;
   letter-spacing: 0;
+}
+
+.gh-medium-all {
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.gh-medium-all:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.gh-medium-placeholder {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin: 0;
 }
 
 .medium-grid {
