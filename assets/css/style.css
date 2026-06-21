@@ -662,6 +662,25 @@ h3 {
   box-shadow: var(--shadow);
 }
 
+.project-card.is-featured {
+  border-top: 2px solid var(--text);
+}
+
+.project-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--surface-strong);
+  color: var(--text-invert);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
 .project-card header {
   display: grid;
   gap: 8px;

@@ -2,44 +2,44 @@
   "profile": {
     "name": "Achref SOUA",
     "initials": "AS",
-    "role": "Data Scientist",
-    "location": "Saint-Etienne, France",
-    "status": "Production AI and research engineering",
+    "role": "ML Engineer",
+    "location": "Paris, France",
+    "status": "Open to new opportunities",
     "image": "assets/achref_soua_picture.png",
     "imageAlt": "Portrait of Achref SOUA",
-    "intro": "I build reliable AI systems for language, imaging, and business workflows.",
-    "summary": "Data Scientist with 2 years of experience across language models, computer vision, medical imaging, and cloud deployment. I design end-to-end LLM and machine learning pipelines from prototype to production, with a focus on robustness, maintainability, and measurable impact."
+    "intro": "I build production ML systems — vector search in Rust, 3D medical imaging, and LLM agents.",
+    "summary": "ML Engineer with ~3 years across medical imaging, LLM systems, and open-source infrastructure. I close the gap between research-grade models and production-ready systems: 3D vascular segmentation for surgical planning, multi-agent RAG on AWS, and a security-first vector database in Rust that benchmarks 2nd on SIFT1M."
   },
   "metrics": [
     {
-      "value": "2+",
-      "label": "Years building applied AI systems"
+      "value": "3+",
+      "label": "Years shipping production ML systems"
     },
     {
-      "value": "23%",
-      "label": "Dialogue coherence improvement in long-term memory work"
+      "value": "94%",
+      "label": "Dice — 25-structure vascular segmentation at PrediSurge"
+    },
+    {
+      "value": "32×",
+      "label": "RAM reduction in Quiver vs dense HNSW at 10M vectors"
     },
     {
       "value": "1st",
-      "label": "Place in cardiac MRI diagnosis competition"
-    },
-    {
-      "value": "Top 4%",
-      "label": "NASA algal bloom detection challenge ranking"
+      "label": "Cardiac MRI diagnosis competition (100 participants)"
     }
   ],
   "focusAreas": [
     {
-      "title": "LLM Products",
-      "description": "Multi-agent assistants, RAG systems, memory, prompting, evaluation, and cloud deployment."
+      "title": "Systems & Search",
+      "description": "Vector databases, high-performance ANN (HNSW, DiskANN, IVF), SIMD kernels, and memory-efficient data structures — in Rust."
     },
     {
       "title": "Medical Imaging",
-      "description": "Segmentation, 3D mesh workflows, radiomics, and clinically useful data processing."
+      "description": "3D segmentation, DICOM/NIfTI/VTK pipelines, multi-label anatomical models, clinical decision support."
     },
     {
-      "title": "MLOps",
-      "description": "FastAPI services, AWS serverless architecture, CI/CD, experiment tracking, and reliable data pipelines."
+      "title": "LLM & Agents",
+      "description": "Multi-agent systems, RAG, long-term memory, MCP servers, and production deployment on AWS."
     }
   ],
   "contact": {
@@ -50,83 +50,84 @@
   "experience": [
     {
       "company": "PrediSurge",
-      "role": "Data Scientist",
-      "location": "Saint-Etienne, France",
-      "range": "Oct 2025 - Present",
-      "summary": "Developing advanced medical imaging solutions for cardiovascular interventions, with work spanning segmentation, 3D geometry, and clinical data operations.",
+      "role": "ML Engineer",
+      "location": "Saint-Étienne, France",
+      "range": "Oct 2025 – Present",
+      "summary": "Building medical imaging infrastructure for endovascular surgery planning — from raw CT scans to stent recommendations.",
       "highlights": [
-        "Segment complex cardiovascular anatomy from CT and MRI imaging.",
-        "Generate and refine 3D meshes from segmentation masks for surgical planning.",
-        "Build validation, normalization, and quality assurance workflows for medical datasets.",
-        "Collaborate with physicians and medical device teams to keep tooling clinically relevant."
+        "Automated DICOM→NIfTI pipeline with quality-based series selection, eliminating manual CT sorting for the ISizing product.",
+        "Trained 25-structure vascular segmentation model in PyTorch — 94% global Dice across complex aortic anatomy.",
+        "VTK sizing pipeline: 3D meshes + centerlines → per-label diameters, volumes, angulation, and tortuosity in ~1 min/case.",
+        "Stent recommendation engine for visceral arteries fed by the sizing output.",
+        "Central data registry (NIfTI + metadata) versioned with DVC for reproducible training sets."
       ],
-      "tools": ["Medical Imaging", "Segmentation", "3D Meshes", "Data Pipelines", "Python"]
+      "tools": ["PyTorch", "VTK", "DICOM", "NIfTI", "DVC", "3D Segmentation", "Python"]
     },
     {
       "company": "Moovto",
-      "role": "Data Scientist",
+      "role": "ML Engineer",
       "location": "Paris, France",
-      "range": "Jan 2025 - Aug 2025",
-      "summary": "Built an advanced multi-agent FinOps assistant with LLaMA 3 for modular cost analysis and optimization workflows.",
+      "range": "Jan 2025 – Sept 2025",
+      "summary": "Built a multi-agent FinOps assistant that cut cloud cost analysis time from hours to minutes.",
       "highlights": [
-        "Designed LangGraph agents for financial cost analysis and recommendations.",
-        "Optimized long-term memory for multi-turn dialogue, improving coherence by 23%.",
-        "Deployed scalable services with AWS Lambda, S3, Bedrock, and CI/CD pipelines."
+        "Designed LangGraph agents for modular cost analysis, forecasting, and optimization recommendations.",
+        "Optimized long-term memory for multi-turn dialogue — +23% coherence on internal benchmarks.",
+        "Deployed serverless stack on AWS Lambda, S3, and Bedrock with full CI/CD."
       ],
-      "tools": ["LLaMA 3", "LangGraph", "AWS Lambda", "AWS Bedrock", "S3", "CI/CD"]
+      "tools": ["LLaMA 3", "LangGraph", "AWS Lambda", "AWS Bedrock", "FastAPI", "CI/CD"]
     },
     {
-      "company": "Intellect Core Advisory and Solutions SARL",
-      "role": "Data Scientist",
+      "company": "Intellect Core SARL",
+      "role": "ML Engineer",
       "location": "Grombalia, Tunisia",
-      "range": "Nov 2023 - Dec 2024",
-      "summary": "Created vector search infrastructure and developed a production-oriented RAG chatbot with open-source and proprietary LLMs.",
+      "range": "Nov 2023 – Dec 2024",
+      "summary": "Designed vector search infrastructure and shipped a production RAG chatbot that cut support tickets by 50%.",
       "highlights": [
-        "Designed a complete vector database workflow with LangChain.",
-        "Integrated LLaMA 2, LeoLM, GPT-4, Mistral, and AWS Bedrock.",
-        "Improved chatbot interactions through prompt engineering, retrieval tuning, and scalable serverless deployment."
+        "End-to-end vector database and RAG chatbot (LangChain) deployed serverless on AWS.",
+        "Integrated open-source models (LLaMA 2, LeoLM) and proprietary APIs (GPT-4, Mistral).",
+        "−50% support tickets after launch."
       ],
-      "tools": ["RAG", "Vector Databases", "LangChain", "GPT-4", "Mistral", "AWS"]
+      "tools": ["RAG", "LangChain", "LLaMA 2", "GPT-4", "Mistral", "AWS", "Vector Databases"]
     }
   ],
   "education": [
     {
-      "institution": "ESPRIT - Ecole Superieure Privee d'Ingenierie et de Technologies",
-      "degree": "Engineering Degree in Computer Science, AI",
-      "range": "Sept 2020 - Aug 2023",
+      "institution": "ESPRIT – École Supérieure Privée d'Ingénierie et de Technologies",
+      "degree": "Engineering Degree in Computer Science (AI specialization)",
+      "range": "Sept 2020 – Aug 2023",
       "location": "Tunis, Tunisia"
     },
     {
       "institution": "Faculty of Sciences of Monastir",
-      "degree": "Preparatory Cycle - Physics and Chemistry",
-      "range": "Sept 2018 - Jul 2020",
+      "degree": "Preparatory Cycle – Physics and Chemistry",
+      "range": "Sept 2018 – Jul 2020",
       "location": "Monastir, Tunisia"
     }
   ],
   "skills": [
     {
-      "group": "AI and ML",
-      "items": ["PyTorch", "TensorFlow", "Scikit-learn", "Hugging Face", "Deep Learning", "Computer Vision", "NLP"]
+      "group": "Languages",
+      "items": ["Python", "Rust", "TypeScript", "SQL", "C++"]
     },
     {
-      "group": "LLM Systems",
-      "items": ["LangChain", "LangGraph", "RAG", "Prompt Engineering", "Embeddings", "Vector Databases", "LLaMA", "GPT-4", "Mistral"]
+      "group": "LLM & Agents",
+      "items": ["LangChain", "LangGraph", "RAG", "Multi-agent", "MCP", "Embeddings", "Groq", "Hugging Face", "Prompt Engineering"]
     },
     {
-      "group": "Data and Backend",
-      "items": ["Python", "R", "SQL", "NumPy", "Pandas", "FastAPI", "ReportLab", "Streamlit"]
+      "group": "ML & Vision",
+      "items": ["PyTorch", "TensorFlow", "scikit-learn", "3D Segmentation", "DICOM / NIfTI", "VTK", "ONNX", "XGBoost", "OpenCV"]
     },
     {
-      "group": "Cloud and MLOps",
-      "items": ["AWS", "Lambda", "S3", "Bedrock", "Docker", "Kubernetes", "CI/CD", "Git"]
+      "group": "Vector Search",
+      "items": ["HNSW", "DiskANN", "IVF", "Quantization", "SIMD", "pgvector", "ChromaDB"]
     },
     {
-      "group": "Optimization",
-      "items": ["Optuna", "LightGBM", "XGBoost", "Genetic Algorithms", "Q-Learning", "Experiment Tracking"]
+      "group": "MLOps & Cloud",
+      "items": ["AWS (Lambda, S3, Bedrock)", "Docker", "Kubernetes", "CI/CD", "DVC", "Temporal", "FastAPI"]
     },
     {
-      "group": "Applied Domains",
-      "items": ["Medical Imaging", "Radiomics", "FinOps", "Remote Sensing", "Embedded Systems", "Recommendation Systems"]
+      "group": "Data",
+      "items": ["ClickHouse", "PostgreSQL", "Redis", "Redpanda", "Prisma", "SQLModel"]
     }
   ],
   "publications": [

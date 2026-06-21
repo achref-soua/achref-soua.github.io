@@ -1,7 +1,7 @@
 const paths = {
-  site: 'data/site.json?v=20260429-2',
-  resume: 'data/resume.json?v=20260429-2',
-  projects: 'data/projects.json?v=20260429-2'
+  site: 'data/site.json?v=20260621-1',
+  resume: 'data/resume.json?v=20260621-1',
+  projects: 'data/projects.json?v=20260621-1'
 };
 
 const state = {
@@ -219,7 +219,9 @@ function renderProjects() {
 
   projects.forEach((project) => {
     const article = addReveal(createElement('article', 'project-card'));
+    if (project.featured) article.classList.add('is-featured');
     const header = document.createElement('header');
+    if (project.featured) header.append(createElement('span', 'project-badge', 'Featured'));
     header.append(createElement('div', 'project-meta', `${project.category} - ${project.range}`));
     header.append(createElement('h3', '', project.title));
 
