@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20260621-6',
-  resume: 'data/resume.json?v=20260621-6',
-  projects: 'data/projects.json?v=20260621-6',
-  i18nFr: 'data/i18n.fr.json?v=20260621-6'
+  site: 'data/site.json?v=20260621-7',
+  resume: 'data/resume.json?v=20260621-7',
+  projects: 'data/projects.json?v=20260621-7',
+  i18nFr: 'data/i18n.fr.json?v=20260621-7'
 };
 
 const state = {
@@ -431,6 +431,7 @@ function renderProjectFilters() {
       renderProjectFilters();
       renderProjects();
       observeRevealItems();
+      constellationApi?.applyFilter();
     });
     container.append(button);
   });
@@ -476,6 +477,331 @@ function renderProjects() {
 
     container.append(article);
   });
+}
+
+let constellationApi = null;
+
+function initConstellation() {
+  if (constellationApi) {
+    constellationApi.destroy();
+    constellationApi = null;
+  }
+
+  const section = select('[data-projects-section]');
+  const stage = select('[data-constellation-stage]');
+  const canvas = select('[data-constellation-canvas]');
+  const nodesLayer = select('[data-constellation-nodes]');
+  const detail = select('[data-constellation-detail]');
+  const hint = select('[data-constellation-hint]');
+  if (!section || !stage || !canvas || !nodesLayer) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const wide = window.matchMedia('(min-width: 860px)').matches;
+  const graphMode = wide && canHover && !reduceMotion;
+
+  section.classList.toggle('is-graph', graphMode);
+  section.classList.toggle('is-grid', !graphMode);
+
+  if (!graphMode) {
+    nodesLayer.replaceChildren();
+    detail?.classList.remove('is-visible');
+    return;
+  }
+
+  const projects = state.displayProjects || state.projects || [];
+  if (!projects.length) return;
+
+  // ── Model: center → category hubs → project nodes ─────────────
+  const categories = [...new Set(projects.map((p) => p.category).filter(Boolean))];
+  const nodes = [];
+  const edges = [];
+  const byId = new Map();
+
+  const center = { id: '__center', type: 'center', label: state.resume?.profile?.initials || 'AS', z: 0, nx: 0, ny: 0, phase: 0 };
+  nodes.push(center);
+
+  categories.forEach((cat, i) => {
+    const ang = -Math.PI / 2 + i * ((Math.PI * 2) / categories.length);
+    const catNode = {
+      id: 'cat:' + cat, type: 'category', label: cat, cat, z: 0.5, phase: i * 1.3,
+      nx: Math.cos(ang) * 0.4, ny: Math.sin(ang) * 0.38
+    };
+    nodes.push(catNode);
+    edges.push({ a: center, b: catNode, curve: i % 2 ? 1 : -1, alpha: 0.001, target: 0.5, hot: false });
+
+    const members = projects.filter((p) => p.category === cat);
+    members.forEach((proj, j) => {
+      const spread = Math.PI * 0.66;
+      const t = members.length === 1 ? 0 : (j / (members.length - 1) - 0.5);
+      const pang = ang + t * spread;
+      const reach = 0.24 * (1 + (j % 2) * 0.28);
+      const node = {
+        id: 'proj:' + proj.title, type: 'project', proj, cat, z: 0.9, featured: !!proj.featured,
+        phase: i * 1.3 + j * 0.9 + 0.5,
+        nx: catNode.nx + Math.cos(pang) * reach, ny: catNode.ny + Math.sin(pang) * reach
+      };
+      nodes.push(node);
+      edges.push({ a: catNode, b: node, curve: (i + j) % 2 ? 1 : -1, alpha: 0.001, target: 0.5, hot: false });
+    });
+  });
+
+  nodes.forEach((n) => byId.set(n.id, n));
+
+  const neighbors = new Map();
+  const link = (x, y) => {
+    if (!neighbors.has(x)) neighbors.set(x, new Set());
+    neighbors.get(x).add(y);
+  };
+  edges.forEach((e) => { link(e.a.id, e.b.id); link(e.b.id, e.a.id); });
+
+  // ── Interaction state + detail card ───────────────────────────
+  const cleanups = [];
+  const on = (target, type, handler, opts) => {
+    target.addEventListener(type, handler, opts);
+    cleanups.push(() => target.removeEventListener(type, handler, opts));
+  };
+
+  let hoverId = null;
+  let pinId = null;
+
+  const showDetail = (proj) => {
+    if (!detail) return null;
+    detail.replaceChildren();
+    detail.append(createElement('div', 'cst-detail-meta', `${proj.category} · ${proj.range}`));
+    detail.append(createElement('h3', 'cst-detail-title', proj.title));
+    detail.append(createElement('p', 'cst-detail-summary', proj.summary));
+    if (proj.stack?.length) detail.append(createTagRow(proj.stack.slice(0, 6)));
+    if (proj.impact) detail.append(createElement('p', 'impact-line', proj.impact));
+    let detailLink = null;
+    if (proj.link && proj.link !== '#') {
+      detailLink = createElement('a', 'project-link cst-detail-link', proj.linkLabel || 'Open project');
+      detailLink.href = proj.link;
+      detailLink.target = '_blank';
+      detailLink.rel = 'noopener noreferrer';
+      detail.append(detailLink);
+    }
+    detail.classList.add('is-visible');
+    hint?.classList.add('is-hidden');
+    return detailLink;
+  };
+
+  const showPrompt = () => {
+    if (!detail) return;
+    detail.replaceChildren();
+    detail.append(createElement('div', 'cst-detail-meta', `${projects.length} projects · ${categories.length} areas`));
+    detail.append(createElement('h3', 'cst-detail-title', 'Explore the map'));
+    detail.append(createElement('p', 'cst-detail-summary', 'Hover or tap any node to open a project. Click a hub to filter by area. Scroll to set the map in motion.'));
+    detail.classList.add('is-visible');
+    hint?.classList.remove('is-hidden');
+  };
+
+  const filteredOut = (node) => {
+    const f = state.activeProjectFilter;
+    if (!f || f === 'All') return false;
+    if (node.type === 'project' || node.type === 'category') return node.cat !== f;
+    return false;
+  };
+
+  const computeActive = () => {
+    const activeId = hoverId || pinId;
+    const near = activeId ? neighbors.get(activeId) : null;
+    nodes.forEach((node) => {
+      const out = filteredOut(node);
+      node.el.classList.toggle('is-dim', out);
+      const focused = activeId && (node.id === activeId || (near && near.has(node.id)));
+      node.el.classList.toggle('is-active', !!(activeId && node.id === activeId));
+      node.el.classList.toggle('is-muted', !!(activeId && !focused && !out));
+    });
+    edges.forEach((e) => {
+      const out = filteredOut(e.a) || filteredOut(e.b);
+      const touches = activeId && (e.a.id === activeId || e.b.id === activeId);
+      e.hot = !!touches;
+      e.target = out ? 0.06 : touches ? 0.9 : activeId ? 0.12 : 0.42;
+    });
+  };
+
+  const setHover = (node) => {
+    hoverId = node.id;
+    if (node.type === 'project') showDetail(node.proj);
+    computeActive();
+  };
+  const clearHover = () => {
+    hoverId = null;
+    const pinned = pinId ? byId.get(pinId) : null;
+    if (pinned?.proj) showDetail(pinned.proj);
+    else showPrompt();
+    computeActive();
+  };
+  const pinNode = (node) => {
+    pinId = node.id;
+    const detailLink = showDetail(node.proj);
+    computeActive();
+    detailLink?.focus({ preventScroll: true });
+  };
+  const filterByCategory = (cat) => {
+    state.activeProjectFilter = state.activeProjectFilter === cat ? 'All' : cat;
+    renderProjectFilters();
+    renderProjects();
+    observeRevealItems();
+    computeActive();
+  };
+
+  // ── DOM nodes ─────────────────────────────────────────────────
+  nodesLayer.replaceChildren();
+  nodes.forEach((node) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `cst-node is-${node.type}`;
+    if (node.featured) button.classList.add('is-featured');
+    node.el = button;
+
+    const dot = createElement('span', 'cst-dot');
+    if (node.type === 'center') dot.textContent = node.label;
+    button.append(dot);
+
+    if (node.type !== 'center') {
+      button.append(createElement('span', 'cst-label', node.label || node.proj?.title || ''));
+    }
+
+    if (node.type === 'project') {
+      button.setAttribute('aria-label', `${node.proj.title}, ${node.proj.category} project — show details`);
+      button.append(createElement('span', 'visually-hidden', `${node.proj.summary} ${node.proj.impact || ''}`));
+      on(button, 'pointerenter', () => setHover(node));
+      on(button, 'focus', () => setHover(node));
+      on(button, 'pointerleave', clearHover);
+      on(button, 'blur', clearHover);
+      on(button, 'click', () => pinNode(node));
+    } else if (node.type === 'category') {
+      button.setAttribute('aria-label', `Highlight and filter ${node.label} projects`);
+      on(button, 'pointerenter', () => setHover(node));
+      on(button, 'focus', () => setHover(node));
+      on(button, 'pointerleave', clearHover);
+      on(button, 'blur', clearHover);
+      on(button, 'click', () => filterByCategory(node.cat));
+    } else {
+      button.setAttribute('aria-label', 'Achref Soua — reset project filter');
+      on(button, 'click', () => filterByCategory('All'));
+    }
+    nodesLayer.append(button);
+  });
+
+  computeActive();
+  showPrompt();
+
+  // ── Canvas + animation loop ───────────────────────────────────
+  const ctx = canvas.getContext('2d');
+  const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+  let raf = 0;
+  let running = false;
+  let pointerInside = false;
+  let calm = 0;
+  let lastW = 0;
+  let lastH = 0;
+  const startTime = performance.now();
+
+  const readColor = (name, fallback) => {
+    const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return value || fallback;
+  };
+
+  const frame = (now) => {
+    const t = (now - startTime) / 1000;
+    const W = stage.clientWidth;
+    const H = stage.clientHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    if (W !== lastW || H !== lastH) {
+      lastW = W; lastH = H;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+
+    const cx = W / 2;
+    const cy = H / 2;
+    const scaleX = (W / 2) * 0.9;
+    const scaleY = (H / 2) * 0.9;
+
+    const rect = stage.getBoundingClientRect();
+    const scrollP = Math.min(Math.max((window.innerHeight - rect.top) / (window.innerHeight + rect.height), 0), 1);
+    // Rotation is driven by scroll position only — the map is still when idle, so nodes stay easy to hover.
+    const rotation = (scrollP - 0.5) * 0.62;
+
+    mouse.x += (mouse.tx - mouse.x) * 0.07;
+    mouse.y += (mouse.ty - mouse.y) * 0.07;
+    // Settle the ambient float while the pointer is on the map, so targets hold still.
+    calm += ((pointerInside ? 1 : 0) - calm) * 0.08;
+    const floatAmp = 5 * (1 - calm * 0.82);
+    const cos = Math.cos(rotation);
+    const sin = Math.sin(rotation);
+
+    nodes.forEach((node) => {
+      const rx = node.nx * cos - node.ny * sin;
+      const ry = node.nx * sin + node.ny * cos;
+      let x = cx + rx * scaleX;
+      let y = cy + ry * scaleY;
+      x += Math.sin(t * 0.7 + node.phase) * floatAmp * (0.4 + node.z);
+      y += Math.cos(t * 0.6 + node.phase) * floatAmp * (0.4 + node.z);
+      x += mouse.x * 30 * node.z;
+      y += mouse.y * 20 * node.z;
+      node.x = x;
+      node.y = y;
+      node.el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+    });
+
+    const cBase = readColor('--line-strong', '#bcbcbc');
+    const cHot = readColor('--text', '#0b0b0c');
+    edges.forEach((e) => {
+      e.alpha += (e.target - e.alpha) * 0.12;
+      const mx = (e.a.x + e.b.x) / 2;
+      const my = (e.a.y + e.b.y) / 2;
+      const dx = e.b.x - e.a.x;
+      const dy = e.b.y - e.a.y;
+      const len = Math.hypot(dx, dy) || 1;
+      const amt = e.curve * len * 0.08;
+      const ctrlX = mx + (-dy / len) * amt;
+      const ctrlY = my + (dx / len) * amt;
+      ctx.beginPath();
+      ctx.moveTo(e.a.x, e.a.y);
+      ctx.quadraticCurveTo(ctrlX, ctrlY, e.b.x, e.b.y);
+      ctx.strokeStyle = e.hot ? cHot : cBase;
+      ctx.globalAlpha = Math.max(e.alpha, 0);
+      ctx.lineWidth = e.hot ? 1.7 : 1;
+      ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+
+    raf = requestAnimationFrame(frame);
+  };
+
+  const startLoop = () => { if (!running) { running = true; raf = requestAnimationFrame(frame); } };
+  const stopLoop = () => { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; };
+
+  on(stage, 'pointerenter', () => { pointerInside = true; });
+  on(stage, 'pointermove', (event) => {
+    pointerInside = true;
+    const rect = stage.getBoundingClientRect();
+    mouse.tx = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    mouse.ty = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+  });
+  on(stage, 'pointerleave', () => { pointerInside = false; mouse.tx = 0; mouse.ty = 0; });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => (entry.isIntersecting ? startLoop() : stopLoop()));
+  }, { threshold: 0 });
+  io.observe(stage);
+
+  constellationApi = {
+    applyFilter: computeActive,
+    destroy: () => {
+      stopLoop();
+      io.disconnect();
+      cleanups.forEach((fn) => fn());
+      nodesLayer.replaceChildren();
+    }
+  };
 }
 
 function renderSkills(resume) {
@@ -705,6 +1031,7 @@ function initLangToggle() {
     initTimelineScroll();
     renderProjectFilters();
     renderProjects();
+    initConstellation();
     renderSkills(r);
     renderEducation(r);
     renderPublications(r);
@@ -948,12 +1275,15 @@ async function init() {
     initLangToggle();
     observeRevealItems();
     initTimelineScroll();
+    initConstellation();
     initCountUp();
 
-    // Re-evaluate the timeline layout when the breakpoint or motion preference changes.
-    const remountTimeline = () => initTimelineScroll();
-    window.matchMedia('(min-width: 768px)').addEventListener('change', remountTimeline);
-    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', remountTimeline);
+    // Re-evaluate scroll-driven scenes when the breakpoint or motion preference changes.
+    const remountScenes = () => { initTimelineScroll(); initConstellation(); };
+    window.matchMedia('(min-width: 768px)').addEventListener('change', remountScenes);
+    window.matchMedia('(min-width: 860px)').addEventListener('change', remountScenes);
+    window.matchMedia('(hover: hover)').addEventListener('change', remountScenes);
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', remountScenes);
 
     renderGitHubDashboard().catch(() => {});
   } catch (error) {
