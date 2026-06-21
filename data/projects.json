@@ -71,21 +71,6 @@
     "linkLabel": "View on GitHub"
   },
   {
-    "title": "Surgical RAG Copilot",
-    "category": "Medical AI",
-    "range": "2024",
-    "role": "Lead Developer",
-    "summary": "Multi-agent RAG assistant for cardiac surgery workflows — pre-op, intra-op, and post-op patient decision support, validated with physicians.",
-    "highlights": [
-      "ChromaDB vector database for cardiac surgery knowledge retrieval.",
-      "LangGraph agent flows for personalized patient context and stent recommendation logic.",
-      "Validated with physicians during clinical testing."
-    ],
-    "stack": ["RAG", "ChromaDB", "LangGraph", "LangChain", "Streamlit"],
-    "impact": "Clinical workflow support for high-context surgical decisions.",
-    "link": "#"
-  },
-  {
     "title": "AI Resume Tailor",
     "category": "LLM Systems",
     "range": "2024",

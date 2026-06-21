@@ -30,6 +30,7 @@
     { "label": "Experience", "href": "#experience" },
     { "label": "Projects", "href": "#projects" },
     { "label": "Skills", "href": "#skills" },
+    { "label": "GitHub", "href": "#github" },
     { "label": "Education", "href": "#education" },
     { "label": "Contact", "href": "#contact" }
   ],
@@ -65,6 +66,11 @@
       "title": "Technical Range",
       "intro": "From SIMD kernels in Rust to DICOM pipelines in Python to multi-agent LLM systems."
     },
+    "github": {
+      "label": "GitHub",
+      "title": "Activity",
+      "intro": "Live stats and top repositories pulled from the GitHub API."
+    },
     "education": {
       "label": "Education",
       "title": "Education",
@@ -80,5 +86,43 @@
     "eyebrow": "Contact",
     "title": "Let's build something useful.",
     "intro": "Open to ML engineering roles, research collaborations, and interesting problems. Email is the fastest path."
+  },
+  "i18n": {
+    "fr": {
+      "navigation": [
+        { "label": "À propos", "href": "#about" },
+        { "label": "Expérience", "href": "#experience" },
+        { "label": "Projets", "href": "#projects" },
+        { "label": "Compétences", "href": "#skills" },
+        { "label": "GitHub", "href": "#github" },
+        { "label": "Formation", "href": "#education" },
+        { "label": "Contact", "href": "#contact" }
+      ],
+      "hero": {
+        "eyebrow": "Ingénieur ML · Paris, France",
+        "subheadline": "Je construis des systèmes qui tiennent en production — bases vectorielles en Rust, pipelines d'imagerie médicale 3D, agents LLM multi-acteurs et plateformes open-source.",
+        "primaryAction": { "label": "Projets sélectionnés", "href": "#projects" },
+        "secondaryAction": { "label": "Expérience", "href": "#experience" }
+      },
+      "sections": {
+        "about": { "label": "À propos", "title": "Ingénieur ML orienté systèmes." },
+        "experience": { "label": "Expérience", "title": "Parcours", "intro": "Postes en production : imagerie médicale, IA cloud et systèmes de recherche vectorielle." },
+        "projects": { "label": "Projets", "title": "Travaux sélectionnés", "intro": "Systèmes open-source, IA médicale et applications LLM — conçus pour la production." },
+        "skills": { "label": "Compétences", "title": "Éventail technique", "intro": "Des noyaux SIMD en Rust aux pipelines DICOM en Python." },
+        "github": { "label": "GitHub", "title": "Activité", "intro": "Statistiques en temps réel et dépôts principaux depuis l'API GitHub publique." },
+        "education": { "label": "Formation", "title": "Formation", "intro": "Diplôme d'ingénieur en informatique, spécialisation IA." },
+        "publications": { "label": "Publication", "title": "Recherche", "intro": "Travaux publiés à l'intersection de l'IA et de l'ingénierie appliquée." }
+      },
+      "contact": {
+        "eyebrow": "Contact",
+        "title": "Construisons quelque chose d'utile.",
+        "intro": "Ouvert aux postes d'ingénieur ML, aux collaborations de recherche et aux problèmes intéressants. L'email est le moyen le plus rapide."
+      },
+      "profile": {
+        "intro": "Je construis des systèmes ML en production — recherche vectorielle en Rust, imagerie médicale 3D et agents LLM.",
+        "summary": "Ingénieur ML avec ~3 ans d'expérience en imagerie médicale, systèmes LLM et infrastructure open-source. Je comble le fossé entre les modèles de recherche et les systèmes prêts pour la production.",
+        "status": "Ouvert aux nouvelles opportunités"
+      }
+    }
   }
 }
