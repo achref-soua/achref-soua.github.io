@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20260621-7',
-  resume: 'data/resume.json?v=20260621-7',
-  projects: 'data/projects.json?v=20260621-7',
-  i18nFr: 'data/i18n.fr.json?v=20260621-7'
+  site: 'data/site.json?v=20260621-8',
+  resume: 'data/resume.json?v=20260621-8',
+  projects: 'data/projects.json?v=20260621-8',
+  i18nFr: 'data/i18n.fr.json?v=20260621-8'
 };
 
 const state = {
@@ -512,48 +512,36 @@ function initConstellation() {
   const projects = state.displayProjects || state.projects || [];
   if (!projects.length) return;
 
-  // ── Model: center → category hubs → project nodes ─────────────
+  // ── Model: an orrery. Each project rides an orbit inside its discipline's sector.
   const categories = [...new Set(projects.map((p) => p.category).filter(Boolean))];
+  const ORBITS = [0.4, 0.58, 0.76];
+  const sectorCount = Math.max(categories.length, 1);
   const nodes = [];
-  const edges = [];
+  const connectors = [];
   const byId = new Map();
 
-  const center = { id: '__center', type: 'center', label: state.resume?.profile?.initials || 'AS', z: 0, nx: 0, ny: 0, phase: 0 };
+  const center = { id: '__center', type: 'center', label: state.resume?.profile?.initials || 'AS', r: 0, ang: 0, orbit: 0 };
   nodes.push(center);
 
   categories.forEach((cat, i) => {
-    const ang = -Math.PI / 2 + i * ((Math.PI * 2) / categories.length);
-    const catNode = {
-      id: 'cat:' + cat, type: 'category', label: cat, cat, z: 0.5, phase: i * 1.3,
-      nx: Math.cos(ang) * 0.4, ny: Math.sin(ang) * 0.38
-    };
-    nodes.push(catNode);
-    edges.push({ a: center, b: catNode, curve: i % 2 ? 1 : -1, alpha: 0.001, target: 0.5, hot: false });
+    const base = -Math.PI / 2 + i * ((Math.PI * 2) / sectorCount);
+    const half = (Math.PI / sectorCount) * 0.6;
+    nodes.push({ id: 'cat:' + cat, type: 'category', label: cat, cat, r: 0.88, ang: base, orbit: 0.88 });
 
     const members = projects.filter((p) => p.category === cat);
     members.forEach((proj, j) => {
-      const spread = Math.PI * 0.66;
       const t = members.length === 1 ? 0 : (j / (members.length - 1) - 0.5);
-      const pang = ang + t * spread;
-      const reach = 0.24 * (1 + (j % 2) * 0.28);
+      const orbit = ORBITS[j % ORBITS.length];
       const node = {
-        id: 'proj:' + proj.title, type: 'project', proj, cat, z: 0.9, featured: !!proj.featured,
-        phase: i * 1.3 + j * 0.9 + 0.5,
-        nx: catNode.nx + Math.cos(pang) * reach, ny: catNode.ny + Math.sin(pang) * reach
+        id: 'proj:' + proj.title, type: 'project', proj, cat, featured: !!proj.featured,
+        r: orbit, orbit, ang: base + t * 2 * half
       };
       nodes.push(node);
-      edges.push({ a: catNode, b: node, curve: (i + j) % 2 ? 1 : -1, alpha: 0.001, target: 0.5, hot: false });
+      connectors.push(node);
     });
   });
 
   nodes.forEach((n) => byId.set(n.id, n));
-
-  const neighbors = new Map();
-  const link = (x, y) => {
-    if (!neighbors.has(x)) neighbors.set(x, new Set());
-    neighbors.get(x).add(y);
-  };
-  edges.forEach((e) => { link(e.a.id, e.b.id); link(e.b.id, e.a.id); });
 
   // ── Interaction state + detail card ───────────────────────────
   const cleanups = [];
@@ -570,8 +558,10 @@ function initConstellation() {
     detail.replaceChildren();
     detail.append(createElement('div', 'cst-detail-meta', `${proj.category} · ${proj.range}`));
     detail.append(createElement('h3', 'cst-detail-title', proj.title));
+    if (proj.role) detail.append(createElement('div', 'cst-detail-role', proj.role));
+    detail.append(createElement('span', 'cst-detail-rule', ''));
     detail.append(createElement('p', 'cst-detail-summary', proj.summary));
-    if (proj.stack?.length) detail.append(createTagRow(proj.stack.slice(0, 6)));
+    if (proj.stack?.length) detail.append(createTagRow(proj.stack.slice(0, 7)));
     if (proj.impact) detail.append(createElement('p', 'impact-line', proj.impact));
     let detailLink = null;
     if (proj.link && proj.link !== '#') {
@@ -582,6 +572,7 @@ function initConstellation() {
       detail.append(detailLink);
     }
     detail.classList.add('is-visible');
+    detail.classList.remove('is-prompt');
     hint?.classList.add('is-hidden');
     return detailLink;
   };
@@ -589,10 +580,11 @@ function initConstellation() {
   const showPrompt = () => {
     if (!detail) return;
     detail.replaceChildren();
-    detail.append(createElement('div', 'cst-detail-meta', `${projects.length} projects · ${categories.length} areas`));
-    detail.append(createElement('h3', 'cst-detail-title', 'Explore the map'));
-    detail.append(createElement('p', 'cst-detail-summary', 'Hover or tap any node to open a project. Click a hub to filter by area. Scroll to set the map in motion.'));
-    detail.classList.add('is-visible');
+    detail.append(createElement('div', 'cst-detail-meta', `${projects.length} projects · ${categories.length} disciplines`));
+    detail.append(createElement('h3', 'cst-detail-title', 'The work, mapped'));
+    detail.append(createElement('span', 'cst-detail-rule', ''));
+    detail.append(createElement('p', 'cst-detail-summary', 'Every point is a project, set on an orbit within its discipline. Hover or focus a point to read it, click a rim label to isolate a discipline, and scroll to turn the dial.'));
+    detail.classList.add('is-visible', 'is-prompt');
     hint?.classList.remove('is-hidden');
   };
 
@@ -605,19 +597,13 @@ function initConstellation() {
 
   const computeActive = () => {
     const activeId = hoverId || pinId;
-    const near = activeId ? neighbors.get(activeId) : null;
+    const activeNode = activeId ? byId.get(activeId) : null;
     nodes.forEach((node) => {
       const out = filteredOut(node);
+      const focused = activeNode && (node.id === activeId || node.type === 'center' || (activeNode.cat && node.cat === activeNode.cat));
       node.el.classList.toggle('is-dim', out);
-      const focused = activeId && (node.id === activeId || (near && near.has(node.id)));
-      node.el.classList.toggle('is-active', !!(activeId && node.id === activeId));
-      node.el.classList.toggle('is-muted', !!(activeId && !focused && !out));
-    });
-    edges.forEach((e) => {
-      const out = filteredOut(e.a) || filteredOut(e.b);
-      const touches = activeId && (e.a.id === activeId || e.b.id === activeId);
-      e.hot = !!touches;
-      e.target = out ? 0.06 : touches ? 0.9 : activeId ? 0.12 : 0.42;
+      node.el.classList.toggle('is-active', !!(activeNode && node.id === activeId));
+      node.el.classList.toggle('is-muted', !!(activeNode && !focused && !out));
     });
   };
 
@@ -689,28 +675,46 @@ function initConstellation() {
   computeActive();
   showPrompt();
 
-  // ── Canvas + animation loop ───────────────────────────────────
+  // ── Canvas instrument + animation loop ────────────────────────
   const ctx = canvas.getContext('2d');
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
   let raf = 0;
   let running = false;
   let pointerInside = false;
-  let calm = 0;
   let lastW = 0;
   let lastH = 0;
-  const startTime = performance.now();
+  let last = performance.now();
+  let tickRot = 0;
+  let squareRot = 0;
+  let haloPhase = 0;
+  let engage = 0;
 
   const readColor = (name, fallback) => {
     const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     return value || fallback;
   };
 
+  const radial = (cx, cy, a, r1, r2) => {
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1);
+    ctx.lineTo(cx + Math.cos(a) * r2, cy + Math.sin(a) * r2);
+    ctx.stroke();
+  };
+  const ring = (cx, cy, radius, color, alpha, width = 1) => {
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.strokeStyle = color;
+    ctx.globalAlpha = alpha;
+    ctx.lineWidth = width;
+    ctx.stroke();
+  };
+
   const frame = (now) => {
-    const t = (now - startTime) / 1000;
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
     const W = stage.clientWidth;
     const H = stage.clientHeight;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
     if (W !== lastW || H !== lastH) {
       lastW = W; lastH = H;
       canvas.width = W * dpr;
@@ -719,60 +723,121 @@ function initConstellation() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
-    const cx = W / 2;
-    const cy = H / 2;
-    const scaleX = (W / 2) * 0.9;
-    const scaleY = (H / 2) * 0.9;
+    const activeId = hoverId || pinId;
+    const activeNode = activeId ? byId.get(activeId) : null;
+
+    // Decorative layers spin continuously; nodes turn with scroll only (so they stay easy to target).
+    tickRot += dt * 0.05;
+    squareRot -= dt * 0.035;
+    haloPhase += dt * 1.9;
+    engage += ((activeNode && activeNode.type === 'project' ? 1 : 0) - engage) * 0.12;
+
+    mouse.x += (mouse.tx - mouse.x) * 0.06;
+    mouse.y += (mouse.ty - mouse.y) * 0.06;
 
     const rect = stage.getBoundingClientRect();
     const scrollP = Math.min(Math.max((window.innerHeight - rect.top) / (window.innerHeight + rect.height), 0), 1);
-    // Rotation is driven by scroll position only — the map is still when idle, so nodes stay easy to hover.
-    const rotation = (scrollP - 0.5) * 0.62;
+    const nodeRot = (scrollP - 0.5) * 0.5;
 
-    mouse.x += (mouse.tx - mouse.x) * 0.07;
-    mouse.y += (mouse.ty - mouse.y) * 0.07;
-    // Settle the ambient float while the pointer is on the map, so targets hold still.
-    calm += ((pointerInside ? 1 : 0) - calm) * 0.08;
-    const floatAmp = 5 * (1 - calm * 0.82);
-    const cos = Math.cos(rotation);
-    const sin = Math.sin(rotation);
+    const cx = W / 2 + mouse.x * 14;
+    const cy = H / 2 + mouse.y * 10;
+    const R = Math.min(W, H) * 0.42;
+
+    const cText = readColor('--text', '#0b0b0c');
+    const cLine = readColor('--line', '#dedede');
+    const cStrong = readColor('--line-strong', '#bcbcbc');
+    const cMuted = readColor('--muted', '#696969');
 
     nodes.forEach((node) => {
-      const rx = node.nx * cos - node.ny * sin;
-      const ry = node.nx * sin + node.ny * cos;
-      let x = cx + rx * scaleX;
-      let y = cy + ry * scaleY;
-      x += Math.sin(t * 0.7 + node.phase) * floatAmp * (0.4 + node.z);
-      y += Math.cos(t * 0.6 + node.phase) * floatAmp * (0.4 + node.z);
-      x += mouse.x * 30 * node.z;
-      y += mouse.y * 20 * node.z;
-      node.x = x;
-      node.y = y;
-      node.el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+      const a = node.ang + nodeRot;
+      node.x = cx + Math.cos(a) * node.r * R;
+      node.y = cy + Math.sin(a) * node.r * R;
+      node.el.style.transform = `translate(${node.x}px, ${node.y}px) translate(-50%, -50%)`;
     });
 
-    const cBase = readColor('--line-strong', '#bcbcbc');
-    const cHot = readColor('--text', '#0b0b0c');
-    edges.forEach((e) => {
-      e.alpha += (e.target - e.alpha) * 0.12;
-      const mx = (e.a.x + e.b.x) / 2;
-      const my = (e.a.y + e.b.y) / 2;
-      const dx = e.b.x - e.a.x;
-      const dy = e.b.y - e.a.y;
-      const len = Math.hypot(dx, dy) || 1;
-      const amt = e.curve * len * 0.08;
-      const ctrlX = mx + (-dy / len) * amt;
-      const ctrlY = my + (dx / len) * amt;
-      ctx.beginPath();
-      ctx.moveTo(e.a.x, e.a.y);
-      ctx.quadraticCurveTo(ctrlX, ctrlY, e.b.x, e.b.y);
-      ctx.strokeStyle = e.hot ? cHot : cBase;
-      ctx.globalAlpha = Math.max(e.alpha, 0);
-      ctx.lineWidth = e.hot ? 1.7 : 1;
-      ctx.stroke();
+    // 1) bounding construction circles
+    ring(cx, cy, R, cStrong, 0.5, 1);
+    ring(cx, cy, R * 0.93, cLine, 0.6, 1);
+
+    // 2) graduated bezel ticks (rotating)
+    ctx.strokeStyle = cStrong;
+    for (let k = 0; k < 72; k++) {
+      const a = tickRot + (k / 72) * Math.PI * 2;
+      const major = k % 6 === 0;
+      ctx.globalAlpha = major ? 0.6 : 0.28;
+      ctx.lineWidth = 1;
+      radial(cx, cy, a, R * (major ? 0.93 : 0.955), R);
+    }
+
+    // 3) Vitruvian multi-square (ghosted, counter-rotating)
+    const sq = (R * 0.84) / Math.SQRT2;
+    [-0.16, 0, 0.16].forEach((off, idx) => {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(squareRot + off);
+      ctx.strokeStyle = cText;
+      ctx.globalAlpha = idx === 1 ? 0.1 : 0.045;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(-sq, -sq, sq * 2, sq * 2);
+      ctx.restore();
     });
+
+    // 4) orbit guide rings
+    ORBITS.forEach((o) => ring(cx, cy, o * R, cLine, 0.5, 1));
+
+    // 5) sector dividers
+    ctx.strokeStyle = cLine;
+    ctx.globalAlpha = 0.38;
+    ctx.lineWidth = 1;
+    for (let i = 0; i < sectorCount; i++) {
+      const a = -Math.PI / 2 + (i + 0.5) * (Math.PI * 2 / sectorCount) + nodeRot;
+      radial(cx, cy, a, R * 0.16, R * 0.9);
+    }
+
+    // 6) radial connectors centre → project
+    connectors.forEach((node) => {
+      const out = filteredOut(node);
+      const focused = activeNode && (node.id === activeId || (activeNode.cat && node.cat === activeNode.cat));
+      ctx.strokeStyle = (focused && !out) ? cText : cMuted;
+      ctx.globalAlpha = out ? 0.05 : focused ? 0.5 : activeNode ? 0.12 : 0.26;
+      ctx.lineWidth = 1;
+      const a = node.ang + nodeRot;
+      radial(cx, cy, a, R * 0.12, node.r * R);
+    });
+
+    // 7) centre hub ring + crosshair
+    ring(cx, cy, 30, cText, 0.5, 1);
+    ctx.strokeStyle = cText;
+    ctx.globalAlpha = 0.4;
+    [0, Math.PI / 2, Math.PI, Math.PI * 1.5].forEach((a) => radial(cx, cy, a, 30, 38));
+
+    // 8) lock-on halo on the focused project (the mechanical "wow")
+    if (activeNode && activeNode.type === 'project' && engage > 0.01) {
+      const { x, y, orbit } = activeNode;
+      ring(cx, cy, orbit * R, cText, 0.45 * engage, 1.3);
+      const baseR = 15 + (1 - engage) * 16;
+      ctx.strokeStyle = cText;
+      ctx.lineWidth = 1.4;
+      ctx.globalAlpha = engage;
+      for (let g = 0; g < 3; g++) {
+        const a0 = haloPhase + g * (Math.PI * 2 / 3);
+        ctx.beginPath();
+        ctx.arc(x, y, baseR, a0, a0 + Math.PI * 0.42);
+        ctx.stroke();
+      }
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.7 * engage;
+      for (let g = 0; g < 2; g++) {
+        const a0 = -haloPhase * 1.3 + g * Math.PI;
+        ctx.beginPath();
+        ctx.arc(x, y, baseR - 6, a0, a0 + Math.PI * 0.62);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = engage;
+      [0, Math.PI / 2, Math.PI, Math.PI * 1.5].forEach((a) => radial(x, y, a, baseR + 4, baseR + 10));
+    }
+
     ctx.globalAlpha = 1;
-
     raf = requestAnimationFrame(frame);
   };
 

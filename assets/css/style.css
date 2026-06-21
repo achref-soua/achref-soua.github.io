@@ -1674,52 +1674,55 @@ h3 {
 }
 
 .cst-dot {
-  --cst-size: 16px;
+  --cst-size: 11px;
   width: var(--cst-size);
   height: var(--cst-size);
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: var(--surface);
-  border: 1.5px solid var(--line-strong);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  font-size: 0.78rem;
+  background: var(--bg-soft);
+  border: 1.5px solid var(--muted);
+  font-size: 0.72rem;
   font-weight: 700;
   transition:
-    transform 280ms var(--ease),
-    background 280ms var(--ease),
-    border-color 280ms var(--ease),
-    box-shadow 280ms var(--ease);
+    transform 320ms var(--ease),
+    background 320ms var(--ease),
+    border-color 320ms var(--ease);
 }
 
 .cst-label {
-  max-width: 168px;
-  font-size: 0.82rem;
+  max-width: 150px;
+  font-size: 0.78rem;
   font-weight: 600;
   line-height: 1.2;
   text-align: center;
   color: var(--muted-strong);
   pointer-events: none;
-  transition: color 240ms var(--ease);
+  transition: color 240ms var(--ease), opacity 240ms var(--ease);
 }
 
 .cst-node.is-center .cst-dot {
-  --cst-size: 52px;
+  --cst-size: 46px;
   background: var(--surface-strong);
   border-color: var(--surface-strong);
   color: var(--text-invert);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+}
+
+.cst-node.is-category {
+  gap: 7px;
 }
 
 .cst-node.is-category .cst-dot {
-  --cst-size: 24px;
+  --cst-size: 7px;
+  background: var(--text);
   border-color: var(--text);
 }
 
 .cst-node.is-category .cst-label {
-  font-size: 0.74rem;
+  font-size: 0.66rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -1728,19 +1731,14 @@ h3 {
   z-index: 1;
 }
 
-.cst-node.is-project .cst-dot {
-  --cst-size: 17px;
-}
-
 .cst-node.is-project.is-featured .cst-dot {
-  background: var(--surface-strong);
-  border-color: var(--surface-strong);
+  background: var(--text);
+  border-color: var(--text);
 }
 
-/* Keep the map calm: only hubs and flagship projects are labelled until you explore. */
+/* Keep the dial calm: only hubs and flagship projects are labelled until you explore. */
 .cst-node.is-project:not(.is-featured) .cst-label {
   opacity: 0;
-  transition: opacity 240ms var(--ease);
 }
 
 .cst-node.is-project:not(.is-featured):hover .cst-label,
@@ -1760,14 +1758,18 @@ h3 {
   outline: none;
 }
 
-.cst-node:hover .cst-dot,
-.cst-node:focus-visible .cst-dot,
-.cst-node.is-active .cst-dot {
-  transform: scale(1.4);
+.cst-node.is-project:hover .cst-dot,
+.cst-node.is-project:focus-visible .cst-dot,
+.cst-node.is-project.is-active .cst-dot {
+  transform: scale(1.55);
+  background: var(--text);
   border-color: var(--text);
-  box-shadow:
-    0 0 0 6px color-mix(in srgb, var(--text) 9%, transparent),
-    0 12px 30px rgba(0, 0, 0, 0.16);
+}
+
+.cst-node.is-category:hover .cst-dot,
+.cst-node.is-category:focus-visible .cst-dot,
+.cst-node.is-category.is-active .cst-dot {
+  transform: scale(1.7);
 }
 
 .cst-node:hover .cst-label,
@@ -1777,12 +1779,11 @@ h3 {
 }
 
 .cst-node.is-muted {
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 .cst-node.is-dim {
-  opacity: 0.16;
-  filter: grayscale(0.4);
+  opacity: 0.12;
 }
 
 .cst-node.is-dim .cst-label {
@@ -1790,12 +1791,12 @@ h3 {
 }
 
 .constellation-detail {
-  flex: 0 0 clamp(258px, 30%, 340px);
+  flex: 0 0 clamp(320px, 38%, 460px);
   align-self: stretch;
   display: grid;
   align-content: center;
-  gap: 12px;
-  padding: clamp(22px, 2.4vw, 30px);
+  gap: 14px;
+  padding: clamp(26px, 3vw, 44px);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--surface);
@@ -1804,20 +1805,36 @@ h3 {
 
 .cst-detail-meta {
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .cst-detail-title {
   margin: 0;
-  font-size: 1.5rem;
-  line-height: 1.05;
+  font-size: clamp(1.7rem, 2.4vw, 2.3rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+.cst-detail-role {
+  color: var(--muted-strong);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.cst-detail-rule {
+  width: 38px;
+  height: 1px;
+  background: var(--line-strong);
 }
 
 .cst-detail-summary {
   margin: 0;
   color: var(--muted-strong);
-  font-size: 0.95rem;
-  line-height: 1.45;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .constellation-detail .tag-row {
@@ -1826,11 +1843,16 @@ h3 {
 
 .constellation-detail .impact-line {
   margin: 0;
-  padding-top: 0;
+  padding-top: 2px;
+  font-size: 0.95rem;
 }
 
 .cst-detail-link {
-  margin-top: 2px;
+  margin-top: 4px;
+}
+
+.constellation-detail.is-prompt .cst-detail-title {
+  color: var(--muted-strong);
 }
 
 .constellation-hint {
