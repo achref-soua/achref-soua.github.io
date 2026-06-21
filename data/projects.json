@@ -83,7 +83,8 @@
     ],
     "stack": ["Streamlit", "Groq API", "OpenAI", "ReportLab", "Prompt Engineering"],
     "impact": "Resume tailoring time: hours → minutes.",
-    "link": "#"
+    "link": "https://github.com/achref-soua/Streamlit-resume-tool-app-using-Groq-LLMs",
+    "linkLabel": "View on GitHub"
   },
   {
     "title": "FinOps Multi-Agent",
@@ -98,7 +99,8 @@
     ],
     "stack": ["LangGraph", "LLaMA 3", "AWS Lambda", "AWS Bedrock", "FastAPI"],
     "impact": "Cloud cost analysis time: hours → minutes.",
-    "link": "#"
+    "link": "https://github.com/achref-soua/AWS-FinOps-assistant",
+    "linkLabel": "View on GitHub"
   },
   {
     "title": "Cardiac MRI Diagnosis",
@@ -113,7 +115,8 @@
     ],
     "stack": ["U-Net", "SAM", "PyRadiomics", "LightGBM", "XGBoost", "Medical Imaging"],
     "impact": "1st place among 100 participants. 95% train accuracy, 81% validation.",
-    "link": "#"
+    "link": "https://github.com/achref-soua/AI-assisted-cardiac-MRI-diagnosis",
+    "linkLabel": "View on GitHub"
   },
   {
     "title": "Satellite Algal Bloom Detection",
@@ -127,7 +130,8 @@
     ],
     "stack": ["Remote Sensing", "LightGBM", "Optuna", "Sentinel-2", "Python"],
     "impact": "Top 4% — 50th out of 1,377 participants. AggRMSE 1.0536.",
-    "link": "#"
+    "link": "https://www.drivendata.org/competitions/143/tick-tick-bloom/",
+    "linkLabel": "View Competition"
   },
   {
     "title": "Edge AI Gait Analyzer",
@@ -157,6 +161,7 @@
     ],
     "stack": ["Python", "Q-Learning", "Genetic Algorithms", "Reinforcement Learning"],
     "impact": "Constraint-aware meal recommendations that adapt to user feedback.",
-    "link": "#"
+    "link": "https://github.com/achref-soua/Meal-recommendation-system-using-Q-learning",
+    "linkLabel": "View on GitHub"
   }
 ]

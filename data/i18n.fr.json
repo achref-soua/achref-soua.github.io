@@ -1,0 +1,204 @@
+{
+  "profile": {
+    "intro": "Je construis des systèmes ML en production — recherche vectorielle en Rust, imagerie médicale 3D et agents LLM.",
+    "summary": "Ingénieur ML avec ~3 ans d'expérience en imagerie médicale, systèmes LLM et infrastructure open-source. Je comble le fossé entre les modèles de recherche et les systèmes prêts pour la production : segmentation vasculaire 3D pour la planification chirurgicale, RAG multi-agents sur AWS, et une base vectorielle sécurisée en Rust classée 2ème sur SIFT1M.",
+    "status": "Ouvert aux nouvelles opportunités"
+  },
+  "metrics": [
+    { "value": "3+", "label": "Années à livrer des systèmes ML en production" },
+    { "value": "94%", "label": "Dice — segmentation vasculaire 25 structures chez PrediSurge" },
+    { "value": "32×", "label": "Réduction de RAM dans Quiver vs HNSW dense à 10M vecteurs" },
+    { "value": "1er", "label": "Compétition de diagnostic IRM cardiaque (100 participants)" }
+  ],
+  "focusAreas": [
+    {
+      "title": "Systèmes & Recherche",
+      "description": "Bases vectorielles, ANN haute performance (HNSW, DiskANN, IVF), noyaux SIMD et structures de données économes en mémoire — en Rust."
+    },
+    {
+      "title": "Imagerie Médicale",
+      "description": "Segmentation 3D, pipelines DICOM/NIfTI/VTK, modèles anatomiques multi-labels, aide à la décision clinique."
+    },
+    {
+      "title": "LLM & Agents",
+      "description": "Systèmes multi-agents, RAG, mémoire long-terme, serveurs MCP et déploiement en production sur AWS."
+    }
+  ],
+  "experience": [
+    {
+      "company": "PrediSurge",
+      "role": "Ingénieur ML",
+      "location": "Saint-Étienne, France",
+      "range": "Oct 2025 – Présent",
+      "summary": "Construction de l'infrastructure d'imagerie médicale pour la planification chirurgicale endovasculaire — des scanners CT bruts aux recommandations de stents.",
+      "highlights": [
+        "Pipeline DICOM→NIfTI automatisé avec sélection de séries basée sur la qualité, éliminant le tri manuel des CT pour le produit ISizing.",
+        "Modèle de segmentation vasculaire 25 structures — 94% de Dice global sur une anatomie aortique complexe.",
+        "Pipeline de dimensionnement VTK : maillages 3D + lignes centrales → diamètres, volumes, angulation et tortuosité par label en ~1 min/cas.",
+        "Moteur de recommandation de stents pour artères viscérales alimenté par la sortie de dimensionnement.",
+        "Registre de données central (NIfTI + métadonnées) versionné avec DVC pour des ensembles d'entraînement reproductibles."
+      ],
+      "tools": ["PyTorch", "VTK", "DICOM", "NIfTI", "DVC", "Segmentation 3D", "Python"]
+    },
+    {
+      "company": "Moovto",
+      "role": "Ingénieur ML",
+      "location": "Paris, France",
+      "range": "Jan 2025 – Sept 2025",
+      "summary": "Construction d'un assistant FinOps multi-agents qui a réduit le temps d'analyse des coûts cloud de plusieurs heures à quelques minutes.",
+      "highlights": [
+        "Conception d'agents LangGraph modulaires pour l'analyse des coûts, la prévision et les recommandations d'optimisation.",
+        "Optimisation de la mémoire long-terme pour le dialogue multi-tours — +23% de cohérence sur les benchmarks internes.",
+        "Déploiement serverless sur AWS Lambda, S3 et Bedrock avec CI/CD complet."
+      ],
+      "tools": ["LLaMA 3", "LangGraph", "AWS Lambda", "AWS Bedrock", "FastAPI", "CI/CD"]
+    },
+    {
+      "company": "Intellect Core SARL",
+      "role": "Ingénieur ML",
+      "location": "Grombalia, Tunisie",
+      "range": "Nov 2023 – Déc 2024",
+      "summary": "Conception d'une infrastructure de recherche vectorielle et livraison d'un chatbot RAG en production ayant réduit les tickets de support de 50%.",
+      "highlights": [
+        "Base vectorielle et chatbot RAG de bout en bout (LangChain) déployés serverless sur AWS.",
+        "Intégration de modèles open-source (LLaMA 2, LeoLM) et d'APIs propriétaires (GPT-4, Mistral).",
+        "−50% de tickets de support après le lancement."
+      ],
+      "tools": ["RAG", "LangChain", "LLaMA 2", "GPT-4", "Mistral", "AWS", "Bases vectorielles"]
+    }
+  ],
+  "education": [
+    {
+      "institution": "ESPRIT – École Supérieure Privée d'Ingénierie et de Technologies",
+      "degree": "Diplôme d'Ingénieur en Informatique (spécialisation IA)",
+      "range": "Sept 2020 – Août 2023",
+      "location": "Tunis, Tunisie"
+    },
+    {
+      "institution": "Faculté des Sciences de Monastir",
+      "degree": "Cycle Préparatoire – Physique et Chimie",
+      "range": "Sept 2018 – Juil 2020",
+      "location": "Monastir, Tunisie"
+    }
+  ],
+  "skills": [
+    { "group": "Langages", "items": ["Python", "Rust", "TypeScript", "SQL", "C++"] },
+    { "group": "LLM & Agents", "items": ["LangChain", "LangGraph", "RAG", "Multi-agents", "MCP", "Embeddings", "Groq", "Hugging Face", "Prompt Engineering"] },
+    { "group": "ML & Vision", "items": ["PyTorch", "TensorFlow", "scikit-learn", "Segmentation 3D", "DICOM / NIfTI", "VTK", "ONNX", "XGBoost", "OpenCV"] },
+    { "group": "Recherche vectorielle", "items": ["HNSW", "DiskANN", "IVF", "Quantification", "SIMD", "pgvector", "ChromaDB"] },
+    { "group": "MLOps & Cloud", "items": ["AWS (Lambda, S3, Bedrock)", "Docker", "Kubernetes", "CI/CD", "DVC", "Temporal", "FastAPI"] },
+    { "group": "Données", "items": ["ClickHouse", "PostgreSQL", "Redis", "Redpanda", "Prisma", "SQLModel"] }
+  ],
+  "publications": [
+    {
+      "title": "Prothèse bionique améliorée par l'IA",
+      "authors": "Soua, A., Charfi, B. et Riahi, M. H.",
+      "venue": "10e Conférence internationale sur l'énergie verte et l'ingénierie environnementale",
+      "year": "2024"
+    }
+  ],
+  "projects": [
+    {
+      "title": "Quiver",
+      "summary": "Base de données vectorielle sécurisée écrite de zéro en Rust. Recherche ANN (HNSW, DiskANN, IVF + quantification), noyaux de distance SIMD et chiffrement de bout en bout intégrés au cœur.",
+      "highlights": [
+        "32× moins de RAM à rappel égal via DiskANN + PQ (10M × 768-d : ~1 Go vs ~31 Go).",
+        "Classé 2ème sur SIFT1M derrière FAISS, devant Qdrant, Milvus, Chroma, pgvector, LanceDB et Weaviate.",
+        "Chiffrement XChaCha20, RBAC et journal d'audit immuable.",
+        "SDK Python, API gRPC + REST, cockpit TUI ratatui et serveur MCP."
+      ],
+      "impact": "Réduction de RAM 32× à rappel égal. 2ème sur SIFT1M."
+    },
+    {
+      "title": "Helio",
+      "summary": "Plateforme marketing auto-hébergeable et native IA — alternative open-source à HubSpot et Klaviyo. Stack polyglotte (TypeScript + Python), exécution durable des parcours et copilote IA transformant le langage naturel en segments et campagnes.",
+      "highlights": [
+        "Multi-tenant (Postgres RLS), pipeline événements Redpanda → ClickHouse, parcours sur Temporal (durables, résistants aux pannes).",
+        "Copilote IA : construire segments et parcours en langage naturel. Scoring de churn via ONNX + XGBoost.",
+        "Serveur MCP — des agents IA externes peuvent lancer des campagnes par programmation.",
+        "229 PRs, 120 tests E2E, 9 images de conteneurs en production, zéro vulnérabilité critique Trivy."
+      ],
+      "impact": "v2.0.9 publiée. Production-ready, entièrement testé, auto-hébergeable en une commande."
+    },
+    {
+      "title": "Galley",
+      "summary": "Studio LaTeX local-first construit avec Tauri 2 et Svelte 5. Retour de compilation en moins de 150ms, exécution TeX sandboxée, zéro dépendance cloud.",
+      "highlights": [
+        "Shell sandboxé : protection contre shell-escape, durcissement des archives, accès renderer IPC uniquement.",
+        "14 000+ régions Rust à 100% de couverture de test ; 1 391 tests TypeScript.",
+        "Prévisualisation PDF en temps réel, snippets contextuels et éditeur CodeMirror 6."
+      ],
+      "impact": "v0.7.0 publiée. 100% de couverture Rust sur 14 000+ régions."
+    },
+    {
+      "title": "Pulse",
+      "summary": "Aide à la décision clinique pour la chirurgie endovasculaire. Application full-stack (Next.js 15 + FastAPI) avec RAG hybride sur Quiver et copilote multi-agents en streaming via Groq.",
+      "highlights": [
+        "RAG hybride (dense + sparse + reranking) sur Quiver pour la récupération de connaissances chirurgicales.",
+        "Copilote multi-agents LangGraph en streaming via Groq SSE pour des Q&R cliniques en temps réel.",
+        "6 modèles de scoring clinique validés pour la stratification du risque et le dimensionnement des stents.",
+        "Moteur de compatibilité IFU pour la sélection de stents + rapports patients PDF auto-générés."
+      ],
+      "impact": "Pipeline complet : données patient → scores cliniques → recommandation de stent → rapport PDF."
+    },
+    {
+      "title": "AI Resume Tailor",
+      "summary": "Adapte un CV à une offre d'emploi via des LLMs, puis exporte un PDF compatible ATS. Réduit le temps de personnalisation de quelques heures à quelques minutes.",
+      "highlights": [
+        "Intégration OpenAI et Groq pour la réécriture contextuelle de CV.",
+        "Génération PDF avec ReportLab, formatage propre et compatible ATS.",
+        "Boucle d'édition itérative pour des candidatures rapides et ciblées."
+      ],
+      "impact": "Temps de personnalisation : quelques heures → quelques minutes."
+    },
+    {
+      "title": "FinOps Multi-Agent",
+      "summary": "Assistant LangGraph modulaire pour l'analyse, la prévision et l'optimisation des coûts cloud. Déployé serverless sur AWS.",
+      "highlights": [
+        "Agents séparés pour l'analyse des coûts, la prévision et les recommandations.",
+        "+23% de cohérence du dialogue via une mémoire long-terme personnalisée pour les conversations multi-tours.",
+        "Déploiement serverless sur AWS Lambda, S3 et Bedrock avec CI/CD."
+      ],
+      "impact": "Analyse des coûts cloud : quelques heures → quelques minutes."
+    },
+    {
+      "title": "Cardiac MRI Diagnosis",
+      "summary": "Pipeline IRM cardiaque primé : segmentation, extraction de radiomics et classification par ensemble empilé.",
+      "highlights": [
+        "U-Net, SegNet et SAM pour la segmentation des structures cardiaques.",
+        "100+ caractéristiques radiomics extraites avec PyRadiomics.",
+        "Ensemble empilé LightGBM + XGBoost + Autoencoder-SVM."
+      ],
+      "impact": "1ère place parmi 100 participants. 95% de précision en entraînement, 81% en validation."
+    },
+    {
+      "title": "Satellite Algal Bloom Detection",
+      "summary": "Pipeline d'imagerie satellite pour la détection de proliférations algales nuisibles à partir de données multi-spectrales Sentinel-2 et Landsat.",
+      "highlights": [
+        "Ingénierie de caractéristiques multi-spectrales et temporelles sur diverses régions géographiques.",
+        "Recherche d'hyperparamètres LightGBM avec Optuna."
+      ],
+      "impact": "Top 4% — 50ème sur 1 377 participants. AggRMSE 1.0536."
+    },
+    {
+      "title": "Edge AI Gait Analyzer",
+      "summary": "Prédiction de l'angle du genou à partir de capteurs IMU sur matériel embarqué, ciblant la rééducation et le contrôle de prothèse bionique. A donné lieu à une publication.",
+      "highlights": [
+        "Arduino Nano 33 IoT + MPU-9250 pour la capture de mouvement.",
+        "Les autoencodeurs de débruitage ont amélioré la qualité du signal de ~20%.",
+        "Comparatif des architectures GRU, LSTM et Transformer pour la prédiction de séries temporelles."
+      ],
+      "impact": "Publié à GEEE 2024. IA embarquée pour la rééducation bionique."
+    },
+    {
+      "title": "Adaptive Nutrition Planner",
+      "summary": "Recommandation de repas adaptative combinant Q-learning et algorithmes génétiques pour la sélection de repas sous contraintes.",
+      "highlights": [
+        "Q-learning + algorithmes génétiques pour la sélection de repas sous contraintes d'allergies et de macros.",
+        "Boucles de rétroaction pour les préférences alimentaires et les objectifs en macronutriments.",
+        "Données nutritionnelles structurées pour 200+ repas."
+      ],
+      "impact": "Recommandations de repas sous contraintes qui s'adaptent aux retours utilisateur."
+    }
+  ]
+}
