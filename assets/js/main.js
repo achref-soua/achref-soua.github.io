@@ -1,13 +1,16 @@
 const paths = {
-  site: 'data/site.json?v=20260621-2',
-  resume: 'data/resume.json?v=20260621-2',
-  projects: 'data/projects.json?v=20260621-2'
+  site: 'data/site.json?v=20260621-3',
+  resume: 'data/resume.json?v=20260621-3',
+  projects: 'data/projects.json?v=20260621-3',
+  i18nFr: 'data/i18n.fr.json?v=20260621-3'
 };
 
 const state = {
   site: null,
   resume: null,
   projects: [],
+  displayProjects: null,
+  i18n: null,
   activeProjectFilter: 'All',
   lang: localStorage.getItem('lang') || 'en'
 };
@@ -164,14 +167,13 @@ function renderExperience(resume) {
   if (!container) return;
   container.replaceChildren();
 
-  (resume.experience || []).forEach((experience, index) => {
-    const article = addReveal(createElement('article', 'timeline-item'));
-    article.style.setProperty('--stagger', `${index * 140}ms`);
+  (resume.experience || []).forEach((experience) => {
+    const article = createElement('article', 'timeline-item');
     const date = createElement('div', 'timeline-date', experience.range);
     const content = createElement('div', 'timeline-content');
 
     content.append(createElement('h3', '', experience.role));
-    content.append(createElement('div', 'item-meta', `${experience.company} - ${experience.location}`));
+    content.append(createElement('div', 'item-meta', `${experience.company} · ${experience.location}`));
     content.append(createElement('p', '', experience.summary));
 
     if (experience.highlights?.length) {
@@ -187,6 +189,33 @@ function renderExperience(resume) {
   });
 }
 
+function initTimelineAnimation() {
+  const container = select('[data-experience]');
+  if (!container) return;
+
+  const items = selectAll('.timeline-item', container);
+  if (!items.length) return;
+
+  items.forEach(item => item.classList.remove('is-visible'));
+
+  if (!('IntersectionObserver' in window)) {
+    items.forEach(item => item.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      items.forEach((item, i) => {
+        window.setTimeout(() => item.classList.add('is-visible'), i * 220);
+      });
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -5% 0px' });
+
+  observer.observe(container);
+}
+
 function getProjectFilters(projects) {
   return ['All', ...new Set(projects.map((project) => project.category).filter(Boolean))];
 }
@@ -196,7 +225,8 @@ function renderProjectFilters() {
   if (!container) return;
   container.replaceChildren();
 
-  getProjectFilters(state.projects).forEach((filter) => {
+  const source = state.displayProjects || state.projects;
+  getProjectFilters(source).forEach((filter) => {
     const button = createElement('button', 'filter-button', filter);
     button.type = 'button';
     button.setAttribute('aria-pressed', filter === state.activeProjectFilter ? 'true' : 'false');
@@ -215,16 +245,17 @@ function renderProjects() {
   if (!container) return;
   container.replaceChildren();
 
+  const source = state.displayProjects || state.projects;
   const projects = state.activeProjectFilter === 'All'
-    ? state.projects
-    : state.projects.filter((project) => project.category === state.activeProjectFilter);
+    ? source
+    : source.filter((project) => project.category === state.activeProjectFilter);
 
   projects.forEach((project) => {
     const article = addReveal(createElement('article', 'project-card'));
     if (project.featured) article.classList.add('is-featured');
     const header = document.createElement('header');
     if (project.featured) header.append(createElement('span', 'project-badge', 'Featured'));
-    header.append(createElement('div', 'project-meta', `${project.category} - ${project.range}`));
+    header.append(createElement('div', 'project-meta', `${project.category} · ${project.range}`));
     header.append(createElement('h3', '', project.title));
 
     article.append(header);
@@ -273,7 +304,7 @@ function renderEducation(resume) {
     const article = addReveal(createElement('article', 'compact-card'));
     article.append(createElement('h3', '', education.degree));
     article.append(createElement('p', '', education.institution));
-    article.append(createElement('div', 'item-meta', `${education.range} - ${education.location}`));
+    article.append(createElement('div', 'item-meta', `${education.range} · ${education.location}`));
     container.append(article);
   });
 }
@@ -287,7 +318,7 @@ function renderPublications(resume) {
     const article = addReveal(createElement('article', 'compact-card'));
     article.append(createElement('h3', '', publication.title));
     article.append(createElement('p', '', publication.authors));
-    article.append(createElement('div', 'item-meta', `${publication.venue} - ${publication.year}`));
+    article.append(createElement('div', 'item-meta', `${publication.venue} · ${publication.year}`));
     container.append(article);
   });
 }
@@ -404,29 +435,49 @@ function initBackToTop() {
   button.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
-function applyLang(site, resume) {
-  if (state.lang === 'en') return { site, resume };
-  const fr = site.i18n?.fr;
-  if (!fr) return { site, resume };
+function applyLang(site, resume, projects) {
+  if (state.lang === 'en' || !state.i18n) {
+    return { site, resume, projects: projects || state.projects };
+  }
+  const fr = state.i18n;
+  const siteFr = site.i18n?.fr || {};
 
   const siteOut = {
     ...site,
-    navigation: fr.navigation || site.navigation,
-    hero: { ...site.hero, ...(fr.hero || {}) },
+    navigation: siteFr.navigation || site.navigation,
+    hero: { ...site.hero, ...(siteFr.hero || {}) },
     sections: Object.fromEntries(
       Object.entries(site.sections).map(([key, sec]) => [
-        key, { ...sec, ...(fr.sections?.[key] || {}) }
+        key, { ...sec, ...(siteFr.sections?.[key] || {}) }
       ])
     ),
-    contact: { ...site.contact, ...(fr.contact || {}) }
+    contact: { ...site.contact, ...(siteFr.contact || {}) }
   };
 
   const resumeOut = {
     ...resume,
-    profile: { ...resume.profile, ...(fr.profile || {}) }
+    profile: { ...resume.profile, ...(fr.profile || {}) },
+    metrics: fr.metrics || resume.metrics,
+    focusAreas: fr.focusAreas || resume.focusAreas,
+    experience: fr.experience || resume.experience,
+    education: fr.education || resume.education,
+    skills: fr.skills || resume.skills,
+    publications: fr.publications || resume.publications
   };
 
-  return { site: siteOut, resume: resumeOut };
+  const source = projects || state.projects;
+  const projectsOut = source.map(proj => {
+    const frProj = (fr.projects || []).find(p => p.title === proj.title);
+    if (!frProj) return proj;
+    return {
+      ...proj,
+      summary: frProj.summary || proj.summary,
+      highlights: frProj.highlights || proj.highlights,
+      impact: frProj.impact || proj.impact
+    };
+  });
+
+  return { site: siteOut, resume: resumeOut, projects: projectsOut };
 }
 
 function initLangToggle() {
@@ -446,11 +497,23 @@ function initLangToggle() {
     state.lang = state.lang === 'en' ? 'fr' : 'en';
     localStorage.setItem('lang', state.lang);
     refresh();
-    const { site: s, resume: r } = applyLang(state.site, state.resume);
+    const { site: s, resume: r, projects: p } = applyLang(state.site, state.resume, state.projects);
+    state.displayProjects = p;
+    state.activeProjectFilter = 'All';
     renderNavigation(s);
     renderHero(s, r);
     renderSectionCopy(s);
+    renderMetrics(r);
+    renderFocusAreas(r);
+    renderExperience(r);
+    initTimelineAnimation();
+    renderProjectFilters();
+    renderProjects();
+    renderSkills(r);
+    renderEducation(r);
+    renderPublications(r);
     initScrollFeedback();
+    observeRevealItems();
   });
 }
 
@@ -461,14 +524,50 @@ const LANG_COLORS = {
   Svelte: '#ff3e00', CSS: '#563d7c', HTML: '#e34c26'
 };
 
+async function fetchMediumArticles() {
+  const rssUrl = 'https://medium.com/feed/@achref-soua';
+  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=4`;
+  const data = await fetch(apiUrl).then(r => r.json());
+  if (data.status !== 'ok') return [];
+  return data.items || [];
+}
+
+function renderMediumArticles(articles, container) {
+  if (!articles.length) return;
+
+  const heading = createElement('h3', 'gh-sub-heading', 'Latest on Medium');
+  const grid = createElement('div', 'medium-grid');
+
+  articles.slice(0, 4).forEach(article => {
+    const card = addReveal(createElement('article', 'medium-card'));
+
+    const title = createElement('a', 'medium-title', article.title);
+    title.href = article.link;
+    title.target = '_blank';
+    title.rel = 'noopener noreferrer';
+    card.append(title);
+
+    const date = new Date(article.pubDate).toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' });
+    card.append(createElement('div', 'medium-date', date));
+
+    const cats = (article.categories || []).slice(0, 3);
+    if (cats.length) card.append(createTagRow(cats));
+
+    grid.append(card);
+  });
+
+  container.append(heading, grid);
+}
+
 async function renderGitHubDashboard() {
   const container = select('[data-github-dashboard]');
   if (!container) return;
 
   try {
-    const [user, repos] = await Promise.all([
+    const [user, repos, articles] = await Promise.all([
       fetch(`https://api.github.com/users/${GH_USER}`).then(r => r.json()),
-      fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=100`).then(r => r.json())
+      fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=100`).then(r => r.json()),
+      fetchMediumArticles().catch(() => [])
     ]);
 
     if (user.message) throw new Error(user.message);
@@ -529,6 +628,7 @@ async function renderGitHubDashboard() {
     });
 
     container.replaceChildren(statsStrip, grid);
+    renderMediumArticles(articles, container);
     observeRevealItems();
   } catch {
     const msg = createElement('p', 'gh-error', 'GitHub stats unavailable — try again later.');
@@ -599,17 +699,20 @@ async function init() {
   setText('[data-year]', new Date().getFullYear().toString());
 
   try {
-    const [site, resume, projects] = await Promise.all([
+    const [site, resume, projects, i18nFr] = await Promise.all([
       loadJSON(paths.site),
       loadJSON(paths.resume),
-      loadJSON(paths.projects)
+      loadJSON(paths.projects),
+      loadJSON(paths.i18nFr).catch(() => null)
     ]);
 
     state.site = site;
     state.resume = resume;
     state.projects = projects;
+    state.i18n = i18nFr;
 
-    const { site: s, resume: r } = applyLang(site, resume);
+    const { site: s, resume: r, projects: p } = applyLang(site, resume, projects);
+    state.displayProjects = p;
 
     updateMeta(s, r);
     renderNavigation(s);
@@ -630,6 +733,7 @@ async function init() {
     initBackToTop();
     initLangToggle();
     observeRevealItems();
+    initTimelineAnimation();
 
     renderGitHubDashboard().catch(() => {});
   } catch (error) {
