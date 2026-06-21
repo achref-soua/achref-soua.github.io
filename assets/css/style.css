@@ -835,10 +835,6 @@ h3 {
     --shell: min(100vw - 28px, 760px);
   }
 
-  .header-inner {
-    grid-template-columns: auto auto;
-  }
-
   .site-nav {
     grid-column: 1 / -1;
     justify-content: flex-start;
@@ -975,6 +971,265 @@ h3 {
   [data-reveal] {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ── Header: two icon buttons ─────────────────────────── */
+.header-inner {
+  grid-template-columns: auto 1fr auto auto;
+}
+
+[data-lang-label] {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ── Timeline stagger animation ───────────────────────── */
+.timeline-item[data-reveal] {
+  transform: translateX(-28px);
+  transition:
+    opacity 650ms var(--ease) var(--stagger, 0ms),
+    transform 650ms var(--ease) var(--stagger, 0ms);
+}
+
+.timeline-item[data-reveal].is-visible {
+  transform: translateX(0);
+}
+
+/* ── Back-to-top floating button ──────────────────────── */
+.back-to-top {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 90;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 220ms var(--ease),
+    transform 220ms var(--ease),
+    border-color 160ms var(--ease);
+  pointer-events: none;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  border-color: var(--text);
+  transform: translateY(-2px);
+}
+
+.back-to-top svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Social links with avatar ─────────────────────────── */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.social-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  object-fit: cover;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
+/* ── GitHub dashboard ─────────────────────────────────── */
+.gh-loading {
+  display: flex;
+  gap: 10px;
+  padding: 16px 0;
+}
+
+.gh-loading span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  animation: gh-pulse 1.2s ease-in-out infinite;
+}
+
+.gh-loading span:nth-child(2) { animation-delay: 0.2s; }
+.gh-loading span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes gh-pulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.85); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+.gh-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--line);
+}
+
+.gh-stat {
+  display: grid;
+  align-content: space-between;
+  gap: 10px;
+  padding: 20px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+
+.gh-stat strong {
+  font-size: 2.2rem;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.gh-stat span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.gh-repos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.gh-repo-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 180ms var(--ease), transform 180ms var(--ease);
+}
+
+.gh-repo-card:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-2px);
+}
+
+.gh-repo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.gh-repo-name {
+  font-weight: 650;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--text);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gh-repo-name:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.gh-repo-stars {
+  color: var(--muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.gh-repo-desc {
+  color: var(--muted-strong);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gh-repo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.gh-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.gh-lang::before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--lang-color, var(--muted));
+}
+
+.gh-error {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ── Responsive: dashboard ────────────────────────────── */
+@media (max-width: 980px) {
+  .gh-stats-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gh-repos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .gh-stats-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gh-repos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .back-to-top {
+    right: 16px;
+    bottom: 20px;
+    width: 42px;
+    height: 42px;
   }
 }
 
