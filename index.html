@@ -38,13 +38,13 @@
     />
     <meta name="twitter:image" content="https://achref-soua.github.io/assets/achref_soua_picture.png" />
 
-    <link rel="preload" href="assets/css/style.css?v=20260621-5" as="style" />
-    <link rel="preload" href="data/site.json?v=20260621-5" as="fetch" crossorigin />
-    <link rel="preload" href="data/resume.json?v=20260621-5" as="fetch" crossorigin />
-    <link rel="preload" href="data/projects.json?v=20260621-5" as="fetch" crossorigin />
-    <link rel="preload" href="data/i18n.fr.json?v=20260621-5" as="fetch" crossorigin />
+    <link rel="preload" href="assets/css/style.css?v=20260621-6" as="style" />
+    <link rel="preload" href="data/site.json?v=20260621-6" as="fetch" crossorigin />
+    <link rel="preload" href="data/resume.json?v=20260621-6" as="fetch" crossorigin />
+    <link rel="preload" href="data/projects.json?v=20260621-6" as="fetch" crossorigin />
+    <link rel="preload" href="data/i18n.fr.json?v=20260621-6" as="fetch" crossorigin />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-    <link rel="stylesheet" href="assets/css/style.css?v=20260621-5" />
+    <link rel="stylesheet" href="assets/css/style.css?v=20260621-6" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -127,7 +127,7 @@
         </div>
       </section>
 
-      <section class="section section-ruled" id="experience" aria-labelledby="experience-title">
+      <section class="section section-ruled xp-section" id="experience" aria-labelledby="experience-title" data-xp-section>
         <div class="shell section-grid">
           <div class="section-label" data-section-label="experience">Experience</div>
           <div class="section-body">
@@ -135,7 +135,18 @@
               <h2 id="experience-title" data-experience-title>Career Timeline</h2>
               <p data-experience-intro></p>
             </div>
-            <div class="timeline" data-experience></div>
+          </div>
+        </div>
+        <div class="xp-scroll" data-xp-scroll>
+          <div class="xp-sticky">
+            <div class="xp-viewport" data-xp-viewport>
+              <div class="xp-track" data-experience></div>
+            </div>
+            <nav class="xp-rail" data-xp-rail aria-label="Career timeline"></nav>
+            <p class="xp-hint" data-xp-hint aria-hidden="true">
+              <span>Scroll to travel through time</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"></path></svg>
+            </p>
           </div>
         </div>
       </section>
@@ -241,6 +252,6 @@
       </svg>
     </button>
 
-    <script src="assets/js/main.js?v=20260621-5" defer></script>
+    <script src="assets/js/main.js?v=20260621-6" defer></script>
   </body>
 </html>
