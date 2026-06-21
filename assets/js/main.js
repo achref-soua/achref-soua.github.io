@@ -1,14 +1,15 @@
 const paths = {
-  site: 'data/site.json?v=20260621-1',
-  resume: 'data/resume.json?v=20260621-1',
-  projects: 'data/projects.json?v=20260621-1'
+  site: 'data/site.json?v=20260621-2',
+  resume: 'data/resume.json?v=20260621-2',
+  projects: 'data/projects.json?v=20260621-2'
 };
 
 const state = {
   site: null,
   resume: null,
   projects: [],
-  activeProjectFilter: 'All'
+  activeProjectFilter: 'All',
+  lang: localStorage.getItem('lang') || 'en'
 };
 
 const select = (selector, root = document) => root.querySelector(selector);
@@ -163,8 +164,9 @@ function renderExperience(resume) {
   if (!container) return;
   container.replaceChildren();
 
-  (resume.experience || []).forEach((experience) => {
+  (resume.experience || []).forEach((experience, index) => {
     const article = addReveal(createElement('article', 'timeline-item'));
+    article.style.setProperty('--stagger', `${index * 140}ms`);
     const date = createElement('div', 'timeline-date', experience.range);
     const content = createElement('div', 'timeline-content');
 
@@ -303,14 +305,25 @@ function renderContact(resume) {
   if (socialLinks) {
     socialLinks.replaceChildren();
     [
-      ['GitHub', contact.github],
-      ['LinkedIn', contact.linkedin]
-    ].forEach(([label, href]) => {
+      ['GitHub', contact.github, contact.githubAvatar],
+      ['LinkedIn', contact.linkedin, null],
+      ['Medium', contact.medium, null]
+    ].forEach(([label, href, avatar]) => {
       if (!href) return;
-      const link = createElement('a', '', label);
+      const link = createElement('a', 'social-link', '');
       link.href = href;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
+      if (avatar) {
+        const img = document.createElement('img');
+        img.src = avatar;
+        img.alt = `${label} profile`;
+        img.className = 'social-avatar';
+        img.width = 30;
+        img.height = 30;
+        link.append(img);
+      }
+      link.append(document.createTextNode(label));
       socialLinks.append(link);
     });
   }
@@ -369,22 +382,158 @@ function updateThemeButton(button) {
 
 function initActions(resume) {
   const copyButton = select('[data-copy-email]');
-  const printButton = select('[data-print]');
   const email = resume.contact?.email || '';
 
   copyButton?.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(email);
       copyButton.textContent = 'Copied';
-      window.setTimeout(() => {
-        copyButton.textContent = 'Copy Email';
-      }, 1600);
+      window.setTimeout(() => { copyButton.textContent = 'Copy Email'; }, 1600);
     } catch {
       copyButton.textContent = email;
     }
   });
+}
 
-  printButton?.addEventListener('click', () => window.print());
+function initBackToTop() {
+  const button = select('[data-back-to-top]');
+  if (!button) return;
+  const update = () => button.classList.toggle('is-visible', window.scrollY > 380);
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+  button.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+function applyLang(site, resume) {
+  if (state.lang === 'en') return { site, resume };
+  const fr = site.i18n?.fr;
+  if (!fr) return { site, resume };
+
+  const siteOut = {
+    ...site,
+    navigation: fr.navigation || site.navigation,
+    hero: { ...site.hero, ...(fr.hero || {}) },
+    sections: Object.fromEntries(
+      Object.entries(site.sections).map(([key, sec]) => [
+        key, { ...sec, ...(fr.sections?.[key] || {}) }
+      ])
+    ),
+    contact: { ...site.contact, ...(fr.contact || {}) }
+  };
+
+  const resumeOut = {
+    ...resume,
+    profile: { ...resume.profile, ...(fr.profile || {}) }
+  };
+
+  return { site: siteOut, resume: resumeOut };
+}
+
+function initLangToggle() {
+  const button = select('[data-lang-toggle]');
+  const label = select('[data-lang-label]');
+  if (!button || !label) return;
+
+  const refresh = () => {
+    const isFr = state.lang === 'fr';
+    label.textContent = isFr ? 'EN' : 'FR';
+    button.setAttribute('aria-label', isFr ? 'Switch to English' : 'Passer en français');
+  };
+
+  refresh();
+
+  button.addEventListener('click', () => {
+    state.lang = state.lang === 'en' ? 'fr' : 'en';
+    localStorage.setItem('lang', state.lang);
+    refresh();
+    const { site: s, resume: r } = applyLang(state.site, state.resume);
+    renderNavigation(s);
+    renderHero(s, r);
+    renderSectionCopy(s);
+    initScrollFeedback();
+  });
+}
+
+const GH_USER = 'achref-soua';
+const LANG_COLORS = {
+  Rust: '#dea584', Python: '#3572A5', TypeScript: '#3178c6',
+  JavaScript: '#f1e05a', 'C++': '#f34b7d', Go: '#00ADD8',
+  Svelte: '#ff3e00', CSS: '#563d7c', HTML: '#e34c26'
+};
+
+async function renderGitHubDashboard() {
+  const container = select('[data-github-dashboard]');
+  if (!container) return;
+
+  try {
+    const [user, repos] = await Promise.all([
+      fetch(`https://api.github.com/users/${GH_USER}`).then(r => r.json()),
+      fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=100`).then(r => r.json())
+    ]);
+
+    if (user.message) throw new Error(user.message);
+    if (!Array.isArray(repos)) throw new Error('repos failed');
+
+    const ownRepos = repos.filter(r => !r.fork);
+    const totalStars = ownRepos.reduce((n, r) => n + r.stargazers_count, 0);
+    const totalForks = ownRepos.reduce((n, r) => n + r.forks_count, 0);
+
+    const statsStrip = createElement('div', 'gh-stats-strip');
+    [
+      [user.public_repos, 'Repositories'],
+      [totalStars, 'Stars'],
+      [totalForks, 'Forks'],
+      [user.followers, 'Followers']
+    ].forEach(([val, lbl]) => {
+      const stat = addReveal(createElement('div', 'gh-stat'));
+      stat.append(createElement('strong', '', String(val ?? '—')));
+      stat.append(createElement('span', '', lbl));
+      statsStrip.append(stat);
+    });
+
+    const top = ownRepos
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+      .slice(0, 6);
+
+    const grid = createElement('div', 'gh-repos-grid');
+    top.forEach(repo => {
+      const card = addReveal(createElement('article', 'gh-repo-card'));
+
+      const header = createElement('div', 'gh-repo-header');
+      const name = createElement('a', 'gh-repo-name', repo.name);
+      name.href = repo.html_url;
+      name.target = '_blank';
+      name.rel = 'noopener noreferrer';
+      header.append(name);
+      if (repo.stargazers_count > 0) {
+        header.append(createElement('span', 'gh-repo-stars', `★ ${repo.stargazers_count}`));
+      }
+      card.append(header);
+
+      if (repo.description) {
+        card.append(createElement('p', 'gh-repo-desc', repo.description));
+      }
+
+      const meta = createElement('div', 'gh-repo-meta');
+      if (repo.language) {
+        const lang = createElement('span', 'gh-lang', repo.language);
+        lang.style.setProperty('--lang-color', LANG_COLORS[repo.language] || 'var(--muted)');
+        meta.append(lang);
+      }
+      if (repo.forks_count > 0) meta.append(createElement('span', '', `⑂ ${repo.forks_count}`));
+      const updated = new Date(repo.updated_at).toLocaleDateString('en', { month: 'short', year: 'numeric' });
+      meta.append(createElement('span', '', `Updated ${updated}`));
+      card.append(meta);
+
+      grid.append(card);
+    });
+
+    container.replaceChildren(statsStrip, grid);
+    observeRevealItems();
+  } catch {
+    const msg = createElement('p', 'gh-error', 'GitHub stats unavailable — try again later.');
+    container.replaceChildren(msg);
+  }
 }
 
 function observeRevealItems() {
@@ -460,23 +609,29 @@ async function init() {
     state.resume = resume;
     state.projects = projects;
 
-    updateMeta(site, resume);
-    renderNavigation(site);
-    renderHero(site, resume);
-    renderSectionCopy(site);
-    renderMetrics(resume);
-    renderFocusAreas(resume);
-    renderExperience(resume);
+    const { site: s, resume: r } = applyLang(site, resume);
+
+    updateMeta(s, r);
+    renderNavigation(s);
+    renderHero(s, r);
+    renderSectionCopy(s);
+    renderMetrics(r);
+    renderFocusAreas(r);
+    renderExperience(r);
     renderProjectFilters();
     renderProjects();
-    renderSkills(resume);
-    renderEducation(resume);
-    renderPublications(resume);
-    renderContact(resume);
-    renderStructuredData(site, resume);
-    initActions(resume);
+    renderSkills(r);
+    renderEducation(r);
+    renderPublications(r);
+    renderContact(r);
+    renderStructuredData(s, r);
+    initActions(r);
     initScrollFeedback();
+    initBackToTop();
+    initLangToggle();
     observeRevealItems();
+
+    renderGitHubDashboard().catch(() => {});
   } catch (error) {
     console.error(error);
     renderError(error);
