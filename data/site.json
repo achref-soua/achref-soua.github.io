@@ -1,19 +1,28 @@
 {
   "meta": {
-    "title": "Achref SOUA - Data Scientist",
-    "description": "Achref SOUA builds production AI systems across large language models, medical imaging, and applied machine learning.",
+    "title": "Achref SOUA – ML Engineer",
+    "description": "ML Engineer building production AI systems: vector search in Rust, 3D medical imaging, multi-agent LLM systems, and open-source platforms.",
     "url": "https://achref-soua.github.io",
     "image": "assets/achref_soua_picture.png",
     "keywords": [
       "Achref SOUA",
-      "Data Scientist",
+      "ML Engineer",
+      "Machine Learning Engineer",
       "AI Engineer",
-      "LLM Engineer",
+      "Rust",
+      "Vector Database",
+      "LLM",
+      "RAG",
+      "Multi-agent",
       "Medical Imaging",
-      "Machine Learning",
-      "LangChain",
+      "DICOM",
+      "3D Segmentation",
       "PyTorch",
-      "AWS"
+      "LangChain",
+      "LangGraph",
+      "AWS",
+      "Open Source",
+      "Paris"
     ]
   },
   "navigation": [
@@ -25,51 +34,51 @@
     { "label": "Contact", "href": "#contact" }
   ],
   "hero": {
-    "eyebrow": "Data Scientist in France",
-    "subheadline": "I design, ship, and refine AI systems that turn research-grade models into reliable product workflows.",
+    "eyebrow": "ML Engineer · Paris, France",
+    "subheadline": "I build things that work in production — vector databases in Rust, 3D medical imaging pipelines, multi-agent LLM systems, and open-source platforms.",
     "primaryAction": {
-      "label": "View Career",
-      "href": "#experience"
-    },
-    "secondaryAction": {
       "label": "Selected Work",
       "href": "#projects"
+    },
+    "secondaryAction": {
+      "label": "Experience",
+      "href": "#experience"
     }
   },
   "sections": {
     "about": {
       "label": "About",
-      "title": "Production AI with research discipline."
+      "title": "Systems-minded ML engineer."
     },
     "experience": {
       "label": "Experience",
-      "title": "Career Timeline",
-      "intro": "Recent roles across medical imaging, FinOps assistants, and retrieval systems."
+      "title": "Career",
+      "intro": "Production roles across medical imaging, cloud AI, and retrieval systems."
     },
     "projects": {
       "label": "Projects",
       "title": "Selected Work",
-      "intro": "A focused set of projects that show model building, data engineering, deployment, and applied research."
+      "intro": "Open-source systems, medical AI, and LLM applications — built to production quality."
     },
     "skills": {
       "label": "Skills",
       "title": "Technical Range",
-      "intro": "Tools and methods I use to move from problem framing to production-ready AI."
+      "intro": "From SIMD kernels in Rust to DICOM pipelines in Python to multi-agent LLM systems."
     },
     "education": {
       "label": "Education",
-      "title": "Academic Foundation",
-      "intro": "Computer science engineering with a specialization in artificial intelligence."
+      "title": "Education",
+      "intro": "Computer science engineering with a specialization in AI."
     },
     "publications": {
       "label": "Publication",
-      "title": "Research Output",
-      "intro": "Published work connecting AI, embedded systems, and applied engineering."
+      "title": "Research",
+      "intro": "Published work at the intersection of AI and applied engineering."
     }
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Let us build something useful.",
-    "intro": "For AI product work, applied research, or collaboration, email is the fastest way to reach me."
+    "title": "Let's build something useful.",
+    "intro": "Open to ML engineering roles, research collaborations, and interesting problems. Email is the fastest path."
   }
 }
