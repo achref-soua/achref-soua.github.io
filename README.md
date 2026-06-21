@@ -68,6 +68,7 @@ Project filter buttons are generated automatically from each project's `category
 - System font stack for a clean, Apple-inspired feel.
 - Large editorial hero, restrained borders, and compact repeated cards.
 - Scroll-driven horizontal career timeline (pinned, one experience per scroll) with a swipeable carousel on mobile and a stacked fallback for reduced motion.
+- Interactive projects constellation: a canvas-drawn knowledge graph (projects orbiting category hubs) that rotates with scroll and tilts toward the cursor; hovering or focusing a node opens its details. Falls back to the card grid on touch and reduced-motion devices.
 - Animated count-up metrics, smooth reveal animations, and full reduced-motion support.
 - Print-friendly resume view through the print stylesheet.
 
