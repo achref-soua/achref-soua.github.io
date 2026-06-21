@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20260621-3',
-  resume: 'data/resume.json?v=20260621-3',
-  projects: 'data/projects.json?v=20260621-3',
-  i18nFr: 'data/i18n.fr.json?v=20260621-3'
+  site: 'data/site.json?v=20260621-4',
+  resume: 'data/resume.json?v=20260621-4',
+  projects: 'data/projects.json?v=20260621-4',
+  i18nFr: 'data/i18n.fr.json?v=20260621-4'
 };
 
 const state = {
@@ -246,7 +246,7 @@ function renderProjects() {
   container.replaceChildren();
 
   const source = state.displayProjects || state.projects;
-  const projects = state.activeProjectFilter === 'All'
+  const projects = (state.activeProjectFilter === 'All' || state.activeProjectFilter === 'Open Source')
     ? source
     : source.filter((project) => project.category === state.activeProjectFilter);
 
@@ -532,12 +532,25 @@ async function fetchMediumArticles() {
   return data.items || [];
 }
 
+const MEDIUM_URL = 'https://achref-soua.medium.com/';
+
 function renderMediumArticles(articles, container) {
-  if (!articles.length) return;
-
+  const headingRow = createElement('div', 'gh-medium-heading');
   const heading = createElement('h3', 'gh-sub-heading', 'Latest on Medium');
-  const grid = createElement('div', 'medium-grid');
+  const allLink = createElement('a', 'gh-medium-all', 'View all →');
+  allLink.href = MEDIUM_URL;
+  allLink.target = '_blank';
+  allLink.rel = 'noopener noreferrer';
+  headingRow.append(heading, allLink);
+  container.append(headingRow);
 
+  if (!articles.length) {
+    const placeholder = createElement('p', 'gh-medium-placeholder', 'Articles loading — or visit Medium directly.');
+    container.append(placeholder);
+    return;
+  }
+
+  const grid = createElement('div', 'medium-grid');
   articles.slice(0, 4).forEach(article => {
     const card = addReveal(createElement('article', 'medium-card'));
 
@@ -556,7 +569,7 @@ function renderMediumArticles(articles, container) {
     grid.append(card);
   });
 
-  container.append(heading, grid);
+  container.append(grid);
 }
 
 async function renderGitHubDashboard() {
@@ -628,11 +641,12 @@ async function renderGitHubDashboard() {
     });
 
     container.replaceChildren(statsStrip, grid);
-    renderMediumArticles(articles, container);
+    renderMediumArticles(articles || [], container);
     observeRevealItems();
   } catch {
     const msg = createElement('p', 'gh-error', 'GitHub stats unavailable — try again later.');
     container.replaceChildren(msg);
+    renderMediumArticles([], container);
   }
 }
 
