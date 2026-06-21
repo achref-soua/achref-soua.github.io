@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20260621-4',
-  resume: 'data/resume.json?v=20260621-4',
-  projects: 'data/projects.json?v=20260621-4',
-  i18nFr: 'data/i18n.fr.json?v=20260621-4'
+  site: 'data/site.json?v=20260621-5',
+  resume: 'data/resume.json?v=20260621-5',
+  projects: 'data/projects.json?v=20260621-5',
+  i18nFr: 'data/i18n.fr.json?v=20260621-5'
 };
 
 const state = {
@@ -526,7 +526,7 @@ const LANG_COLORS = {
 
 async function fetchMediumArticles() {
   const rssUrl = 'https://medium.com/feed/@achref-soua';
-  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=4`;
+  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
   const data = await fetch(apiUrl).then(r => r.json());
   if (data.status !== 'ok') return [];
   return data.items || [];
