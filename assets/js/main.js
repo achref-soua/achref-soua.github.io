@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20261007-4',
-  resume: 'data/resume.json?v=20261007-4',
-  projects: 'data/projects.json?v=20261007-4',
-  i18nFr: 'data/i18n.fr.json?v=20261007-4'
+  site: 'data/site.json?v=20261007-5',
+  resume: 'data/resume.json?v=20261007-5',
+  projects: 'data/projects.json?v=20261007-5',
+  i18nFr: 'data/i18n.fr.json?v=20261007-5'
 };
 
 const state = {
@@ -88,6 +88,46 @@ function renderNavigation(site) {
     link.href = item.href;
     nav.append(link);
   });
+}
+
+function updateNavigationButton() {
+  const button = select('[data-nav-toggle]');
+  if (!button) return;
+  const expanded = button.getAttribute('aria-expanded') === 'true';
+  const isFr = state.lang === 'fr';
+  button.setAttribute('aria-label', expanded
+    ? (isFr ? 'Fermer le menu' : 'Close navigation')
+    : (isFr ? 'Ouvrir le menu' : 'Open navigation'));
+  button.innerHTML = expanded
+    ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"></path></svg>'
+    : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>';
+}
+
+function initMobileNavigation() {
+  const header = select('[data-header]');
+  const button = select('[data-nav-toggle]');
+  const nav = select('[data-nav]');
+  if (!header || !button || !nav) return;
+  const setOpen = (open) => {
+    header.classList.toggle('is-menu-open', open);
+    button.setAttribute('aria-expanded', String(open));
+    updateNavigationButton();
+  };
+  button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+  nav.addEventListener('click', (event) => {
+    if (event.target.closest('a')) setOpen(false);
+  });
+  document.addEventListener('click', (event) => {
+    if (!event.composedPath().includes(header)) setOpen(false);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      button.focus();
+    }
+  });
+  window.matchMedia('(max-width: 680px)').addEventListener('change', () => setOpen(false));
+  updateNavigationButton();
 }
 
 function renderHero(site, resume) {
@@ -704,6 +744,7 @@ function initLangToggle() {
     const isFr = state.lang === 'fr';
     label.textContent = isFr ? 'EN' : 'FR';
     button.setAttribute('aria-label', isFr ? 'Switch to English' : 'Passer en français');
+    updateNavigationButton();
   };
 
   refresh();
@@ -1043,6 +1084,7 @@ async function init() {
     initScrollFeedback();
     initBackToTop();
     initLangToggle();
+    initMobileNavigation();
     observeRevealItems();
     initTimelineScroll();
     initCountUp();
