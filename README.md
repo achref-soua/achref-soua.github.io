@@ -70,6 +70,7 @@ Project filter buttons are generated automatically from each project's `category
 ## Design System
 
 - Warm cream and rust palette with light and dark modes.
+- Original cowboy hat and moustache favicon in warm ink and rust.
 - Self-hosted Bricolage Grotesque variable fonts for bold headings and readable body text.
 - Large editorial hero, restrained borders, and compact repeated cards.
 - Phone layout with a compact portrait beside the name, two main actions, a two-column metric grid, and an expandable navigation menu with large tap targets.

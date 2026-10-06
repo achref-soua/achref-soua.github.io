@@ -1,4 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AS">
-  <rect width="64" height="64" rx="8" fill="#0b0b0c"/>
-  <text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif" font-size="24" font-weight="700">AS</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Cowboy hat and moustache">
+  <title>Cowboy hat and moustache</title>
+  <rect width="64" height="64" rx="14" fill="#f7f1e7"/>
+  <g fill="#241b14">
+    <path d="M19 29 23 13Q24 9 28 12L31 15Q32 16 33 15L36 12Q40 9 41 13L45 29Z"/>
+    <path d="M7 26Q16 33 32 32Q48 33 57 26Q55 37 32 37Q9 37 7 26Z"/>
+    <path d="M32 46C25 39 23 48 17 46C13 45 11 43 10 42C10 52 23 58 32 49C41 58 54 52 54 42C53 43 51 45 47 46C41 48 39 39 32 46Z"/>
+  </g>
+  <path d="M20 25H44L45 29H19Z" fill="#a83e1b"/>
 </svg>
