@@ -1,6 +1,6 @@
 # Achref SOUA Portfolio
 
-A minimal black-and-white portfolio for **Achref SOUA**, built as a static GitHub Pages site with config-driven content.
+A portfolio with bold typography and a warm ink palette for **Achref SOUA**, built as a static GitHub Pages site with config-driven content.
 
 The site is intentionally dependency-free: HTML, CSS, JavaScript, and JSON. Run it through a local server because the browser needs to fetch the JSON config files.
 
@@ -19,6 +19,11 @@ Most updates happen in `data/`.
 - `data/site.json`: SEO metadata, navigation, hero copy, section headings, contact section text.
 - `data/resume.json`: profile, metrics, focus areas, experience, education, skills, publications, contact links.
 - `data/projects.json`: project cards, categories, highlights, stack tags, impact lines, links.
+- `data/i18n.fr.json`: French profile and project copy. Match project `title` to the English source and use `displayTitle` for the translated title.
+
+Keep the static metadata and fallback copy in `index.html` in sync with the JSON. Bump the cache version in `index.html` and `assets/js/main.js` after edits.
+
+Portrait display is capped at 300 px on desktop and 280 px on smaller screens. The original image is stored unchanged. Fonts are served locally; their [upstream project](https://github.com/ateliertriay/bricolage) and license are retained in `assets/fonts/`.
 
 ### Add Experience
 
@@ -64,8 +69,8 @@ Project filter buttons are generated automatically from each project's `category
 
 ## Design System
 
-- Monochrome palette with light and dark modes.
-- System font stack for a clean, Apple-inspired feel.
+- Warm cream and rust palette with light and dark modes.
+- Self-hosted Bricolage Grotesque variable fonts for bold headings and readable body text.
 - Large editorial hero, restrained borders, and compact repeated cards.
 - Scroll-driven horizontal career timeline (pinned, one experience per scroll) with a swipeable carousel on mobile and a stacked fallback for reduced motion.
 - Animated count-up metrics, smooth reveal animations, and full reduced-motion support.
@@ -77,7 +82,8 @@ Project filter buttons are generated automatically from each project's `category
 .
 ├── index.html
 ├── assets/
-│   ├── achref_soua_picture.png
+│   ├── achref-soua-portrait.png
+│   ├── fonts/ (Bricolage Grotesque, SIL OFL license included)
 │   ├── favicon.svg
 │   ├── css/style.css
 │   └── js/main.js
