@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20261007-2',
-  resume: 'data/resume.json?v=20261007-2',
-  projects: 'data/projects.json?v=20261007-2',
-  i18nFr: 'data/i18n.fr.json?v=20261007-2'
+  site: 'data/site.json?v=20261007-3',
+  resume: 'data/resume.json?v=20261007-3',
+  projects: 'data/projects.json?v=20261007-3',
+  i18nFr: 'data/i18n.fr.json?v=20261007-3'
 };
 
 const state = {
@@ -137,6 +137,12 @@ function renderSectionCopy(site) {
   setText('[data-contact-intro]', contact.intro);
 }
 
+function getExperienceYears(startMonth, now = new Date()) {
+  const [year, month] = startMonth.split('-').map(Number);
+  const years = now.getUTCFullYear() - year;
+  return Math.max(0, years - (now.getUTCMonth() + 1 < month ? 1 : 0));
+}
+
 function renderMetrics(resume) {
   const container = select('[data-metrics]');
   if (!container) return;
@@ -144,7 +150,10 @@ function renderMetrics(resume) {
 
   (resume.metrics || []).forEach((metric) => {
     const article = addReveal(createElement('article', 'metric'));
-    const value = createElement('strong', '', metric.value);
+    const text = metric.type === 'experienceYears'
+      ? `${getExperienceYears(resume.profile.experienceStart)}+`
+      : metric.value;
+    const value = createElement('strong', '', text);
     value.setAttribute('data-count', '');
     article.append(value);
     article.append(createElement('span', '', metric.label));

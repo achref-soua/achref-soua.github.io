@@ -7,12 +7,13 @@
     "image": "assets/achref-soua-portrait.png",
     "imageAlt": "Portrait of Achref SOUA",
     "intro": "I build stuff.",
-    "summary": "I'm a machine learning engineer in France. I work on 3D imaging at PrediSurge and build open-source tools in Rust."
+    "summary": "I'm a machine learning engineer in France. I work on 3D imaging at PrediSurge and build open-source tools in Rust.",
+    "experienceStart": "2023-02"
   },
   "metrics": [
     {
-      "value": "3+",
-      "label": "Years building AI products"
+      "label": "Years building AI products",
+      "type": "experienceYears"
     },
     {
       "value": "94%",
