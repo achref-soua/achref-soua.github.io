@@ -1175,6 +1175,7 @@ h3 {
 }
 
 .is-carousel .xp-panel {
+  align-items: stretch;
   flex: 0 0 86%;
   scroll-snap-align: center;
   padding-right: 14px;
