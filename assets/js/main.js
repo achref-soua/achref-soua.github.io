@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20261006-5',
-  resume: 'data/resume.json?v=20261006-5',
-  projects: 'data/projects.json?v=20261006-5',
-  i18nFr: 'data/i18n.fr.json?v=20261006-5'
+  site: 'data/site.json?v=20261007-1',
+  resume: 'data/resume.json?v=20261007-1',
+  projects: 'data/projects.json?v=20261007-1',
+  i18nFr: 'data/i18n.fr.json?v=20261007-1'
 };
 
 const state = {
