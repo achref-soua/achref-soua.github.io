@@ -41,13 +41,13 @@
 
     <link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="assets/achref-soua-portrait.png" as="image" />
-    <link rel="preload" href="assets/css/style.css?v=20261007-4" as="style" />
-    <link rel="preload" href="data/site.json?v=20261007-4" as="fetch" crossorigin />
-    <link rel="preload" href="data/resume.json?v=20261007-4" as="fetch" crossorigin />
-    <link rel="preload" href="data/projects.json?v=20261007-4" as="fetch" crossorigin />
-    <link rel="preload" href="data/i18n.fr.json?v=20261007-4" as="fetch" crossorigin />
+    <link rel="preload" href="assets/css/style.css?v=20261007-5" as="style" />
+    <link rel="preload" href="data/site.json?v=20261007-5" as="fetch" crossorigin />
+    <link rel="preload" href="data/resume.json?v=20261007-5" as="fetch" crossorigin />
+    <link rel="preload" href="data/projects.json?v=20261007-5" as="fetch" crossorigin />
+    <link rel="preload" href="data/i18n.fr.json?v=20261007-5" as="fetch" crossorigin />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-    <link rel="stylesheet" href="assets/css/style.css?v=20261007-4" />
+    <link rel="stylesheet" href="assets/css/style.css?v=20261007-5" />
     <script id="profile-structured-data" type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -91,7 +91,7 @@
           </span>
         </a>
 
-        <nav class="site-nav" data-nav aria-label="Primary navigation"></nav>
+        <nav id="site-navigation" class="site-nav" data-nav aria-label="Primary navigation"></nav>
 
         <button class="icon-button" type="button" data-lang-toggle aria-label="Passer en français">
           <span data-lang-label>FR</span>
@@ -99,6 +99,11 @@
         <button class="icon-button" type="button" data-theme-toggle aria-label="Toggle color theme">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"></path>
+          </svg>
+        </button>
+        <button class="icon-button nav-toggle" type="button" data-nav-toggle aria-controls="site-navigation" aria-expanded="false" aria-label="Open navigation">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
       </div>
@@ -276,6 +281,6 @@
       </svg>
     </button>
 
-    <script src="assets/js/main.js?v=20261007-4" defer></script>
+    <script src="assets/js/main.js?v=20261007-5" defer></script>
   </body>
 </html>
