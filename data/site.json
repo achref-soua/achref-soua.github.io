@@ -1,9 +1,9 @@
 {
   "meta": {
-    "title": "Achref SOUA – ML Engineer",
-    "description": "ML Engineer building production AI systems: vector search in Rust, 3D medical imaging, multi-agent LLM systems, and open-source platforms.",
+    "title": "Achref Soua | Machine Learning Engineer in Paris",
+    "description": "Achref Soua, machine learning engineer in Paris. Medical imaging, vector search and AI assistants. Experience, open-source projects and contact details.",
     "url": "https://achref-soua.github.io",
-    "image": "assets/achref_soua_picture.png",
+    "image": "assets/achref-soua-portrait.png",
     "keywords": [
       "Achref SOUA",
       "ML Engineer",
@@ -26,104 +26,184 @@
     ]
   },
   "navigation": [
-    { "label": "About", "href": "#about" },
-    { "label": "Experience", "href": "#experience" },
-    { "label": "Projects", "href": "#projects" },
-    { "label": "Skills", "href": "#skills" },
-    { "label": "GitHub", "href": "#github" },
-    { "label": "Education", "href": "#education" },
-    { "label": "Publications", "href": "#publications" },
-    { "label": "Contact", "href": "#contact" }
+    {
+      "label": "About",
+      "href": "#about"
+    },
+    {
+      "label": "Experience",
+      "href": "#experience"
+    },
+    {
+      "label": "Projects",
+      "href": "#projects"
+    },
+    {
+      "label": "Skills",
+      "href": "#skills"
+    },
+    {
+      "label": "GitHub",
+      "href": "#github"
+    },
+    {
+      "label": "Education",
+      "href": "#education"
+    },
+    {
+      "label": "Publications",
+      "href": "#publications"
+    },
+    {
+      "label": "Contact",
+      "href": "#contact"
+    }
   ],
   "hero": {
-    "eyebrow": "ML Engineer · Paris, France",
-    "subheadline": "I build things that work in production — vector databases in Rust, 3D medical imaging pipelines, multi-agent LLM systems, and open-source platforms.",
+    "eyebrow": "Machine Learning Engineer · Paris, France",
+    "subheadline": "I build medical imaging tools, search engines and AI assistants.",
     "primaryAction": {
-      "label": "Selected Work",
+      "label": "See My Work",
       "href": "#projects"
     },
     "secondaryAction": {
-      "label": "Experience",
+      "label": "View Experience",
       "href": "#experience"
     }
   },
   "sections": {
     "about": {
       "label": "About",
-      "title": "Systems-minded ML engineer."
+      "title": "What I Do"
     },
     "experience": {
       "label": "Experience",
-      "title": "Career",
-      "intro": "Production roles across medical imaging, cloud AI, and retrieval systems."
+      "title": "Work Experience",
+      "intro": "Medical imaging, cloud costs and customer support."
     },
     "projects": {
       "label": "Projects",
-      "title": "Selected Work",
-      "intro": "Open-source systems, medical AI, and LLM applications — built to production quality."
+      "title": "Selected Projects",
+      "intro": "A few things I have built."
     },
     "skills": {
       "label": "Skills",
-      "title": "Technical Range",
-      "intro": "From SIMD kernels in Rust to DICOM pipelines in Python to multi-agent LLM systems."
+      "title": "Technical Skills",
+      "intro": "My day-to-day tools."
     },
     "github": {
       "label": "GitHub",
-      "title": "Activity",
-      "intro": "Live stats and top repositories pulled from the GitHub API."
+      "title": "Code and Writing",
+      "intro": "Open-source projects and articles."
     },
     "education": {
       "label": "Education",
       "title": "Education",
-      "intro": "Computer science engineering with a specialization in AI."
+      "intro": "Computer science, with a focus on AI."
     },
     "publications": {
       "label": "Publication",
       "title": "Research",
-      "intro": "Published work at the intersection of AI and applied engineering."
+      "intro": "Published work in applied AI."
     }
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Let's build something useful.",
-    "intro": "Open to ML engineering roles, research collaborations, and interesting problems. Email is the fastest path."
+    "title": "Let's Talk",
+    "intro": "Have a role or a project in mind? Send me an email."
   },
   "i18n": {
     "fr": {
       "navigation": [
-        { "label": "À propos", "href": "#about" },
-        { "label": "Expérience", "href": "#experience" },
-        { "label": "Projets", "href": "#projects" },
-        { "label": "Compétences", "href": "#skills" },
-        { "label": "GitHub", "href": "#github" },
-        { "label": "Formation", "href": "#education" },
-        { "label": "Publications", "href": "#publications" },
-        { "label": "Contact", "href": "#contact" }
+        {
+          "label": "À propos",
+          "href": "#about"
+        },
+        {
+          "label": "Expérience",
+          "href": "#experience"
+        },
+        {
+          "label": "Projets",
+          "href": "#projects"
+        },
+        {
+          "label": "Compétences",
+          "href": "#skills"
+        },
+        {
+          "label": "GitHub",
+          "href": "#github"
+        },
+        {
+          "label": "Formation",
+          "href": "#education"
+        },
+        {
+          "label": "Publications",
+          "href": "#publications"
+        },
+        {
+          "label": "Contact",
+          "href": "#contact"
+        }
       ],
       "hero": {
-        "eyebrow": "Ingénieur ML · Paris, France",
-        "subheadline": "Je construis des systèmes qui tiennent en production — bases vectorielles en Rust, pipelines d'imagerie médicale 3D, agents LLM multi-acteurs et plateformes open-source.",
-        "primaryAction": { "label": "Projets sélectionnés", "href": "#projects" },
-        "secondaryAction": { "label": "Expérience", "href": "#experience" }
+        "eyebrow": "Ingénieur en machine learning · Paris, France",
+        "subheadline": "Je développe des outils d'imagerie médicale, des moteurs de recherche et des assistants IA.",
+        "primaryAction": {
+          "label": "Voir mes projets",
+          "href": "#projects"
+        },
+        "secondaryAction": {
+          "label": "Voir l'expérience",
+          "href": "#experience"
+        }
       },
       "sections": {
-        "about": { "label": "À propos", "title": "Ingénieur ML orienté systèmes." },
-        "experience": { "label": "Expérience", "title": "Parcours", "intro": "Postes en production : imagerie médicale, IA cloud et systèmes de recherche vectorielle." },
-        "projects": { "label": "Projets", "title": "Travaux sélectionnés", "intro": "Systèmes open-source, IA médicale et applications LLM — conçus pour la production." },
-        "skills": { "label": "Compétences", "title": "Éventail technique", "intro": "Des noyaux SIMD en Rust aux pipelines DICOM en Python." },
-        "github": { "label": "GitHub", "title": "Activité", "intro": "Statistiques en temps réel et dépôts principaux depuis l'API GitHub publique." },
-        "education": { "label": "Formation", "title": "Formation", "intro": "Diplôme d'ingénieur en informatique, spécialisation IA." },
-        "publications": { "label": "Publication", "title": "Recherche", "intro": "Travaux publiés à l'intersection de l'IA et de l'ingénierie appliquée." }
+        "about": {
+          "label": "À propos",
+          "title": "Mon Travail"
+        },
+        "experience": {
+          "label": "Expérience",
+          "title": "Expérience",
+          "intro": "Imagerie médicale, coûts cloud et support client."
+        },
+        "projects": {
+          "label": "Projets",
+          "title": "Projets Sélectionnés",
+          "intro": "Quelques projets que j'ai développés."
+        },
+        "skills": {
+          "label": "Compétences",
+          "title": "Compétences",
+          "intro": "Mes outils au quotidien."
+        },
+        "github": {
+          "label": "GitHub",
+          "title": "Code et Articles",
+          "intro": "Projets open source et articles techniques."
+        },
+        "education": {
+          "label": "Formation",
+          "title": "Formation",
+          "intro": "Informatique, avec une spécialisation en IA."
+        },
+        "publications": {
+          "label": "Publication",
+          "title": "Recherche",
+          "intro": "Mes publications en IA appliquée."
+        }
       },
       "contact": {
         "eyebrow": "Contact",
-        "title": "Construisons quelque chose d'utile.",
-        "intro": "Ouvert aux postes d'ingénieur ML, aux collaborations de recherche et aux problèmes intéressants. L'email est le moyen le plus rapide."
+        "title": "Parlons-en",
+        "intro": "Un poste ou un projet en tête ? Écrivez-moi."
       },
-      "profile": {
-        "intro": "Je construis des systèmes ML en production — recherche vectorielle en Rust, imagerie médicale 3D et agents LLM.",
-        "summary": "Ingénieur ML avec ~3 ans d'expérience en imagerie médicale, systèmes LLM et infrastructure open-source. Je comble le fossé entre les modèles de recherche et les systèmes prêts pour la production.",
-        "status": "Ouvert aux nouvelles opportunités"
+      "meta": {
+        "title": "Achref Soua | Ingénieur en machine learning à Paris",
+        "description": "Achref Soua, ingénieur en machine learning à Paris. Imagerie médicale, recherche vectorielle et assistants IA. Parcours, projets open source et contact."
       }
     }
   }
