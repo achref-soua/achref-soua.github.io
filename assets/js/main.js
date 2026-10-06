@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20261007-1',
-  resume: 'data/resume.json?v=20261007-1',
-  projects: 'data/projects.json?v=20261007-1',
-  i18nFr: 'data/i18n.fr.json?v=20261007-1'
+  site: 'data/site.json?v=20261007-2',
+  resume: 'data/resume.json?v=20261007-2',
+  projects: 'data/projects.json?v=20261007-2',
+  i18nFr: 'data/i18n.fr.json?v=20261007-2'
 };
 
 const state = {
@@ -424,7 +424,7 @@ function renderProjectFilters() {
 
   const source = state.displayProjects || state.projects;
   getProjectFilters(source).forEach((filter) => {
-    const button = createElement('button', 'filter-button', filter);
+    const button = createElement('button', 'filter-button', filter === 'All' && state.lang === 'fr' ? 'Tous' : filter);
     button.type = 'button';
     button.setAttribute('aria-pressed', filter === state.activeProjectFilter ? 'true' : 'false');
     button.addEventListener('click', () => {
@@ -451,7 +451,7 @@ function renderProjects() {
     const article = addReveal(createElement('article', 'project-card'));
     if (project.featured) article.classList.add('is-featured');
     const header = document.createElement('header');
-    if (project.featured) header.append(createElement('span', 'project-badge', 'Featured'));
+    if (project.featured) header.append(createElement('span', 'project-badge', state.lang === 'fr' ? 'À la une' : 'Featured'));
     header.append(createElement('div', 'project-meta', `${project.category} · ${project.range}`));
     header.append(createElement('h3', '', project.title));
 
@@ -666,14 +666,15 @@ function applyLang(site, resume, projects) {
 
   const source = projects || state.projects;
   const projectsOut = source.map(proj => {
-    const frProj = (fr.projects || []).find(p => p.title === proj.title);
-    if (!frProj) return proj;
+    const frProj = (fr.projects || []).find(p => p.title === proj.title) || {};
+    const linkLabel = proj.linkLabel || 'Open project';
     return {
       ...proj,
       title: frProj.displayTitle || proj.title,
       summary: frProj.summary || proj.summary,
       highlights: frProj.highlights || proj.highlights,
-      impact: frProj.impact || proj.impact
+      impact: frProj.impact || proj.impact,
+      linkLabel: frProj.linkLabel || fr.projectLinkLabels?.[linkLabel] || linkLabel
     };
   });
 
