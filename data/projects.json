@@ -28,6 +28,31 @@
     "linkLabel": "View on GitHub"
   },
   {
+    "title": "EHR: Health Data Platform",
+    "featured": true,
+    "category": "Medical AI",
+    "range": "2026",
+    "role": "Author",
+    "summary": "From custom health forms to research-ready data. A demo built on synthetic records.",
+    "highlights": [
+      "Reviewed mappings and quality checks before export.",
+      "Trace every result back to its source.",
+      "Local OCR and versioned OMOP exports."
+    ],
+    "stack": [
+      "Python",
+      "FastAPI",
+      "React",
+      "PostgreSQL",
+      "Parquet",
+      "OMOP",
+      "Docker"
+    ],
+    "impact": "Clear mappings. Traceable data. Repeatable exports.",
+    "link": "https://github.com/achref-soua/ehr-form-standardization-platform",
+    "linkLabel": "View on GitHub"
+  },
+  {
     "title": "Helio: Marketing Automation",
     "featured": true,
     "category": "Open Source",

@@ -213,6 +213,17 @@
       "displayTitle": "Quiver : base vectorielle"
     },
     {
+      "title": "EHR: Health Data Platform",
+      "displayTitle": "EHR : plateforme de données de santé",
+      "summary": "Des formulaires de santé aux données prêtes pour la recherche. Une démo sur des dossiers synthétiques.",
+      "highlights": [
+        "Mappings validés et contrôles qualité avant export.",
+        "Chaque résultat relié à sa source.",
+        "OCR local et exports OMOP versionnés."
+      ],
+      "impact": "Mappings clairs. Données traçables. Exports reproductibles."
+    },
+    {
       "title": "Helio: Marketing Automation",
       "summary": "Un outil marketing auto-hébergé avec un assistant IA. Créez des segments, lancez des campagnes et automatisez les parcours clients.",
       "highlights": [
@@ -312,5 +323,11 @@
       "impact": "200+ repas et des recommandations qui s'adaptent aux retours.",
       "displayTitle": "Planificateur de repas adaptatif"
     }
-  ]
+  ],
+  "projectLinkLabels": {
+    "View on GitHub": "Voir sur GitHub",
+    "View Publication": "Voir la publication",
+    "View Competition": "Voir la compétition",
+    "Open project": "Voir le projet"
+  }
 }
