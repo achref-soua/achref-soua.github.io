@@ -17,7 +17,7 @@ Then open `http://localhost:8000`.
 Most updates happen in `data/`.
 
 - `data/site.json`: SEO metadata, navigation, hero copy, section headings, contact section text.
-- `data/resume.json`: profile, metrics, focus areas, experience, education, skills, publications, contact links.
+- `data/resume.json`: profile, metrics, focus areas, experience, education, skills, publications, contact links. The experience metric calculates completed years from `profile.experienceStart` (`2023-02`) whenever the page renders, in either language.
 - `data/projects.json`: project cards, categories, highlights, stack tags, impact lines, links.
 - `data/i18n.fr.json`: French profile and project copy. Match project `title` to the English source and use `displayTitle` for the translated title.
 

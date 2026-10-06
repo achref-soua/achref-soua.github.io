@@ -6,8 +6,8 @@
   },
   "metrics": [
     {
-      "value": "3+",
-      "label": "Années à développer des produits IA"
+      "label": "Années à développer des produits IA",
+      "type": "experienceYears"
     },
     {
       "value": "94%",
