@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20261006-4',
-  resume: 'data/resume.json?v=20261006-4',
-  projects: 'data/projects.json?v=20261006-4',
-  i18nFr: 'data/i18n.fr.json?v=20261006-4'
+  site: 'data/site.json?v=20261006-5',
+  resume: 'data/resume.json?v=20261006-5',
+  projects: 'data/projects.json?v=20261006-5',
+  i18nFr: 'data/i18n.fr.json?v=20261006-5'
 };
 
 const state = {
@@ -100,7 +100,6 @@ function renderHero(site, resume) {
   setText('[data-footer-name]', profile.name);
   setText('[data-profile-role]', profile.role);
   setText('[data-profile-status]', profile.status);
-  setText('[data-profile-location]', profile.location);
   setText('[data-hero-eyebrow]', hero.eyebrow);
   setText('[data-hero-subheadline]', hero.subheadline || profile.intro);
   setText('[data-summary]', profile.summary);
