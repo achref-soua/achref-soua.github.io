@@ -1513,6 +1513,7 @@ h3 {
 }
 
 .gh-repo-card {
+  min-width: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 18px;
@@ -1757,4 +1758,11 @@ h3 {
     break-inside: avoid;
     box-shadow: none;
   }
+}
+
+.gh-data-updated,
+.gh-loading-text {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
 }
