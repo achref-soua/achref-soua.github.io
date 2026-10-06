@@ -1,8 +1,7 @@
 {
   "profile": {
     "intro": "Je développe des outils d'imagerie médicale, des moteurs de recherche et des assistants IA.",
-    "summary": "Ingénieur en machine learning à Paris. Je travaille sur l'imagerie 3D chez PrediSurge et je développe des outils open source en Rust.",
-    "status": "Ouvert aux nouvelles opportunités",
+    "summary": "Ingénieur en machine learning en France. Je travaille sur l'imagerie 3D chez PrediSurge et je développe des outils open source en Rust.",
     "role": "Ingénieur en machine learning"
   },
   "metrics": [
@@ -41,7 +40,7 @@
     {
       "company": "PrediSurge",
       "role": "Ingénieur ML",
-      "location": "Saint-Étienne, France",
+      "location": "France",
       "range": "Oct 2025 – Présent",
       "summary": "Je développe des outils d'imagerie 3D pour la planification chirurgicale endovasculaire.",
       "highlights": [
@@ -64,7 +63,7 @@
     {
       "company": "Moovto",
       "role": "Ingénieur ML",
-      "location": "Paris, France",
+      "location": "France",
       "range": "Jan 2025 – Sept 2025",
       "summary": "Un assistant qui réduit l'analyse des coûts cloud de plusieurs heures à quelques minutes.",
       "highlights": [

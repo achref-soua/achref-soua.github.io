@@ -3,12 +3,11 @@
     "name": "Achref SOUA",
     "initials": "AS",
     "role": "Machine Learning Engineer",
-    "location": "Paris, France",
-    "status": "Open to new opportunities",
+    "location": "France",
     "image": "assets/achref-soua-portrait.png",
     "imageAlt": "Portrait of Achref SOUA",
     "intro": "I build medical imaging tools, search engines and AI assistants.",
-    "summary": "I'm a machine learning engineer in Paris. I work on 3D imaging at PrediSurge and build open-source tools in Rust."
+    "summary": "I'm a machine learning engineer in France. I work on 3D imaging at PrediSurge and build open-source tools in Rust."
   },
   "metrics": [
     {
@@ -53,7 +52,7 @@
     {
       "company": "PrediSurge",
       "role": "ML Engineer",
-      "location": "Saint-Étienne, France",
+      "location": "France",
       "range": "Oct 2025 – Present",
       "summary": "I build 3D imaging tools for endovascular surgery planning.",
       "highlights": [
@@ -76,7 +75,7 @@
     {
       "company": "Moovto",
       "role": "ML Engineer",
-      "location": "Paris, France",
+      "location": "France",
       "range": "Jan 2025 – Sept 2025",
       "summary": "Built a cloud cost assistant that turned hours of analysis into minutes.",
       "highlights": [
