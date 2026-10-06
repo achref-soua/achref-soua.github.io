@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20261007-3',
-  resume: 'data/resume.json?v=20261007-3',
-  projects: 'data/projects.json?v=20261007-3',
-  i18nFr: 'data/i18n.fr.json?v=20261007-3'
+  site: 'data/site.json?v=20261007-4',
+  resume: 'data/resume.json?v=20261007-4',
+  projects: 'data/projects.json?v=20261007-4',
+  i18nFr: 'data/i18n.fr.json?v=20261007-4'
 };
 
 const state = {
@@ -103,6 +103,11 @@ function renderHero(site, resume) {
   setText('[data-hero-eyebrow]', hero.eyebrow);
   setText('[data-hero-subheadline]', hero.subheadline || profile.intro);
   setText('[data-summary]', profile.summary);
+
+  selectAll('[data-cv-download]').forEach((link) => {
+    link.hidden = site.features?.cvDownload !== true;
+    link.textContent = state.lang === 'fr' ? 'Télécharger le CV' : 'Download CV';
+  });
 
   const image = select('[data-profile-image]');
   if (image && profile.image) {
@@ -801,7 +806,7 @@ function renderMediumArticles(articles, container) {
   }
 
   const grid = createElement('div', 'medium-grid');
-  articles.slice(0, 4).forEach(article => {
+  articles.slice(0, 6).forEach(article => {
     const card = addReveal(createElement('article', 'medium-card'));
 
     const title = createElement('a', 'medium-title', article.title);

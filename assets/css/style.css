@@ -1766,3 +1766,8 @@ h3 {
   color: var(--muted);
   font-size: 0.8rem;
 }
+
+/* Keep disabled CV actions hidden even with button display styles. */
+[data-cv-download][hidden] {
+  display: none;
+}
