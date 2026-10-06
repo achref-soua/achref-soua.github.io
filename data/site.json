@@ -206,5 +206,8 @@
         "description": "Achref Soua, ingénieur en machine learning en France. Imagerie médicale, recherche vectorielle et assistants IA. Parcours, projets open source et contact."
       }
     }
+  },
+  "features": {
+    "cvDownload": false
   }
 }
