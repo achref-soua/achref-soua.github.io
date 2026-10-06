@@ -72,6 +72,7 @@ Project filter buttons are generated automatically from each project's `category
 - Warm cream and rust palette with light and dark modes.
 - Self-hosted Bricolage Grotesque variable fonts for bold headings and readable body text.
 - Large editorial hero, restrained borders, and compact repeated cards.
+- Phone layout with a compact portrait beside the name, two main actions, a two-column metric grid, and an expandable navigation menu with large tap targets.
 - Scroll-driven horizontal career timeline (pinned, one experience per scroll) with a swipeable carousel on mobile and a stacked fallback for reduced motion.
 - Animated count-up metrics, smooth reveal animations, and full reduced-motion support.
 - Print-friendly resume view through the print stylesheet.
