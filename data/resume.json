@@ -6,7 +6,7 @@
     "location": "France",
     "image": "assets/achref-soua-portrait.png",
     "imageAlt": "Portrait of Achref SOUA",
-    "intro": "I build medical imaging tools, search engines and AI assistants.",
+    "intro": "I build stuff.",
     "summary": "I'm a machine learning engineer in France. I work on 3D imaging at PrediSurge and build open-source tools in Rust."
   },
   "metrics": [
