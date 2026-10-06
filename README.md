@@ -98,3 +98,8 @@ Project filter buttons are generated automatically from each project's `category
 ## Deploy
 
 This repository is ready for GitHub Pages. Push to the GitHub Pages branch configured for the repository, and the static files will serve directly.
+
+
+## GitHub and Medium data
+
+The browser loads GitHub statistics and Medium articles independently, with six-second request timeouts. When a live service fails, it uses the public `assets/portfolio-activity.json` snapshot refreshed by the existing daily profile-card job in `achref-soua/achref-soua`. `data/activity.json` is a local backup for a full external-service outage. No API credentials are shipped to the browser. Saved GitHub data shows its update date. Language changes reuse the loaded data.

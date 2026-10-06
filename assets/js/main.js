@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20261006-3',
-  resume: 'data/resume.json?v=20261006-3',
-  projects: 'data/projects.json?v=20261006-3',
-  i18nFr: 'data/i18n.fr.json?v=20261006-3'
+  site: 'data/site.json?v=20261006-4',
+  resume: 'data/resume.json?v=20261006-4',
+  projects: 'data/projects.json?v=20261006-4',
+  i18nFr: 'data/i18n.fr.json?v=20261006-4'
 };
 
 const state = {
@@ -11,6 +11,8 @@ const state = {
   projects: [],
   displayProjects: null,
   i18n: null,
+  githubData: null,
+  mediumArticles: null,
   activeProjectFilter: 'All',
   lang: localStorage.getItem('lang') || 'en'
 };
@@ -715,6 +717,8 @@ function initLangToggle() {
     renderSkills(r);
     renderEducation(r);
     renderPublications(r);
+    if (state.githubData) renderGitHubStats(state.githubData, select('[data-github-stats]'));
+    if (state.mediumArticles) renderMediumArticles(state.mediumArticles, select('[data-medium-articles]'));
     initScrollFeedback();
     observeRevealItems();
     initCountUp();
@@ -728,20 +732,53 @@ const LANG_COLORS = {
   Svelte: '#ff3e00', CSS: '#563d7c', HTML: '#e34c26'
 };
 
+async function fetchActivityJSON(url) {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 6000);
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) throw new Error(`Activity request failed: ${response.status}`);
+    return await response.json();
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
+
 async function fetchMediumArticles() {
   const rssUrl = 'https://medium.com/feed/@achref-soua';
   const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-  const data = await fetch(apiUrl).then(r => r.json());
-  if (data.status !== 'ok') return [];
-  return data.items || [];
+  const data = await fetchActivityJSON(apiUrl);
+  if (data.status !== 'ok' || !Array.isArray(data.items)) throw new Error('Medium feed unavailable');
+  return data.items;
+}
+
+function validGitHubData(data) {
+  return Number.isInteger(data?.user?.public_repos)
+    && Number.isInteger(data?.user?.followers)
+    && Array.isArray(data?.repos);
+}
+
+async function loadActivitySnapshot() {
+  try {
+    const data = await fetchActivityJSON('https://raw.githubusercontent.com/achref-soua/achref-soua/main/assets/portfolio-activity.json');
+    if (!validGitHubData(data)) throw new Error('Invalid activity snapshot');
+    return data;
+  } catch {
+    const data = await fetchActivityJSON('data/activity.json');
+    if (!validGitHubData(data)) throw new Error('Invalid local activity snapshot');
+    return data;
+  }
 }
 
 const MEDIUM_URL = 'https://achref-soua.medium.com/';
 
 function renderMediumArticles(articles, container) {
+  if (!container) return;
+  container.replaceChildren();
+  const isFr = state.lang === 'fr';
   const headingRow = createElement('div', 'gh-medium-heading');
-  const heading = createElement('h3', 'gh-sub-heading', 'Latest on Medium');
-  const allLink = createElement('a', 'gh-medium-all', 'View all →');
+  const heading = createElement('h3', 'gh-sub-heading', isFr ? 'Articles sur Medium' : 'Latest on Medium');
+  const allLink = createElement('a', 'gh-medium-all', isFr ? 'Tous les articles →' : 'View all →');
   allLink.href = MEDIUM_URL;
   allLink.target = '_blank';
   allLink.rel = 'noopener noreferrer';
@@ -749,7 +786,7 @@ function renderMediumArticles(articles, container) {
   container.append(headingRow);
 
   if (!articles.length) {
-    const placeholder = createElement('p', 'gh-medium-placeholder', 'Read my articles on Medium.');
+    const placeholder = createElement('p', 'gh-medium-placeholder', isFr ? 'Retrouvez mes articles sur Medium.' : 'Read my articles on Medium.');
     container.append(placeholder);
     return;
   }
@@ -764,7 +801,7 @@ function renderMediumArticles(articles, container) {
     title.rel = 'noopener noreferrer';
     card.append(title);
 
-    const date = new Date(article.pubDate).toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' });
+    const date = new Date(article.pubDate.replace(' ', 'T') + (article.pubDate.includes('T') ? '' : 'Z')).toLocaleDateString(isFr ? 'fr' : 'en', { month: 'short', day: 'numeric', year: 'numeric' });
     card.append(createElement('div', 'medium-date', date));
 
     const cats = (article.categories || []).slice(0, 3);
@@ -776,87 +813,123 @@ function renderMediumArticles(articles, container) {
   container.append(grid);
 }
 
+function renderGitHubStats(data, container) {
+  if (!container) return;
+  const { user, repos } = data;
+  const isFr = state.lang === 'fr';
+  const ownRepos = repos.filter(r => !r.fork);
+  const totalStars = ownRepos.reduce((n, r) => n + r.stargazers_count, 0);
+  const totalForks = ownRepos.reduce((n, r) => n + r.forks_count, 0);
+
+  const statsStrip = createElement('div', 'gh-stats-strip');
+  [
+    [user.public_repos, isFr ? 'Dépôts' : 'Repositories'],
+    [totalStars, isFr ? 'Étoiles' : 'Stars'],
+    [totalForks, 'Forks'],
+    [user.followers, isFr ? 'Abonnés' : 'Followers']
+  ].forEach(([val, lbl]) => {
+    const stat = addReveal(createElement('div', 'gh-stat'));
+    const value = createElement('strong', '', String(val ?? 'N/A'));
+    value.setAttribute('data-count', '');
+    stat.append(value);
+    stat.append(createElement('span', '', lbl));
+    statsStrip.append(stat);
+  });
+
+  const top = ownRepos
+    .sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at) - new Date(a.updated_at))
+    .slice(0, 6);
+
+  const grid = createElement('div', 'gh-repos-grid');
+  top.forEach(repo => {
+    const card = addReveal(createElement('article', 'gh-repo-card'));
+
+    const header = createElement('div', 'gh-repo-header');
+    const name = createElement('a', 'gh-repo-name', repo.name);
+    name.href = repo.html_url;
+    name.target = '_blank';
+    name.rel = 'noopener noreferrer';
+    header.append(name);
+    if (repo.stargazers_count > 0) {
+      header.append(createElement('span', 'gh-repo-stars', `★ ${repo.stargazers_count}`));
+    }
+    card.append(header);
+
+    const project = (state.displayProjects || state.projects).find(item => item.link === repo.html_url);
+    const description = project?.summary || repo.description?.replace(/\s*—\s*/g, '. ');
+    if (description) {
+      card.append(createElement('p', 'gh-repo-desc', description));
+    }
+
+    const meta = createElement('div', 'gh-repo-meta');
+    if (repo.language) {
+      const lang = createElement('span', 'gh-lang', repo.language);
+      lang.style.setProperty('--lang-color', LANG_COLORS[repo.language] || 'var(--muted)');
+      meta.append(lang);
+    }
+    if (repo.forks_count > 0) meta.append(createElement('span', '', `${repo.forks_count} ${repo.forks_count === 1 ? 'fork' : 'forks'}`));
+    const updated = new Date(repo.updated_at).toLocaleDateString(isFr ? 'fr' : 'en', { month: 'short', year: 'numeric' });
+    meta.append(createElement('span', '', `${isFr ? 'Mis à jour' : 'Updated'} ${updated}`));
+    card.append(meta);
+
+    grid.append(card);
+  });
+
+  container.replaceChildren(statsStrip, grid);
+  if (data.githubUpdatedAt) {
+    const date = new Date(data.githubUpdatedAt).toLocaleDateString(isFr ? 'fr' : 'en', {
+      month: 'short', day: 'numeric', year: 'numeric',
+    });
+    container.append(createElement('p', 'gh-data-updated', `${isFr ? 'Mis à jour' : 'Updated'} ${date}`));
+  }
+  observeRevealItems();
+  initCountUp(container);
+}
+
 async function renderGitHubDashboard() {
   const container = select('[data-github-dashboard]');
   if (!container) return;
+  const github = createElement('div', '');
+  github.setAttribute('data-github-stats', '');
+  const medium = createElement('div', '');
+  medium.setAttribute('data-medium-articles', '');
+  github.append(createElement('p', 'gh-loading-text', state.lang === 'fr' ? 'Chargement de GitHub…' : 'Loading GitHub…'));
+  medium.append(createElement('p', 'gh-loading-text', state.lang === 'fr' ? 'Chargement des articles…' : 'Loading articles…'));
+  container.replaceChildren(github, medium);
 
-  try {
-    const [user, repos, articles] = await Promise.all([
-      fetch(`https://api.github.com/users/${GH_USER}`).then(r => r.json()),
-      fetch(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=100`).then(r => r.json()),
-      fetchMediumArticles().catch(() => [])
-    ]);
+  // Share the saved feed, while allowing each live source to render independently.
+  const snapshot = loadActivitySnapshot().catch(() => null);
+  const githubTask = (async () => {
+    try {
+      const [user, repos] = await Promise.all([
+        fetchActivityJSON(`https://api.github.com/users/${GH_USER}`),
+        fetchActivityJSON(`https://api.github.com/users/${GH_USER}/repos?sort=updated&per_page=100`),
+      ]);
+      if (!validGitHubData({ user, repos })) throw new Error('GitHub data unavailable');
+      state.githubData = { user, repos };
+    } catch {
+      state.githubData = await snapshot;
+    }
+    if (state.githubData) {
+      renderGitHubStats(state.githubData, github);
+    } else {
+      const message = state.lang === 'fr' ? 'Voir mon profil GitHub.' : 'View my GitHub profile.';
+      const link = createElement('a', 'gh-error', message);
+      link.href = `https://github.com/${GH_USER}`;
+      github.replaceChildren(link);
+    }
+  })();
 
-    if (user.message) throw new Error(user.message);
-    if (!Array.isArray(repos)) throw new Error('repos failed');
-
-    const ownRepos = repos.filter(r => !r.fork);
-    const totalStars = ownRepos.reduce((n, r) => n + r.stargazers_count, 0);
-    const totalForks = ownRepos.reduce((n, r) => n + r.forks_count, 0);
-
-    const statsStrip = createElement('div', 'gh-stats-strip');
-    [
-      [user.public_repos, 'Repositories'],
-      [totalStars, 'Stars'],
-      [totalForks, 'Forks'],
-      [user.followers, 'Followers']
-    ].forEach(([val, lbl]) => {
-      const stat = addReveal(createElement('div', 'gh-stat'));
-      const value = createElement('strong', '', String(val ?? 'N/A'));
-      value.setAttribute('data-count', '');
-      stat.append(value);
-      stat.append(createElement('span', '', lbl));
-      statsStrip.append(stat);
-    });
-
-    const top = ownRepos
-      .sort((a, b) => b.stargazers_count - a.stargazers_count)
-      .slice(0, 6);
-
-    const grid = createElement('div', 'gh-repos-grid');
-    top.forEach(repo => {
-      const card = addReveal(createElement('article', 'gh-repo-card'));
-
-      const header = createElement('div', 'gh-repo-header');
-      const name = createElement('a', 'gh-repo-name', repo.name);
-      name.href = repo.html_url;
-      name.target = '_blank';
-      name.rel = 'noopener noreferrer';
-      header.append(name);
-      if (repo.stargazers_count > 0) {
-        header.append(createElement('span', 'gh-repo-stars', `★ ${repo.stargazers_count}`));
-      }
-      card.append(header);
-
-      const project = (state.displayProjects || state.projects).find(item => item.link === repo.html_url);
-      const description = project?.summary || repo.description?.replace(/\s*—\s*/g, '. ');
-      if (description) {
-        card.append(createElement('p', 'gh-repo-desc', description));
-      }
-
-      const meta = createElement('div', 'gh-repo-meta');
-      if (repo.language) {
-        const lang = createElement('span', 'gh-lang', repo.language);
-        lang.style.setProperty('--lang-color', LANG_COLORS[repo.language] || 'var(--muted)');
-        meta.append(lang);
-      }
-      if (repo.forks_count > 0) meta.append(createElement('span', '', `⑂ ${repo.forks_count}`));
-      const updated = new Date(repo.updated_at).toLocaleDateString('en', { month: 'short', year: 'numeric' });
-      meta.append(createElement('span', '', `Updated ${updated}`));
-      card.append(meta);
-
-      grid.append(card);
-    });
-
-    container.replaceChildren(statsStrip, grid);
-    renderMediumArticles(articles || [], container);
+  const mediumTask = (async () => {
+    try {
+      state.mediumArticles = await fetchMediumArticles();
+    } catch {
+      state.mediumArticles = (await snapshot)?.medium || [];
+    }
+    renderMediumArticles(state.mediumArticles, medium);
     observeRevealItems();
-    initCountUp(container);
-  } catch {
-    const msg = createElement('p', 'gh-error', 'GitHub stats are unavailable. Try again later.');
-    container.replaceChildren(msg);
-    renderMediumArticles([], container);
-  }
+  })();
+  await Promise.allSettled([githubTask, mediumTask]);
 }
 
 function observeRevealItems() {
