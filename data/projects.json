@@ -1,72 +1,109 @@
 [
   {
-    "title": "Quiver",
+    "title": "Quiver: Vector Database",
     "featured": true,
     "category": "Open Source",
     "range": "2024 – Present",
     "role": "Author",
-    "summary": "Security-first vector database written from scratch in Rust. ANN search (HNSW, DiskANN, IVF + quantization), SIMD distance kernels, and end-to-end encryption built into the core.",
+    "summary": "A vector database I wrote in Rust. Fast similarity search, low memory use and built-in encryption.",
     "highlights": [
-      "32× less RAM at equal recall via DiskANN + PQ (10M × 768-d: ~1 GB vs ~31 GB).",
-      "Ranked 2nd on SIFT1M behind FAISS, ahead of Qdrant, Milvus, Chroma, pgvector, LanceDB, and Weaviate.",
-      "XChaCha20 encryption, RBAC, and immutable audit log.",
-      "Python SDK, gRPC + REST API, ratatui TUI cockpit, and MCP server."
+      "About 1 GB of RAM versus 31 GB for dense HNSW at 10M vectors.",
+      "Second in the reported SIFT1M comparison, behind FAISS.",
+      "Encryption, role-based access and an immutable audit log.",
+      "Python SDK, REST, gRPC, terminal UI and MCP server."
     ],
-    "stack": ["Rust", "HNSW", "DiskANN", "IVF", "SIMD", "XChaCha20", "gRPC", "Python SDK", "MCP"],
-    "impact": "32× RAM reduction at equal recall. 2nd on SIFT1M.",
+    "stack": [
+      "Rust",
+      "HNSW",
+      "DiskANN",
+      "IVF",
+      "SIMD",
+      "XChaCha20",
+      "gRPC",
+      "Python SDK",
+      "MCP"
+    ],
+    "impact": "32× less RAM at equal recall in a 10M-vector benchmark. Second on SIFT1M.",
     "link": "https://github.com/achref-soua/quiver",
     "linkLabel": "View on GitHub"
   },
   {
-    "title": "Helio",
+    "title": "Helio: Marketing Automation",
     "featured": true,
     "category": "Open Source",
     "range": "2025 – Present",
     "role": "Author",
-    "summary": "Self-hostable, AI-native marketing platform — open-source alternative to HubSpot and Klaviyo. Polyglot stack (TypeScript + Python), durable journey execution, and an AI copilot that turns plain language into segments and campaigns.",
+    "summary": "Self-hosted marketing software with an AI assistant. Build segments, run campaigns and automate customer journeys.",
     "highlights": [
-      "Multi-tenant (Postgres RLS), event pipeline Redpanda → ClickHouse, journeys on Temporal (durable, crash-safe).",
-      "AI copilot: build segments and journeys in plain language. Churn scoring via ONNX + XGBoost.",
-      "MCP server — external AI agents can launch campaigns programmatically.",
-      "229 PRs, 120 E2E tests, 9 production container images, zero Trivy critical findings."
+      "Separate customer workspaces with PostgreSQL row-level security.",
+      "Durable campaign workflows on Temporal.",
+      "Plain-language segments and churn prediction.",
+      "End-to-end tests and container security checks."
     ],
-    "stack": ["TypeScript", "Next.js", "Python", "FastAPI", "Temporal", "ClickHouse", "PostgreSQL", "Redpanda", "Docker", "MCP"],
-    "impact": "v2.0.9 released. Production-grade, fully tested, self-hostable in one command.",
+    "stack": [
+      "TypeScript",
+      "Next.js",
+      "Python",
+      "FastAPI",
+      "Temporal",
+      "ClickHouse",
+      "PostgreSQL",
+      "Redpanda",
+      "Docker",
+      "MCP"
+    ],
+    "impact": "Campaign automation your team can host.",
     "link": "https://github.com/achref-soua/helio",
     "linkLabel": "View on GitHub"
   },
   {
-    "title": "Galley",
+    "title": "Galley: LaTeX Editor",
     "featured": true,
     "category": "Open Source",
     "range": "2025 – Present",
     "role": "Author",
-    "summary": "Local-first LaTeX studio built with Tauri 2 and Svelte 5. Sub-150ms compile feedback, sandboxed TeX execution, and zero cloud dependency.",
+    "summary": "A desktop LaTeX editor with live PDF preview. Your files stay local.",
     "highlights": [
-      "Sandboxed shell: shell-escape guard, archive hardening, IPC-only renderer access.",
-      "14,000+ Rust regions at 100% test coverage; 1,391 TypeScript tests.",
-      "Real-time PDF preview, project-aware snippets, and CodeMirror 6 editor."
+      "Isolated TeX execution and hardened archive handling.",
+      "100% Rust coverage across 14,000+ measured regions; 1,391 TypeScript tests.",
+      "CodeMirror editor, project snippets and live PDF preview."
     ],
-    "stack": ["Rust", "Tauri 2", "Svelte 5", "TypeScript", "CodeMirror 6", "LaTeX"],
-    "impact": "v0.7.0 released. 100% Rust test coverage across 14,000+ regions.",
+    "stack": [
+      "Rust",
+      "Tauri 2",
+      "Svelte 5",
+      "TypeScript",
+      "CodeMirror 6",
+      "LaTeX"
+    ],
+    "impact": "Local files, fast previews, isolated compilation.",
     "link": "https://github.com/achref-soua/galley",
     "linkLabel": "View on GitHub"
   },
   {
-    "title": "Pulse",
+    "title": "Pulse: Surgical Planning",
     "featured": true,
     "category": "LLM Systems",
     "range": "2025",
     "role": "Author",
-    "summary": "Clinical decision support for endovascular surgery. Full-stack app (Next.js 15 + FastAPI) with hybrid RAG over Quiver and a streaming multi-agent copilot via Groq.",
+    "summary": "A workspace for surgical knowledge, clinical scores and stent compatibility checks.",
     "highlights": [
-      "Hybrid RAG (dense + sparse + reranking) over Quiver for surgical knowledge retrieval.",
-      "LangGraph multi-agent copilot streamed via Groq SSE for real-time clinical Q&A.",
-      "6 validated clinical scoring models for risk stratification and stent sizing.",
-      "IFU compatibility engine for stent selection + auto-generated PDF patient reports."
+      "Semantic and keyword search over surgical information.",
+      "A streaming assistant built with LangGraph and Groq.",
+      "Six clinical scoring models.",
+      "Stent compatibility checks and patient PDF reports."
     ],
-    "stack": ["Next.js 15", "FastAPI", "Python", "LangGraph", "Groq", "Quiver", "RAG", "ONNX"],
-    "impact": "End-to-end pipeline: patient data → clinical scores → stent recommendation → PDF report.",
+    "stack": [
+      "Next.js 15",
+      "FastAPI",
+      "Python",
+      "LangGraph",
+      "Groq",
+      "Quiver",
+      "RAG",
+      "ONNX"
+    ],
+    "impact": "Patient data, clinical scores and PDF reports in one place.",
     "link": "https://github.com/achref-soua/pulse",
     "linkLabel": "View on GitHub"
   },
@@ -75,93 +112,131 @@
     "category": "LLM Systems",
     "range": "2024",
     "role": "Lead Developer",
-    "summary": "Adapts a resume to a target job description using LLMs, then exports an ATS-friendly PDF. Cuts tailoring time from hours to minutes.",
+    "summary": "Tailor a resume to a job description and export a clean PDF.",
     "highlights": [
-      "OpenAI and Groq API integration for context-aware resume rewriting.",
-      "ReportLab PDF generation with clean, ATS-compatible formatting.",
-      "Iterative editing loop for fast, targeted application material."
+      "Resume rewriting with OpenAI and Groq.",
+      "PDF export with ReportLab.",
+      "Edit and refine the result before export."
     ],
-    "stack": ["Streamlit", "Groq API", "OpenAI", "ReportLab", "Prompt Engineering"],
-    "impact": "Resume tailoring time: hours → minutes.",
+    "stack": [
+      "Streamlit",
+      "Groq API",
+      "OpenAI",
+      "ReportLab",
+      "Prompt Engineering"
+    ],
+    "impact": "Targeted resumes in minutes.",
     "link": "https://github.com/achref-soua/Streamlit-resume-tool-app-using-Groq-LLMs",
     "linkLabel": "View on GitHub"
   },
   {
-    "title": "FinOps Multi-Agent",
+    "title": "Cloud Cost Assistant",
     "category": "LLM Systems",
     "range": "2025",
     "role": "LLM Engineer",
-    "summary": "Modular LangGraph assistant for cloud cost analysis, forecasting, and optimization. Deployed serverless on AWS.",
+    "summary": "Analyze AWS spending, forecast costs and find savings with specialized AI agents.",
     "highlights": [
-      "Separate agents for cost analysis, forecasting, and recommendation tasks.",
-      "+23% dialogue coherence via custom long-term memory for multi-turn conversations.",
-      "Serverless deployment on AWS Lambda, S3, and Bedrock with CI/CD."
+      "Separate agents for analysis, forecasts and recommendations.",
+      "23% better dialogue coherence on internal benchmarks.",
+      "AWS Lambda, S3 and Bedrock deployment."
     ],
-    "stack": ["LangGraph", "LLaMA 3", "AWS Lambda", "AWS Bedrock", "FastAPI"],
-    "impact": "Cloud cost analysis time: hours → minutes.",
+    "stack": [
+      "LangGraph",
+      "LLaMA 3",
+      "AWS Lambda",
+      "AWS Bedrock",
+      "FastAPI"
+    ],
+    "impact": "Cloud cost analysis in minutes instead of hours.",
     "link": "https://github.com/achref-soua/AWS-FinOps-assistant",
     "linkLabel": "View on GitHub"
   },
   {
-    "title": "Cardiac MRI Diagnosis",
+    "title": "Cardiac MRI Analysis",
     "category": "Medical AI",
     "range": "2023",
     "role": "Team Lead",
-    "summary": "Competition-winning cardiac MRI pipeline: segmentation, radiomics extraction, and stacked ensemble classification.",
+    "summary": "A competition project combining cardiac segmentation, radiomics and classification.",
     "highlights": [
-      "U-Net, SegNet, and SAM for cardiac structure segmentation.",
-      "100+ radiomics features extracted with PyRadiomics.",
-      "LightGBM + XGBoost + Autoencoder-SVM stacked ensemble."
+      "U-Net, SegNet and SAM segmentation.",
+      "100+ radiomics features with PyRadiomics.",
+      "LightGBM, XGBoost and Autoencoder-SVM ensemble."
     ],
-    "stack": ["U-Net", "SAM", "PyRadiomics", "LightGBM", "XGBoost", "Medical Imaging"],
-    "impact": "1st place among 100 participants. 95% train accuracy, 81% validation.",
+    "stack": [
+      "U-Net",
+      "SAM",
+      "PyRadiomics",
+      "LightGBM",
+      "XGBoost",
+      "Medical Imaging"
+    ],
+    "impact": "First out of 100 participants. 81% validation accuracy.",
     "link": "https://github.com/achref-soua/AI-assisted-cardiac-MRI-diagnosis",
     "linkLabel": "View on GitHub"
   },
   {
-    "title": "Satellite Algal Bloom Detection",
+    "title": "Algal Bloom Detection",
     "category": "Research",
     "range": "2022 – 2023",
     "role": "Solo Competitor",
-    "summary": "Satellite imagery pipeline for harmful algal bloom detection using multi-spectral Sentinel-2 and Landsat data with optimized gradient boosting.",
+    "summary": "Detect harmful algal blooms from Sentinel-2 and Landsat imagery.",
     "highlights": [
-      "Multi-spectral and temporal feature engineering across diverse geographic regions.",
-      "LightGBM hyperparameter search with Optuna."
+      "Spectral and time-based features from satellite images.",
+      "LightGBM tuning with Optuna."
     ],
-    "stack": ["Remote Sensing", "LightGBM", "Optuna", "Sentinel-2", "Python"],
-    "impact": "Top 4% — 50th out of 1,377 participants. AggRMSE 1.0536.",
+    "stack": [
+      "Remote Sensing",
+      "LightGBM",
+      "Optuna",
+      "Sentinel-2",
+      "Python"
+    ],
+    "impact": "50th out of 1,377 participants. Top 4%. AggRMSE: 1.0536.",
     "link": "https://www.drivendata.org/competitions/143/tick-tick-bloom/",
     "linkLabel": "View Competition"
   },
   {
-    "title": "Edge AI Gait Analyzer",
+    "title": "Wearable Gait Analysis",
     "category": "Research",
     "range": "2023 – 2024",
     "role": "Research Engineer",
-    "summary": "Knee angle prediction from IMU sensors on edge hardware, targeting rehabilitation and bionic leg control. Resulted in a published paper.",
+    "summary": "Predict knee movement from wearable sensors. Research for rehabilitation and bionic leg control.",
     "highlights": [
-      "Arduino Nano 33 IoT + MPU-9250 for motion capture.",
-      "Denoising autoencoders improved signal quality by ~20%.",
-      "Benchmarked GRU, LSTM, and Transformer architectures for time series prediction."
+      "Motion capture with Arduino Nano 33 IoT and MPU-9250.",
+      "Denoising improved signal quality by about 20%.",
+      "Compared GRU, LSTM and Transformer models."
     ],
-    "stack": ["Arduino", "IMU", "LSTM", "GRU", "Transformers", "Autoencoders", "Python"],
-    "impact": "Published at GEEE 2024. Edge-ready AI for bionic rehabilitation.",
+    "stack": [
+      "Arduino",
+      "IMU",
+      "LSTM",
+      "GRU",
+      "Transformers",
+      "Autoencoders",
+      "Python"
+    ],
+    "impact": "Published at GEEE 2024.",
     "link": "https://cnpsi.com/PBS/Vol12/GEEE-12.pdf",
     "linkLabel": "View Publication"
   },
   {
-    "title": "Adaptive Nutrition Planner",
+    "title": "Adaptive Meal Planner",
     "category": "Research",
     "range": "2024",
     "role": "Lead Engineer",
-    "summary": "Adaptive meal recommendation combining Q-learning and genetic algorithms for constraint-aware meal selection.",
+    "summary": "Recommend meals around allergies, preferences and nutrition goals.",
     "highlights": [
-      "Q-learning + genetic algorithms for meal selection under allergy and macro constraints.",
-      "Feedback loops for dietary preferences and macronutrient targets.",
-      "Nutritional data structured for 200+ meals."
+      "Q-learning and genetic algorithms for meal selection.",
+      "Feedback on preferences and nutrition targets.",
+      "Structured nutritional data for 200+ meals."
     ],
-    "stack": ["Python", "Q-Learning", "Genetic Algorithms", "Reinforcement Learning"],
-    "impact": "Constraint-aware meal recommendations that adapt to user feedback.",
+    "stack": [
+      "Python",
+      "Q-Learning",
+      "Genetic Algorithms",
+      "Reinforcement Learning"
+    ],
+    "impact": "200+ meals, with recommendations that learn from feedback.",
     "link": "https://github.com/achref-soua/Meal-recommendation-system-using-Q-learning",
     "linkLabel": "View on GitHub"
   }

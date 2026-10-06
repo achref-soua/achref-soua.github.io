@@ -2,44 +2,44 @@
   "profile": {
     "name": "Achref SOUA",
     "initials": "AS",
-    "role": "ML Engineer",
+    "role": "Machine Learning Engineer",
     "location": "Paris, France",
     "status": "Open to new opportunities",
-    "image": "assets/achref_soua_picture.png",
+    "image": "assets/achref-soua-portrait.png",
     "imageAlt": "Portrait of Achref SOUA",
-    "intro": "I build production ML systems — vector search in Rust, 3D medical imaging, and LLM agents.",
-    "summary": "ML Engineer with ~3 years across medical imaging, LLM systems, and open-source infrastructure. I close the gap between research-grade models and production-ready systems: 3D vascular segmentation for surgical planning, multi-agent RAG on AWS, and a security-first vector database in Rust that benchmarks 2nd on SIFT1M."
+    "intro": "I build medical imaging tools, search engines and AI assistants.",
+    "summary": "I'm a machine learning engineer based in Paris. At PrediSurge, I work on 3D imaging for surgical planning. Before that, I built assistants for cloud cost analysis and customer support. I also write Rust and maintain open-source tools."
   },
   "metrics": [
     {
       "value": "3+",
-      "label": "Years shipping production ML systems"
+      "label": "Years building AI products"
     },
     {
       "value": "94%",
-      "label": "Dice — 25-structure vascular segmentation at PrediSurge"
+      "label": "Dice score on 25 vascular structures"
     },
     {
       "value": "32×",
-      "label": "RAM reduction in Quiver vs dense HNSW at 10M vectors"
+      "label": "Less RAM in Quiver at 10M vectors vs dense HNSW"
     },
     {
       "value": "1st",
-      "label": "Cardiac MRI diagnosis competition (100 participants)"
+      "label": "Place in a 100-participant cardiac MRI competition"
     }
   ],
   "focusAreas": [
     {
-      "title": "Systems & Search",
-      "description": "Vector databases, high-performance ANN (HNSW, DiskANN, IVF), SIMD kernels, and memory-efficient data structures — in Rust."
+      "title": "Search",
+      "description": "Vector databases and semantic search. Fast, memory-efficient systems in Rust."
     },
     {
       "title": "Medical Imaging",
-      "description": "3D segmentation, DICOM/NIfTI/VTK pipelines, multi-label anatomical models, clinical decision support."
+      "description": "3D segmentation and vessel measurements for surgical planning."
     },
     {
-      "title": "LLM & Agents",
-      "description": "Multi-agent systems, RAG, long-term memory, MCP servers, and production deployment on AWS."
+      "title": "AI Assistants",
+      "description": "Language models connected to documents, data and business workflows."
     }
   ],
   "contact": {
@@ -55,41 +55,64 @@
       "role": "ML Engineer",
       "location": "Saint-Étienne, France",
       "range": "Oct 2025 – Present",
-      "summary": "Building medical imaging infrastructure for endovascular surgery planning — from raw CT scans to stent recommendations.",
+      "summary": "I build 3D imaging tools for endovascular surgery planning.",
       "highlights": [
-        "Automated DICOM→NIfTI pipeline with quality-based series selection, eliminating manual CT sorting for the ISizing product.",
-        "Trained 25-structure vascular segmentation model — 94% global Dice across complex aortic anatomy.",
-        "VTK sizing pipeline: 3D meshes + centerlines → per-label diameters, volumes, angulation, and tortuosity in ~1 min/case.",
-        "Stent recommendation engine for visceral arteries fed by the sizing output.",
-        "Central data registry (NIfTI + metadata) versioned with DVC for reproducible training sets."
+        "Automated CT sorting and DICOM conversion for ISizing.",
+        "Trained a 25-structure vascular segmentation model with a 94% global Dice score.",
+        "Built vessel measurement tools that run in about one minute per case.",
+        "Developed stent recommendations from anatomical measurements.",
+        "Versioned training datasets with DVC."
       ],
-      "tools": ["PyTorch", "VTK", "DICOM", "NIfTI", "DVC", "3D Segmentation", "Python"]
+      "tools": [
+        "PyTorch",
+        "VTK",
+        "DICOM",
+        "NIfTI",
+        "DVC",
+        "3D Segmentation",
+        "Python"
+      ]
     },
     {
       "company": "Moovto",
       "role": "ML Engineer",
       "location": "Paris, France",
       "range": "Jan 2025 – Sept 2025",
-      "summary": "Built a multi-agent FinOps assistant that cut cloud cost analysis time from hours to minutes.",
+      "summary": "Built a cloud cost assistant that turned hours of analysis into minutes.",
       "highlights": [
-        "Designed LangGraph agents for modular cost analysis, forecasting, and optimization recommendations.",
-        "Optimized long-term memory for multi-turn dialogue — +23% coherence on internal benchmarks.",
-        "Deployed serverless stack on AWS Lambda, S3, and Bedrock with full CI/CD."
+        "LangGraph agents for cost analysis, forecasts and recommendations.",
+        "Improved dialogue coherence by 23% on internal benchmarks.",
+        "Deployed on AWS Lambda, S3 and Bedrock with CI/CD."
       ],
-      "tools": ["LLaMA 3", "LangGraph", "AWS Lambda", "AWS Bedrock", "FastAPI", "CI/CD"]
+      "tools": [
+        "LLaMA 3",
+        "LangGraph",
+        "AWS Lambda",
+        "AWS Bedrock",
+        "FastAPI",
+        "CI/CD"
+      ]
     },
     {
       "company": "Intellect Core SARL",
       "role": "ML Engineer",
       "location": "Grombalia, Tunisia",
       "range": "Nov 2023 – Dec 2024",
-      "summary": "Designed vector search infrastructure and shipped a production RAG chatbot that cut support tickets by 50%.",
+      "summary": "Built an AI support chatbot that reduced support tickets by 50%.",
       "highlights": [
-        "End-to-end vector database and RAG chatbot (LangChain) deployed serverless on AWS.",
-        "Integrated open-source models (LLaMA 2, LeoLM) and proprietary APIs (GPT-4, Mistral).",
-        "−50% support tickets after launch."
+        "Built the vector search and document retrieval pipeline.",
+        "Integrated LLaMA 2, LeoLM, GPT-4 and Mistral.",
+        "Deployed the chatbot on AWS."
       ],
-      "tools": ["RAG", "LangChain", "LLaMA 2", "GPT-4", "Mistral", "AWS", "Vector Databases"]
+      "tools": [
+        "RAG",
+        "LangChain",
+        "LLaMA 2",
+        "GPT-4",
+        "Mistral",
+        "AWS",
+        "Vector Databases"
+      ]
     }
   ],
   "education": [
@@ -109,27 +132,76 @@
   "skills": [
     {
       "group": "Languages",
-      "items": ["Python", "Rust", "TypeScript", "SQL", "C++"]
+      "items": [
+        "Python",
+        "Rust",
+        "TypeScript",
+        "SQL",
+        "C++"
+      ]
     },
     {
       "group": "LLM & Agents",
-      "items": ["LangChain", "LangGraph", "RAG", "Multi-agent", "MCP", "Embeddings", "Groq", "Hugging Face", "Prompt Engineering"]
+      "items": [
+        "LangChain",
+        "LangGraph",
+        "RAG",
+        "Multi-agent",
+        "MCP",
+        "Embeddings",
+        "Groq",
+        "Hugging Face",
+        "Prompt Engineering"
+      ]
     },
     {
       "group": "ML & Vision",
-      "items": ["PyTorch", "TensorFlow", "scikit-learn", "3D Segmentation", "DICOM / NIfTI", "VTK", "ONNX", "XGBoost", "OpenCV"]
+      "items": [
+        "PyTorch",
+        "TensorFlow",
+        "scikit-learn",
+        "3D Segmentation",
+        "DICOM / NIfTI",
+        "VTK",
+        "ONNX",
+        "XGBoost",
+        "OpenCV"
+      ]
     },
     {
       "group": "Vector Search",
-      "items": ["HNSW", "DiskANN", "IVF", "Quantization", "SIMD", "pgvector", "ChromaDB"]
+      "items": [
+        "HNSW",
+        "DiskANN",
+        "IVF",
+        "Quantization",
+        "SIMD",
+        "pgvector",
+        "ChromaDB"
+      ]
     },
     {
       "group": "MLOps & Cloud",
-      "items": ["AWS (Lambda, S3, Bedrock)", "Docker", "Kubernetes", "CI/CD", "DVC", "Temporal", "FastAPI"]
+      "items": [
+        "AWS (Lambda, S3, Bedrock)",
+        "Docker",
+        "Kubernetes",
+        "CI/CD",
+        "DVC",
+        "Temporal",
+        "FastAPI"
+      ]
     },
     {
       "group": "Data",
-      "items": ["ClickHouse", "PostgreSQL", "Redis", "Redpanda", "Prisma", "SQLModel"]
+      "items": [
+        "ClickHouse",
+        "PostgreSQL",
+        "Redis",
+        "Redpanda",
+        "Prisma",
+        "SQLModel"
+      ]
     }
   ],
   "publications": [

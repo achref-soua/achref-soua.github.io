@@ -1,35 +1,60 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 400 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url('../fonts/bricolage-grotesque-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 400 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url('../fonts/bricolage-grotesque-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light;
-  --bg: #f7f7f7;
-  --bg-soft: #ffffff;
-  --surface: #ffffff;
-  --surface-strong: #0b0b0c;
-  --text: #0b0b0c;
-  --text-invert: #ffffff;
-  --muted: #696969;
-  --muted-strong: #343434;
-  --line: #dedede;
-  --line-strong: #bcbcbc;
+  --bg: #f7f1e7;
+  --bg-soft: #fffaf2;
+  --surface: #fffaf2;
+  --surface-strong: #241b14;
+  --text: #241b14;
+  --text-invert: #fffaf2;
+  --muted: #776553;
+  --muted-strong: #514235;
+  --line: #d8c8b6;
+  --line-strong: #a9937b;
+  --accent: #a83e1b;
+  --accent-soft: #f4d7b7;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.08);
   --radius: 8px;
   --radius-lg: 8px;
   --shell: min(1120px, calc(100vw - 40px));
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Arial, sans-serif;
+  --font: "Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 html.dark {
   color-scheme: dark;
-  --bg: #050505;
-  --bg-soft: #0b0b0c;
-  --surface: #101011;
-  --surface-strong: #ffffff;
-  --text: #f5f5f5;
-  --text-invert: #050505;
-  --muted: #9a9a9a;
-  --muted-strong: #d8d8d8;
-  --line: #252525;
-  --line-strong: #3a3a3a;
+  --bg: #17120e;
+  --bg-soft: #1d1712;
+  --surface: #241c16;
+  --surface-strong: #fff3e4;
+  --text: #fff3e4;
+  --text-invert: #17120e;
+  --muted: #c3ae98;
+  --muted-strong: #e5d2bc;
+  --line: #4a382a;
+  --line-strong: #896b51;
+  --accent: #ffab7a;
+  --accent-soft: #40281a;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
 }
 
@@ -51,6 +76,8 @@ body {
   color: var(--text);
   font-family: var(--font);
   font-size: 16px;
+  font-weight: 450;
+  font-optical-sizing: auto;
   line-height: 1.5;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -280,13 +307,17 @@ a:focus-visible {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
   align-items: center;
   gap: clamp(34px, 7vw, 92px);
 }
 
 .hero-copy {
   max-width: 760px;
+}
+
+.section-body {
+  min-width: 0;
 }
 
 .eyebrow,
@@ -310,16 +341,16 @@ h1 {
   max-width: 860px;
   margin-bottom: 20px;
   font-size: 9.5rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: 0.84;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 0.88;
 }
 
 h2 {
   margin-bottom: 18px;
   font-size: 4.5rem;
-  font-weight: 680;
-  letter-spacing: 0;
+  font-weight: 800;
+  letter-spacing: -0.025em;
   line-height: 0.98;
 }
 
@@ -389,7 +420,7 @@ h3 {
 
 .profile-frame {
   justify-self: end;
-  width: min(100%, 420px);
+  width: min(100%, 300px);
 }
 
 .portrait-wrap {
@@ -398,14 +429,14 @@ h3 {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--surface);
-  box-shadow: var(--shadow);
+  box-shadow: 8px 8px 0 var(--accent-soft);
 }
 
 .portrait-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.01);
+  display: block;
 }
 
 .profile-caption {
@@ -431,7 +462,7 @@ h3 {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--text);
+  background: var(--accent);
   box-shadow: 0 0 0 5px color-mix(in srgb, var(--text) 10%, transparent);
 }
 
@@ -803,6 +834,71 @@ h3 {
   color: var(--text);
 }
 
+/* Warm ink, bold type and compact details. */
+.brand-mark {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 800;
+}
+
+.brand-copy strong,
+.site-nav a,
+.button,
+.project-card h3,
+.focus-card h3,
+.skill-card h3 {
+  font-weight: 750;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.section-label {
+  width: fit-content;
+  padding: 5px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.button {
+  border-width: 2px;
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 var(--line-strong);
+}
+
+.button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--line-strong);
+}
+
+.button-primary {
+  box-shadow: 3px 3px 0 var(--accent);
+}
+
+.project-card,
+.focus-card,
+.skill-card,
+.gh-repo-card,
+.medium-card {
+  border-color: var(--line-strong);
+}
+
+.project-card .item-meta,
+.gh-medium-all {
+  color: var(--accent);
+}
+
+.profile-caption .status-line {
+  font-weight: 750;
+}
+
 @media (max-width: 980px) {
   :root {
     --shell: min(100vw - 28px, 760px);
@@ -847,8 +943,8 @@ h3 {
   }
 
   .profile-frame {
-    justify-self: stretch;
-    width: min(100%, 520px);
+    justify-self: start;
+    width: min(100%, 280px);
   }
 
   .section-label {
@@ -1601,10 +1697,10 @@ h3 {
   :root,
   html.dark {
     --bg: #ffffff;
-    --surface: #ffffff;
+    --surface: #fffaf2;
     --surface-strong: #000000;
     --text: #000000;
-    --text-invert: #ffffff;
+    --text-invert: #fffaf2;
     --muted: #444444;
     --muted-strong: #222222;
     --line: #d4d4d4;

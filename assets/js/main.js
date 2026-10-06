@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20260621-9',
-  resume: 'data/resume.json?v=20260621-9',
-  projects: 'data/projects.json?v=20260621-9',
-  i18nFr: 'data/i18n.fr.json?v=20260621-9'
+  site: 'data/site.json?v=20261006-1',
+  resume: 'data/resume.json?v=20261006-1',
+  projects: 'data/projects.json?v=20261006-1',
+  i18nFr: 'data/i18n.fr.json?v=20261006-1'
 };
 
 const state = {
@@ -189,7 +189,7 @@ function renderExperience(resume) {
     const panel = createElement('article', 'xp-panel');
     panel.setAttribute('role', 'group');
     panel.setAttribute('aria-roledescription', 'slide');
-    panel.setAttribute('aria-label', `${index + 1} of ${total} — ${experience.role}, ${experience.company}`);
+    panel.setAttribute('aria-label', `${index + 1} of ${total}. ${experience.role}, ${experience.company}`);
 
     const ghost = createElement('span', 'xp-ghost', year || '');
     ghost.setAttribute('aria-hidden', 'true');
@@ -559,7 +559,8 @@ function renderContact(resume) {
 function renderStructuredData(site, resume) {
   const profile = resume.profile || {};
   const contact = resume.contact || {};
-  const script = document.createElement('script');
+  const script = document.getElementById('profile-structured-data') || document.createElement('script');
+  script.id = 'profile-structured-data';
   script.type = 'application/ld+json';
   script.textContent = JSON.stringify({
     '@context': 'https://schema.org',
@@ -573,7 +574,7 @@ function renderStructuredData(site, resume) {
     sameAs: [contact.github, contact.linkedin].filter(Boolean),
     address: {
       '@type': 'PostalAddress',
-      addressLocality: profile.location,
+      addressLocality: profile.location?.split(',')[0]?.trim(),
       addressCountry: 'FR'
     },
     knowsAbout: (resume.skills || []).flatMap((group) => group.items).slice(0, 24)
@@ -640,6 +641,7 @@ function applyLang(site, resume, projects) {
 
   const siteOut = {
     ...site,
+    meta: { ...site.meta, ...(siteFr.meta || {}) },
     navigation: siteFr.navigation || site.navigation,
     hero: { ...site.hero, ...(siteFr.hero || {}) },
     sections: Object.fromEntries(
@@ -667,6 +669,7 @@ function applyLang(site, resume, projects) {
     if (!frProj) return proj;
     return {
       ...proj,
+      title: frProj.displayTitle || proj.title,
       summary: frProj.summary || proj.summary,
       highlights: frProj.highlights || proj.highlights,
       impact: frProj.impact || proj.impact
@@ -694,6 +697,10 @@ function initLangToggle() {
     localStorage.setItem('lang', state.lang);
     refresh();
     const { site: s, resume: r, projects: p } = applyLang(state.site, state.resume, state.projects);
+    document.documentElement.lang = state.lang;
+    updateMeta(s, r);
+    renderStructuredData(s, r);
+    renderContact(r);
     state.displayProjects = p;
     state.activeProjectFilter = 'All';
     renderNavigation(s);
@@ -742,7 +749,7 @@ function renderMediumArticles(articles, container) {
   container.append(headingRow);
 
   if (!articles.length) {
-    const placeholder = createElement('p', 'gh-medium-placeholder', 'Articles loading — or visit Medium directly.');
+    const placeholder = createElement('p', 'gh-medium-placeholder', 'Read my articles on Medium.');
     container.append(placeholder);
     return;
   }
@@ -795,7 +802,7 @@ async function renderGitHubDashboard() {
       [user.followers, 'Followers']
     ].forEach(([val, lbl]) => {
       const stat = addReveal(createElement('div', 'gh-stat'));
-      const value = createElement('strong', '', String(val ?? '—'));
+      const value = createElement('strong', '', String(val ?? 'N/A'));
       value.setAttribute('data-count', '');
       stat.append(value);
       stat.append(createElement('span', '', lbl));
@@ -821,8 +828,10 @@ async function renderGitHubDashboard() {
       }
       card.append(header);
 
-      if (repo.description) {
-        card.append(createElement('p', 'gh-repo-desc', repo.description));
+      const project = (state.displayProjects || state.projects).find(item => item.link === repo.html_url);
+      const description = project?.summary || repo.description?.replace(/\s*—\s*/g, '. ');
+      if (description) {
+        card.append(createElement('p', 'gh-repo-desc', description));
       }
 
       const meta = createElement('div', 'gh-repo-meta');
@@ -844,7 +853,7 @@ async function renderGitHubDashboard() {
     observeRevealItems();
     initCountUp(container);
   } catch {
-    const msg = createElement('p', 'gh-error', 'GitHub stats unavailable — try again later.');
+    const msg = createElement('p', 'gh-error', 'GitHub stats are unavailable. Try again later.');
     container.replaceChildren(msg);
     renderMediumArticles([], container);
   }
@@ -903,7 +912,7 @@ function renderError(error) {
   const message = createElement('section', 'shell load-error');
   message.innerHTML = `
     <h1>Content could not load.</h1>
-    <p>${error.message}. Run the site through a local server so the JSON config files can be fetched.</p>
+    <p>Please refresh the page or contact me at achref.soua@outlook.com.</p>
   `;
   main.prepend(message);
 }
@@ -927,6 +936,7 @@ async function init() {
 
     const { site: s, resume: r, projects: p } = applyLang(site, resume, projects);
     state.displayProjects = p;
+    document.documentElement.lang = state.lang;
 
     updateMeta(s, r);
     renderNavigation(s);
