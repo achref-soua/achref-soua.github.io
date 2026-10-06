@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Achref Soua | Machine Learning Engineer in Paris",
-    "description": "Achref Soua, machine learning engineer in Paris. Medical imaging, vector search and AI assistants. Experience, open-source projects and contact details.",
+    "title": "Achref Soua | Machine Learning Engineer in France",
+    "description": "Achref Soua, machine learning engineer in France. Medical imaging, vector search and AI assistants. Experience, open-source projects and contact details.",
     "url": "https://achref-soua.github.io",
     "image": "assets/achref-soua-portrait.png",
     "keywords": [
@@ -22,7 +22,7 @@
       "LangGraph",
       "AWS",
       "Open Source",
-      "Paris"
+      "France"
     ]
   },
   "navigation": [
@@ -60,7 +60,7 @@
     }
   ],
   "hero": {
-    "eyebrow": "Machine Learning Engineer · Paris, France",
+    "eyebrow": "Machine Learning Engineer · France",
     "subheadline": "I build medical imaging tools, search engines and AI assistants.",
     "primaryAction": {
       "label": "See My Work",
@@ -149,7 +149,7 @@
         }
       ],
       "hero": {
-        "eyebrow": "Ingénieur en machine learning · Paris, France",
+        "eyebrow": "Ingénieur en machine learning · France",
         "subheadline": "Je développe des outils d'imagerie médicale, des moteurs de recherche et des assistants IA.",
         "primaryAction": {
           "label": "Voir mes projets",
@@ -202,8 +202,8 @@
         "intro": "Un poste ou un projet en tête ? Écrivez-moi."
       },
       "meta": {
-        "title": "Achref Soua | Ingénieur en machine learning à Paris",
-        "description": "Achref Soua, ingénieur en machine learning à Paris. Imagerie médicale, recherche vectorielle et assistants IA. Parcours, projets open source et contact."
+        "title": "Achref Soua | Ingénieur en machine learning en France",
+        "description": "Achref Soua, ingénieur en machine learning en France. Imagerie médicale, recherche vectorielle et assistants IA. Parcours, projets open source et contact."
       }
     }
   }

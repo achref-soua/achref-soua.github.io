@@ -1,8 +1,8 @@
 const paths = {
-  site: 'data/site.json?v=20261006-2',
-  resume: 'data/resume.json?v=20261006-2',
-  projects: 'data/projects.json?v=20261006-2',
-  i18nFr: 'data/i18n.fr.json?v=20261006-2'
+  site: 'data/site.json?v=20261006-3',
+  resume: 'data/resume.json?v=20261006-3',
+  projects: 'data/projects.json?v=20261006-3',
+  i18nFr: 'data/i18n.fr.json?v=20261006-3'
 };
 
 const state = {
@@ -574,7 +574,7 @@ function renderStructuredData(site, resume) {
     sameAs: [contact.github, contact.linkedin].filter(Boolean),
     address: {
       '@type': 'PostalAddress',
-      addressLocality: profile.location?.split(',')[0]?.trim(),
+      addressLocality: profile.location?.includes(',') ? profile.location.split(',')[0].trim() : undefined,
       addressCountry: 'FR'
     },
     knowsAbout: (resume.skills || []).flatMap((group) => group.items).slice(0, 24)
