@@ -25,6 +25,8 @@ Keep the static metadata and fallback copy in `index.html` in sync with the JSON
 
 Portrait display is capped at 300 px on desktop and 280 px on smaller screens. The original image is stored unchanged. Fonts are served locally; their [upstream project](https://github.com/ateliertriay/bricolage) and license are retained in `assets/fonts/`.
 
+The header and GitHub contact link use `assets/pixel-biker-avatar.png`. Keep the header image in `index.html` and `contact.githubAvatar` in `data/resume.json` in sync when changing it.
+
 ### Add Experience
 
 Add an object to `data/resume.json` under `experience`:
@@ -85,6 +87,7 @@ Project filter buttons are generated automatically from each project's `category
 ├── index.html
 ├── assets/
 │   ├── achref-soua-portrait.png
+│   ├── pixel-biker-avatar.png
 │   ├── fonts/ (Bricolage Grotesque, SIL OFL license included)
 │   ├── favicon.svg
 │   ├── css/style.css
